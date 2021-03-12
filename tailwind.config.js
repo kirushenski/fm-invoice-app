@@ -1,7 +1,10 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
+// TODO Remove unused colors and rename remaining ones
+
 module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}'],
+  darkMode: 'class',
   theme: {
     colors: {
       'purple-dark': '#7C5DFA',
@@ -9,13 +12,16 @@ module.exports = {
       'purple-light': '#7E88C3',
       'grey-darkest': '#0C0E16',
       'grey-darker': '#141625',
+      'grey-darker-alt': '#373B53',
       'grey-dark': '#1E2139',
       grey: '#252945',
       'grey-light': '#888EB0',
       'grey-lighter': '#DFE3FA',
       'grey-lightest': '#F8F8FB',
+      'grey-lightest-alt': '#F9FAFE',
       red: '#EC5757',
-      'red-light': '#9277FF',
+      'red-light': '#FF9797',
+      white: '#FFF',
     },
     fontFamily: {
       sans: ['SpartanVariable', ...defaultTheme.fontFamily.sans],
