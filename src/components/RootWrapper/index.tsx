@@ -1,6 +1,6 @@
 import React from 'react'
 import 'focus-visible'
-import '@fontsource/manrope/variable.css'
+import '@fontsource/spartan/variable.css'
 import '@/styles/global.css'
 
 export interface RootWrapperProps {

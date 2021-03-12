@@ -1,6 +1,6 @@
 {
-  "name": "gatsby-starter-vadyan",
-  "version": "2.0.0",
+  "name": "fm-invoice-app",
+  "version": "0.1.0",
   "license": "MIT",
   "author": "p1t1ch <belobeev.kirill@gmail.com>",
   "scripts": {
@@ -41,7 +41,7 @@
     "last 2 iOS major versions"
   ],
   "dependencies": {
-    "@fontsource/manrope": "^4.2.2",
+    "@fontsource/spartan": "^4.2.2",
     "@svgr/webpack": "^5.5.0",
     "autoprefixer": "^10.2.5",
     "focus-visible": "^5.2.0",
