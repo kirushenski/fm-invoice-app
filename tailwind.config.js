@@ -37,6 +37,9 @@ module.exports = {
       outline: theme => ({
         DEFAULT: [`3px solid ${theme('colors.grey-darkest')}`, '2px'],
       }),
+      borderRadius: {
+        input: '4px',
+      },
     },
   },
   variants: {
