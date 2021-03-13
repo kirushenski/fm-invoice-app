@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelect, UseSelectProps } from 'downshift'
+import ArrowDown from '@/icons/arrow-down.svg'
 
 export interface DropdownProps extends UseSelectProps<string> {
   children: string
@@ -17,8 +18,9 @@ function Dropdown({ children, items, selectedItem, className = '', ...props }: D
       <label className="block label" {...getLabelProps()}>
         {children}
       </label>
-      <button className="input" {...getToggleButtonProps()}>
+      <button className={`input relative pr-11 ${isOpen ? 'border-purple' : ''}`} {...getToggleButtonProps()}>
         {selectedItem}
+        <ArrowDown className="absolute right-4 top-1/2 transform -translate-y-1/2" />
       </button>
       <ul className="dropdown" {...getMenuProps()}>
         {isOpen &&
