@@ -22,6 +22,7 @@ module.exports = {
       red: '#EC5757',
       'red-light': '#FF9797',
       white: '#FFF',
+      transparent: 'transparent',
     },
     fontFamily: {
       sans: ['SpartanVariable', ...defaultTheme.fontFamily.sans],
@@ -45,11 +46,15 @@ module.exports = {
         input: '4px',
         dropdown: '8px',
       },
+      inset: {
+        arrow: '-1.125rem',
+      },
     },
   },
   variants: {
     extend: {
       borderWidth: ['last'],
+      boxShadow: ['dark'],
     },
   },
 }

@@ -20,10 +20,7 @@ function Dropdown({ children, items, selectedItem, className = '', ...props }: D
       <button className="input" {...getToggleButtonProps()}>
         {selectedItem}
       </button>
-      <ul
-        className="bg-white dark:bg-grey shadow-dropdown dark:shadow-dropdown-dark rounded-dropdown mt-6"
-        {...getMenuProps()}
-      >
+      <ul className="dropdown" {...getMenuProps()}>
         {isOpen &&
           items.map((item, index) => (
             <li
