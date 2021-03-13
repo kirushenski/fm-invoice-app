@@ -4,10 +4,8 @@ import Seo from '@/components/Seo'
 
 // TODO Setup dark mode on app level
 // TODO Setup dark mode on Storybook level
-// TODO Add Formik and create TextField
-// TODO Add downshift and create Dropdown
 // TODO Add dates library and create Datepicker
-// TODO Build EditInvoice form and setup validation
+// TODO Build EditInvoice form and setup state management and validation (Formik)
 // TODO Create sidebar with scrollable wrapper for form
 // TODO Add react-modal and build delete popup
 // TODO Filter component

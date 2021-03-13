@@ -33,16 +33,23 @@ module.exports = {
       body: ['.75rem', { lineHeight: '1.25', letterSpacing: '-.02em' }],
       small: ['.6875rem', { lineHeight: '1.65', letterSpacing: '-.02em' }],
     },
+    boxShadow: {
+      dropdown: '0px 10px 20px rgba(72, 84, 159, 0.25)',
+      'dropdown-dark': '0px 10px 20px rgba(0, 0, 0, 0.25)',
+    },
     extend: {
       outline: theme => ({
         DEFAULT: [`3px solid ${theme('colors.grey-darkest')}`, '2px'],
       }),
       borderRadius: {
         input: '4px',
+        dropdown: '8px',
       },
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      borderWidth: ['last'],
+    },
   },
 }

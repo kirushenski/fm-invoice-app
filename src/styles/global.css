@@ -8,7 +8,7 @@
   }
 
   body {
-    @apply text-body font-medium bg-grey-lightest text-grey-darkest;
+    @apply text-body font-medium bg-grey-lightest dark:bg-grey-darker text-grey-darkest dark:text-white;
   }
 
   svg {
@@ -49,5 +49,13 @@
 
   .btn-delete {
     @apply btn bg-red hover:bg-red-light text-white;
+  }
+
+  .label {
+    @apply text-purple-light dark:text-grey-lighter mb-3;
+  }
+
+  .input {
+    @apply w-full h-12 px-5 bg-white dark:bg-grey-dark border border-grey-lighter dark:border-grey focus:border-purple font-bold rounded-input transition-colors;
   }
 }
