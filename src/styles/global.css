@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* TODO Add nesting */
+
 @layer base {
   html {
     @apply scroll-behaviour-smooth;
@@ -65,6 +67,31 @@
 
   .arrow {
     @apply grid place-items-center w-12 h-12 absolute top-arrow;
+  }
+
+  .checkbox {
+    @apply relative flex items-center mb-4 last:mb-0 font-bold cursor-pointer;
+  }
+
+  .checkbox::before {
+    content: '';
+    @apply block w-4 h-4 mr-3 rounded-checkbox bg-grey-lighter dark:bg-grey-dark border border-grey-lighter transition-colors;
+  }
+
+  .checkbox:hover::before {
+    @apply border-purple-dark;
+  }
+
+  input:focus + .checkbox::before {
+    @apply border-purple-dark;
+  }
+
+  input:checked + .checkbox::before {
+    @apply bg-purple-dark border-purple-dark;
+  }
+
+  input:checked + .checkbox svg {
+    @apply block;
   }
 
   .datepicker .DayPicker {

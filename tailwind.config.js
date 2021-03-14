@@ -43,6 +43,7 @@ module.exports = {
         DEFAULT: [`3px solid ${theme('colors.grey-darkest')}`, '2px'],
       }),
       borderRadius: {
+        checkbox: '2px',
         input: '4px',
         dropdown: '8px',
       },
@@ -55,6 +56,7 @@ module.exports = {
     extend: {
       borderWidth: ['last'],
       boxShadow: ['dark'],
+      margin: ['last'],
     },
   },
 }

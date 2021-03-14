@@ -2,7 +2,6 @@ import React from 'react'
 import Layout from '@/components/Layout'
 import Seo from '@/components/Seo'
 
-// TODO Filter component
 // TODO Build EditInvoice form and setup state management and validation (Formik)
 
 // TODO Setup dark mode on app level
