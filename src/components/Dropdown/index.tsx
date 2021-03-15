@@ -1,26 +1,47 @@
 import React from 'react'
 import { useSelect, UseSelectProps } from 'downshift'
+import { useField } from 'formik'
 import ArrowDown from '@/icons/arrow-down.svg'
 
 export interface DropdownProps extends UseSelectProps<string> {
+  name: string
   children: string
   className?: string
 }
 
-function Dropdown({ children, items, selectedItem, className = '', ...props }: DropdownProps) {
-  const { isOpen, highlightedIndex, getToggleButtonProps, getLabelProps, getMenuProps, getItemProps } = useSelect({
-    items,
+function Dropdown({ name, children, items, className = '', ...props }: DropdownProps) {
+  const [field, meta, helpers] = useField(name)
+  const isError = meta.touched && meta.error
+
+  const {
+    isOpen,
     selectedItem,
+    highlightedIndex,
+    getToggleButtonProps,
+    getLabelProps,
+    getMenuProps,
+    getItemProps,
+  } = useSelect({
+    items,
+    selectedItem: field.value,
+    onSelectedItemChange: ({ selectedItem }) => {
+      helpers.setValue(selectedItem)
+    },
     ...props,
   })
   return (
     <div className={`relative ${className}`}>
-      <label className="block label" {...getLabelProps()}>
-        {children}
+      <label className={`label ${isError ? 'text-red' : ''}`} {...getLabelProps()}>
+        <span>{children}</span>
+        {isError && (
+          <span id={`${name}Error`} role="alert" className="text-red text-error font-semibold">
+            {meta.error}
+          </span>
+        )}
       </label>
       <button
         type="button"
-        className={`input relative pr-11 ${isOpen ? 'border-purple' : ''}`}
+        className={`input relative pr-11 ${isError ? 'border-red' : ''} ${isOpen ? 'border-purple' : ''}`}
         {...getToggleButtonProps()}
       >
         {selectedItem}

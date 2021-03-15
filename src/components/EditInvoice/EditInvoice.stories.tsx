@@ -24,6 +24,7 @@ New.args = {
     clientPostCode: '',
     clientCountry: '',
     invoiceDate: '',
+    paymentTerms: '',
     projectDescription: '',
   },
   onSubmit: values => {
@@ -46,6 +47,7 @@ Edit.args = {
     clientPostCode: 'BD1 9PB',
     clientCountry: 'United Kingdom',
     invoiceDate: '21 Aug 2021',
+    paymentTerms: 'Net 30 Days',
     projectDescription: 'Graphic Design',
   },
   onSubmit: values => {

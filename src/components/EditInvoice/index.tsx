@@ -26,6 +26,7 @@ interface InitialValues {
   clientPostCode: string
   clientCountry: string
   invoiceDate: string
+  paymentTerms: string
   projectDescription: string
 }
 
@@ -35,13 +36,10 @@ export interface EditInvoiceProps extends Omit<React.HTMLProps<HTMLFormElement>,
   onSubmit: (values: InitialValues, formikHelpers: FormikHelpers<InitialValues>) => void
 }
 
-// TODO Integrate Datepicker
-// TODO Integrate Dropdown
 // TODO Add dynamic fields
 // TODO Add errors block
 
 const EditInvoice = ({ mode, initialValues, onSubmit, className = '', ...props }: EditInvoiceProps) => {
-  const [selectedItem, setSelectedItem] = useState('Net 30 Days')
   const [errors, setErrors] = useState([])
   const [items, setItems] = useState<ItemProps[]>([])
 
@@ -68,6 +66,7 @@ const EditInvoice = ({ mode, initialValues, onSubmit, className = '', ...props }
         clientPostCode: Yup.string().required('Client’s Post Code cannot be empty'),
         clientCountry: Yup.string().required('Client’s Country cannot be empty'),
         invoiceDate: Yup.date().nullable().required('Invoice Date cannot be empty'),
+        paymentTerms: Yup.string().required('Payment terms cannot be empty'),
         projectDescription: Yup.string().required('Project Description cannot be empty'),
       })}
       onSubmit={onSubmit}
@@ -109,13 +108,9 @@ const EditInvoice = ({ mode, initialValues, onSubmit, className = '', ...props }
           <legend className="sr-only">Details</legend>
           <div className="grid md:grid-cols-2 gap-6">
             <Datepicker name="invoiceDate">Invoice Date</Datepicker>
-            {/* <Dropdown
-            items={['Net 1 Day', 'Net 7 Days', 'Net 14 Days', 'Net 30 Days']}
-            selectedItem={selectedItem}
-            onSelectedItemChange={({ selectedItem }) => selectedItem && setSelectedItem(selectedItem)}
-          >
-            Payment Terms
-          </Dropdown> */}
+            <Dropdown name="paymentTerms" items={['Net 1 Day', 'Net 7 Days', 'Net 14 Days', 'Net 30 Days']}>
+              Payment Terms
+            </Dropdown>
             <TextField name="projectDescription" placeholder="e.g. Graphic Design Service" className="col-span-full">
               Project Description
             </TextField>
