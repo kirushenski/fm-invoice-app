@@ -36,6 +36,7 @@ module.exports = {
       body: ['.75rem', { lineHeight: '1.25', letterSpacing: '-.02em' }],
       small: ['.6875rem', { lineHeight: '1.65', letterSpacing: '-.02em' }],
       legend: ['1.125rem', { lineHeight: '1.78', letterSpacing: '-0.02em' }],
+      error: ['.625rem', { lineHeight: '1.5', letterSpacing: '-0.02em' }],
     },
     boxShadow: {
       dropdown: '0px 10px 20px rgba(72, 84, 159, 0.25)',
