@@ -11,4 +11,5 @@ const Template: Story<TextFieldProps> = args => <TextField {...args} />
 export const Primary = Template.bind({})
 Primary.args = {
   children: 'Street Address',
+  name: 'streetAddress',
 }

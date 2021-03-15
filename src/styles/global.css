@@ -17,13 +17,13 @@
     fill: currentColor;
   }
 
-  :focus:not(.focus-visible) {
+  /* :focus:not(.focus-visible) {
     @apply outline-none;
-  }
+  } */
 
-  :focus {
+  /* :focus {
     @apply outline;
-  }
+  } */
 }
 
 @layer utilities {
@@ -34,7 +34,7 @@
 
 @layer components {
   .btn {
-    @apply flex items-center h-12 px-6 text-body font-bold rounded-full transition-colors;
+    @apply flex justify-center items-center h-12 px-6 text-body font-bold rounded-full transition-colors;
   }
 
   .btn-primary {
@@ -58,15 +58,27 @@
   }
 
   .input {
-    @apply w-full h-12 px-5 bg-white dark:bg-grey-dark border border-grey-lighter dark:border-grey focus:border-purple font-bold rounded-input placeholder-grey-lighter transition-colors;
+    @apply w-full h-12 px-5 bg-white dark:bg-grey-dark border border-grey-lighter dark:border-grey focus:border-purple font-bold text-left rounded-input placeholder-opacity-40 transition-colors;
+  }
+
+  .input[readonly] {
+    @apply bg-transparent text-grey-light border-none px-0;
   }
 
   .dropdown {
-    @apply bg-white dark:bg-grey shadow-dropdown dark:shadow-dropdown-dark rounded-dropdown mt-6;
+    @apply z-10 absolute top-full left-0 transform translate-y-6 bg-white dark:bg-grey shadow-dropdown dark:shadow-dropdown-dark rounded-dropdown;
   }
 
   .arrow {
     @apply grid place-items-center w-12 h-12 absolute top-arrow;
+  }
+
+  .legend {
+    @apply font-bold text-purple-dark mb-6;
+  }
+
+  .form {
+    @apply grid grid-cols-2 md:grid-cols-3 gap-6;
   }
 
   .checkbox {

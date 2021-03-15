@@ -9,7 +9,7 @@ import 'react-day-picker/lib/style.css'
 
 export interface DatepickerProps extends DayPickerInputProps {
   children: string
-  className: string
+  className?: string
 }
 
 function Datepicker({ children, className = '', dayPickerProps, ...props }: DatepickerProps) {
@@ -23,7 +23,7 @@ function Datepicker({ children, className = '', dayPickerProps, ...props }: Date
   }
 
   return (
-    <label className={`${className}`}>
+    <label className={`relative ${className}`}>
       <div className="label">{children}</div>
       <DayPickerInput
         format="dd MMM yyyy"
@@ -34,7 +34,7 @@ function Datepicker({ children, className = '', dayPickerProps, ...props }: Date
         classNames={{
           container: 'datepicker',
           overlay: '',
-          overlayWrapper: 'dropdown inline-block py-6 px-5',
+          overlayWrapper: 'dropdown py-6 px-5',
         }}
         component={(props: any) => (
           <div className="relative">

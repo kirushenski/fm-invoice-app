@@ -1,6 +1,7 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 // TODO Remove unused colors and rename remaining ones
+// TODO Filter strange typography styles
 
 module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}'],
@@ -16,6 +17,7 @@ module.exports = {
       'grey-dark': '#1E2139',
       grey: '#252945',
       'grey-light': '#888EB0',
+      'grey-light-alt': '#777F98',
       'grey-lighter': '#DFE3FA',
       'grey-lightest': '#F8F8FB',
       'grey-lightest-alt': '#F9FAFE',
@@ -33,6 +35,7 @@ module.exports = {
       h3: ['1rem', { lineHeight: '1.5', letterSpacing: '-.05em' }],
       body: ['.75rem', { lineHeight: '1.25', letterSpacing: '-.02em' }],
       small: ['.6875rem', { lineHeight: '1.65', letterSpacing: '-.02em' }],
+      legend: ['1.125rem', { lineHeight: '1.78', letterSpacing: '-0.02em' }],
     },
     boxShadow: {
       dropdown: '0px 10px 20px rgba(72, 84, 159, 0.25)',
@@ -49,6 +52,10 @@ module.exports = {
       },
       inset: {
         arrow: '-1.125rem',
+      },
+      gridTemplateColumns: {
+        item: '4fr 1fr 2fr 1fr 13px',
+        'item-mobile': '1fr 2fr 1fr 13px',
       },
     },
   },

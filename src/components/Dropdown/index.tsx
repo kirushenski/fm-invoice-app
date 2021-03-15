@@ -4,7 +4,7 @@ import ArrowDown from '@/icons/arrow-down.svg'
 
 export interface DropdownProps extends UseSelectProps<string> {
   children: string
-  className: string
+  className?: string
 }
 
 function Dropdown({ children, items, selectedItem, className = '', ...props }: DropdownProps) {
@@ -14,15 +14,19 @@ function Dropdown({ children, items, selectedItem, className = '', ...props }: D
     ...props,
   })
   return (
-    <div className={`${className}`}>
+    <div className={`relative ${className}`}>
       <label className="block label" {...getLabelProps()}>
         {children}
       </label>
-      <button className={`input relative pr-11 ${isOpen ? 'border-purple' : ''}`} {...getToggleButtonProps()}>
+      <button
+        type="button"
+        className={`input relative pr-11 ${isOpen ? 'border-purple' : ''}`}
+        {...getToggleButtonProps()}
+      >
         {selectedItem}
         <ArrowDown className="absolute right-4 top-1/2 transform -translate-y-1/2" />
       </button>
-      <ul className="dropdown" {...getMenuProps()}>
+      <ul className="dropdown right-0" {...getMenuProps()}>
         {isOpen &&
           items.map((item, index) => (
             <li

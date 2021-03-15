@@ -13,6 +13,6 @@ export default {
 const Template: Story<DatepickerProps> = args => <Datepicker {...args} />
 export const Primary = Template.bind({})
 Primary.args = {
-  children: 'Issue Date',
+  children: 'Invoice Date',
   value: '21 Aug 2021',
 }

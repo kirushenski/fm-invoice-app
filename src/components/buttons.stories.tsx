@@ -17,4 +17,4 @@ export const MarkAsPaid = () => <button className="btn-primary">Mark as Paid</bu
 export const Edit = () => <button className="btn-secondary">Edit</button>
 export const SaveAsDraft = () => <button className="btn-save">Save as Draft</button>
 export const Delete = () => <button className="btn-delete">Delete</button>
-export const AddNewItem = () => <button className="btn-secondary block">+ Add New Item</button>
+export const AddNewItem = () => <button className="btn-secondary w-full">+ Add New Item</button>

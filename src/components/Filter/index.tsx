@@ -19,7 +19,7 @@ const Filter = ({ className = '', ...props }: React.HTMLProps<HTMLDivElement>) =
         <ArrowDown className={`transition-transform transform ${!isOpen ? 'rotate-180' : ''}`} />
       </button>
       {isOpen && (
-        <div className="absolute top-full left-1/2 transform -translate-x-1/2 translate-y-6 dropdown p-6 w-48 mt-0">
+        <div className="dropdown p-6 w-48 left-1/2 -translate-x-1/2">
           <Checkbox name="filter" value="draft" id="draft">
             Draft
           </Checkbox>
