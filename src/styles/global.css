@@ -106,6 +106,10 @@
     @apply block;
   }
 
+  .datepicker {
+    @apply relative;
+  }
+
   .datepicker .DayPicker {
     @apply text-body font-bold;
   }

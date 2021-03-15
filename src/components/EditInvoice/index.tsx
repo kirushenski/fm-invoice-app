@@ -25,6 +25,7 @@ interface InitialValues {
   clientCity: string
   clientPostCode: string
   clientCountry: string
+  invoiceDate: string
   projectDescription: string
 }
 
@@ -66,6 +67,7 @@ const EditInvoice = ({ mode, initialValues, onSubmit, className = '', ...props }
         clientCity: Yup.string().required('Client’s City cannot be empty'),
         clientPostCode: Yup.string().required('Client’s Post Code cannot be empty'),
         clientCountry: Yup.string().required('Client’s Country cannot be empty'),
+        invoiceDate: Yup.date().nullable().required('Invoice Date cannot be empty'),
         projectDescription: Yup.string().required('Project Description cannot be empty'),
       })}
       onSubmit={onSubmit}
@@ -106,8 +108,8 @@ const EditInvoice = ({ mode, initialValues, onSubmit, className = '', ...props }
         <fieldset className="mb-16 md:mb-8">
           <legend className="sr-only">Details</legend>
           <div className="grid md:grid-cols-2 gap-6">
-            {/* <Datepicker value="21 Aug 2021">Invoice Date</Datepicker>
-          <Dropdown
+            <Datepicker name="invoiceDate">Invoice Date</Datepicker>
+            {/* <Dropdown
             items={['Net 1 Day', 'Net 7 Days', 'Net 14 Days', 'Net 30 Days']}
             selectedItem={selectedItem}
             onSelectedItemChange={({ selectedItem }) => selectedItem && setSelectedItem(selectedItem)}

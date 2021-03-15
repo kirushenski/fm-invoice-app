@@ -23,6 +23,7 @@ New.args = {
     clientCity: '',
     clientPostCode: '',
     clientCountry: '',
+    invoiceDate: '',
     projectDescription: '',
   },
   onSubmit: values => {
@@ -44,6 +45,7 @@ Edit.args = {
     clientCity: 'Bradford',
     clientPostCode: 'BD1 9PB',
     clientCountry: 'United Kingdom',
+    invoiceDate: '21 Aug 2021',
     projectDescription: 'Graphic Design',
   },
   onSubmit: values => {
