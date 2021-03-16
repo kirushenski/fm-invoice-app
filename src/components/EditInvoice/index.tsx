@@ -139,7 +139,7 @@ const EditInvoice = ({ mode, initialValues, onSubmit, className = '', ...props }
                       </TextField>
                       <div>
                         <div className="label md:sr-only">Total</div>
-                        <output className="input flex items-center bg-transparent text-grey-light border-none px-0">
+                        <output className="input flex items-center bg-transparent dark:bg-transparent text-grey-light border-none px-0">
                           {!Number.isNaN(parseFloat(item.price)) ? (parseFloat(item.price) * item.qty).toFixed(2) : '–'}
                         </output>
                       </div>

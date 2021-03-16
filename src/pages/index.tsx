@@ -2,9 +2,6 @@ import React from 'react'
 import Layout from '@/components/Layout'
 import Seo from '@/components/Seo'
 
-// TODO Setup dark mode on app level
-// TODO Setup dark mode on Storybook level
-
 // TODO Create sidebar with scrollable wrapper for form
 
 // TODO Add react-modal and build delete popup

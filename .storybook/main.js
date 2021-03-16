@@ -5,6 +5,7 @@ module.exports = {
   addons: [
     '@storybook/addon-essentials',
     '@storybook/addon-a11y',
+    'storybook-dark-mode',
     // Make Storybook compatible with postcss@8 which is used by last version of Tailwind
     {
       name: '@storybook/addon-postcss',

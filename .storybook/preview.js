@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { action } from '@storybook/addon-actions'
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
+import { useDarkMode } from 'storybook-dark-mode'
 import RootWrapper from '@/components/RootWrapper'
+import { useColorScheme } from '@/components/ColorSchemeProvider'
 import tailwindConfig from '../tailwind.config'
 import '../test/loadershim'
 
@@ -18,8 +20,20 @@ export const parameters = {
   },
 }
 
-// Wrap all stories in same wrapper as the main app
-const RootWrapperDecorator = storyFn => <RootWrapper>{storyFn()}</RootWrapper>
+// Wrap all stories in same wrapper as the main app but with dark mode support from the context panel
+const DarkThemeWrapper = ({ children }) => {
+  const isDarkMode = useDarkMode()
+  const [, setColorScheme] = useColorScheme()
+  useEffect(() => {
+    setColorScheme(isDarkMode ? 'dark' : 'light')
+  }, [isDarkMode, setColorScheme])
+  return children
+}
+const RootWrapperDecorator = storyFn => (
+  <RootWrapper>
+    <DarkThemeWrapper>{storyFn()}</DarkThemeWrapper>
+  </RootWrapper>
+)
 export const decorators = [RootWrapperDecorator]
 
 // Log action instead of actual navigation for Link

@@ -101,6 +101,7 @@
     "jest-watch-typeahead": "^0.6.1",
     "lint-staged": "^10.5.4",
     "prettier": "^2.2.1",
+    "storybook-dark-mode": "^1.0.7",
     "typescript": "^4.2.3",
     "webpack": "^5.24.4",
     "webpack-bundle-analyzer": "^4.4.0"
