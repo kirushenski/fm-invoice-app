@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Form, Formik, FormikHelpers, FieldArray } from 'formik'
+import React from 'react'
+import { Form, Formik, FormikHelpers, FormikErrors, FieldArray } from 'formik'
 import * as Yup from 'yup'
 import TextField from '@/components/TextField'
 import Datepicker from '@/components/Datepicker'
@@ -35,11 +35,7 @@ export interface EditInvoiceProps extends Omit<React.HTMLProps<HTMLFormElement>,
   onSubmit: (values: InitialValues, formikHelpers: FormikHelpers<InitialValues>) => void
 }
 
-// TODO Add errors block
-
 const EditInvoice = ({ mode, initialValues, onSubmit, className = '', ...props }: EditInvoiceProps) => {
-  const [errors, setErrors] = useState([])
-
   return (
     <Formik
       initialValues={initialValues}
@@ -59,15 +55,17 @@ const EditInvoice = ({ mode, initialValues, onSubmit, className = '', ...props }
         projectDescription: Yup.string().required('Project Description cannot be empty'),
         items: Yup.array().of(
           Yup.object().shape({
-            name: Yup.string().required('Item’s Name cannot be empty'),
-            qty: Yup.number().min(1).integer().required('Item’s Quantity cannot be empty'),
-            price: Yup.number().positive().required('Item’s Price cannot be empty'),
+            name: Yup.string().required(({ path }) => `Item ${path.match(/\[(\d+)\]/)?.[1]} Name cannot be empty`),
+            qty: Yup.number().required(({ path }) => `Item ${path.match(/\[(\d+)\]/)?.[1]} Quantity cannot be empty`),
+            price: Yup.number()
+              .min(0, ({ path }) => `Item ${path.match(/\[(\d+)\]/)?.[1]} Price must be greater than or equal to 0`)
+              .required(({ path }) => `Item ${path.match(/\[(\d+)\]/)?.[1]} Price cannot be empty`),
           })
         ),
       })}
       onSubmit={onSubmit}
     >
-      {({ values }) => (
+      {({ values, errors, isValid }) => (
         <Form noValidate className={`${className}`} {...props}>
           <fieldset className="mb-10 md:mb-12">
             <legend className="legend">Bill From</legend>
@@ -113,7 +111,7 @@ const EditInvoice = ({ mode, initialValues, onSubmit, className = '', ...props }
               </TextField>
             </div>
           </fieldset>
-          <fieldset className={`${errors.length ? 'mb-8' : 'mb-12'}`}>
+          <fieldset className={`${isValid ? 'mb-12' : 'mb-8'}`}>
             <legend className="font-bold text-legend text-grey-light-alt mb-4">Item List</legend>
             <div className="hidden md:grid grid-cols-item gap-4">
               <div className="label">Item Name</div>
@@ -153,7 +151,7 @@ const EditInvoice = ({ mode, initialValues, onSubmit, className = '', ...props }
                   <button
                     type="button"
                     className="btn-secondary w-full"
-                    onClick={() => push({ name: '', qty: 1, price: '0.00', total: 0 })}
+                    onClick={() => push({ name: '', qty: 1, price: '0.00' })}
                   >
                     + Add New Item
                   </button>
@@ -161,7 +159,20 @@ const EditInvoice = ({ mode, initialValues, onSubmit, className = '', ...props }
               )}
             </FieldArray>
           </fieldset>
-          {errors.length ? <div className="mb-11">Errors</div> : null}
+          {!isValid ? (
+            <ul className="mb-11">
+              {Object.entries(errors)
+                .map(([name, value]) =>
+                  name === 'items' ? (value as FormikErrors<Item>[]).map(item => item && Object.values(item)) : value
+                )
+                .flat(2)
+                .map((error, index) => (
+                  <li key={index} className="list-item error">
+                    {error}
+                  </li>
+                ))}
+            </ul>
+          ) : null}
           <div className="flex justify-between">
             {mode === 'new' && (
               <button type="button" className="btn-secondary">

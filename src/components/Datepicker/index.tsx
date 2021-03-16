@@ -14,6 +14,8 @@ export interface DatepickerProps extends DayPickerInputProps {
   className?: string
 }
 
+// TODO Fix blur on type
+
 function Datepicker({ name, children, className = '', dayPickerProps, ...props }: DatepickerProps) {
   const parseDate = (str: string, format: string) => {
     const parsed = dateFnsParse(str, format, new Date())

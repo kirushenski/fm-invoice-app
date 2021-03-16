@@ -41,7 +41,7 @@ function TextField({
       <label htmlFor={id || name} className={`label ${isError ? 'text-red' : ''} ${hidden ? 'md:sr-only' : ''}`}>
         <span>{children}</span>
         {isError && (
-          <span id={`${name}Error`} role="alert" className="text-red text-error font-semibold">
+          <span id={`${name}Error`} role="alert" className="error">
             {meta.error}
           </span>
         )}

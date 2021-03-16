@@ -34,7 +34,7 @@ function Dropdown({ name, children, items, className = '', ...props }: DropdownP
       <label className={`label ${isError ? 'text-red' : ''}`} {...getLabelProps()}>
         <span>{children}</span>
         {isError && (
-          <span id={`${name}Error`} role="alert" className="text-red text-error font-semibold">
+          <span id={`${name}Error`} role="alert" className="error">
             {meta.error}
           </span>
         )}

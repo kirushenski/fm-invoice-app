@@ -69,6 +69,14 @@
     @apply grid place-items-center w-12 h-12 absolute top-arrow;
   }
 
+  .error {
+    @apply text-error text-red font-semibold;
+  }
+
+  .list-item {
+    list-style-type: '– ';
+  }
+
   .legend {
     @apply font-bold text-purple-dark mb-6;
   }
