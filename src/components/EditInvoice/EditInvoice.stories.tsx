@@ -26,9 +26,10 @@ New.args = {
     invoiceDate: '',
     paymentTerms: '',
     projectDescription: '',
+    items: [],
   },
   onSubmit: values => {
-    alert(JSON.stringify(values, null, 2))
+    console.log(JSON.stringify(values, null, 2))
   },
 }
 
@@ -49,8 +50,12 @@ Edit.args = {
     invoiceDate: '21 Aug 2021',
     paymentTerms: 'Net 30 Days',
     projectDescription: 'Graphic Design',
+    items: [
+      { name: 'Banner Design', qty: 1, price: '156.00' },
+      { name: 'Email Design', qty: 2, price: '200.00' },
+    ],
   },
   onSubmit: values => {
-    alert(JSON.stringify(values, null, 2))
+    console.log(JSON.stringify(values, null, 2))
   },
 }

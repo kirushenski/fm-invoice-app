@@ -23,7 +23,7 @@ const Template: Story<DropdownProps> = args => (
       paymentTerms: Yup.string().required('Payment Terms cannot be empty'),
     })}
     onSubmit={values => {
-      alert(JSON.stringify(values, null, 2))
+      console.log(JSON.stringify(values, null, 2))
     }}
   >
     <Form noValidate>

@@ -19,7 +19,7 @@ const Template: Story<DatepickerProps> = args => (
       invoiceDate: Yup.date().nullable().required('Invoice Date cannot be empty'),
     })}
     onSubmit={values => {
-      alert(JSON.stringify(values, null, 2))
+      console.log(JSON.stringify(values, null, 2))
     }}
   >
     <Form noValidate>

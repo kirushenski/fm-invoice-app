@@ -16,7 +16,7 @@ const Template: Story<TextFieldProps> = args => (
       streetAddress: Yup.string().required('Street Address cannot be empty'),
     })}
     onSubmit={values => {
-      alert(JSON.stringify(values, null, 2))
+      console.log(JSON.stringify(values, null, 2))
     }}
   >
     <Form noValidate>

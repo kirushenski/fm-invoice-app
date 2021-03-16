@@ -18,6 +18,8 @@ import Seo from '@/components/Seo'
 // TODO InvoiceDetails component
 // TODO Component for empty invoices page
 
+// NEW FieldArray
+
 const IndexPage = () => {
   return (
     <Layout>

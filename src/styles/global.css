@@ -61,10 +61,6 @@
     @apply w-full h-12 px-5 bg-white dark:bg-grey-dark border border-grey-lighter dark:border-grey focus:border-purple font-bold text-left rounded-input placeholder-opacity-40 transition-colors;
   }
 
-  .input[readonly] {
-    @apply bg-transparent text-grey-light border-none px-0;
-  }
-
   .dropdown {
     @apply z-10 absolute top-full left-0 transform translate-y-6 bg-white dark:bg-grey shadow-dropdown dark:shadow-dropdown-dark rounded-dropdown;
   }
