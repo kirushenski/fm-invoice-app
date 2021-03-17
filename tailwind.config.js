@@ -25,6 +25,7 @@ module.exports = {
       red: '#EC5757',
       'red-light': '#FF9797',
       white: '#FFF',
+      black: '#000',
       transparent: 'transparent',
     },
     fontFamily: {
@@ -38,6 +39,7 @@ module.exports = {
       small: ['.6875rem', { lineHeight: '1.65', letterSpacing: '-.02em' }],
       legend: ['1.125rem', { lineHeight: '1.78', letterSpacing: '-0.02em' }],
       error: ['.625rem', { lineHeight: '1.5', letterSpacing: '-0.02em' }],
+      popup: ['1.5rem', { lineHeight: '1.33', letterSpacing: '-0.02em' }],
     },
     boxShadow: {
       dropdown: '0px 10px 20px rgba(72, 84, 159, 0.25)',
@@ -51,23 +53,30 @@ module.exports = {
         checkbox: '2px',
         input: '4px',
         dropdown: '8px',
+        popup: '8px',
         sidebar: '20px',
       },
       inset: {
         arrow: '-1.125rem',
+        sidebar: '6.5rem',
       },
       gridTemplateColumns: {
         item: '4fr 1fr 2fr 1fr 13px',
         'item-mobile': '1fr 2fr 1fr 13px',
       },
       width: {
-        logo: '103px',
+        sidebar: '7.5rem',
       },
       height: {
-        logo: '103px',
+        sidebar: '7.5rem',
+        form: 'calc(100vh - 8.5rem)',
       },
       maxWidth: {
         container: '45.625rem',
+        popup: '30rem',
+      },
+      gradientColorStops: {
+        sidebar: 'rgba(0, 0, 0, .1)',
       },
     },
   },

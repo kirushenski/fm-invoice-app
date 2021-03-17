@@ -161,4 +161,52 @@
     .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside):hover {
     @apply text-purple-dark bg-transparent;
   }
+
+  .popup-overlay {
+    @apply fixed inset-0 bg-black bg-opacity-50 opacity-0 transition-opacity;
+  }
+
+  .popup-overlay:not(.popup-overlay--sidebar) {
+    @apply z-30 grid place-items-center px-6;
+  }
+
+  .popup-overlay--sidebar {
+    @apply z-10 left-sidebar;
+  }
+
+  .popup-overlay--after-open {
+    @apply opacity-100;
+  }
+
+  .popup-overlay--before-close {
+    @apply opacity-0;
+  }
+
+  .popup-content {
+    @apply relative bg-white dark:bg-grey-darker transform transition-transform;
+  }
+
+  .popup-content:not(.popup-content--sidebar) {
+    @apply max-h-full rounded-popup scale-90;
+  }
+
+  .popup-content--sidebar {
+    @apply h-full rounded-r-sidebar -translate-x-full;
+  }
+
+  .popup-content--after-open:not(.popup-content--sidebar) {
+    @apply scale-100;
+  }
+
+  .popup-content--after-open.popup-content--sidebar {
+    @apply translate-x-0;
+  }
+
+  .popup-content--before-close:not(.popup-content--sidebar) {
+    @apply scale-100;
+  }
+
+  .popup-content--before-close.popup-content--sidebar {
+    @apply translate-x-0;
+  }
 }

@@ -66,7 +66,7 @@ const EditInvoice = ({ mode, initialValues, onSubmit, className = '', ...props }
       onSubmit={onSubmit}
     >
       {({ values, errors, isValid }) => (
-        <Form noValidate className={`${className}`} {...props}>
+        <Form noValidate className={`overflow-y-auto h-form pb-28 ${className}`} {...props}>
           <fieldset className="mb-10 md:mb-12">
             <legend className="legend">Bill From</legend>
             <div className="form">
@@ -111,7 +111,7 @@ const EditInvoice = ({ mode, initialValues, onSubmit, className = '', ...props }
               </TextField>
             </div>
           </fieldset>
-          <fieldset className={`${isValid ? 'mb-12' : 'mb-8'}`}>
+          <fieldset className="mb-2">
             <legend className="font-bold text-legend text-grey-light-alt mb-4">Item List</legend>
             <div className="hidden md:grid grid-cols-item gap-4">
               <div className="label">Item Name</div>
@@ -160,7 +160,7 @@ const EditInvoice = ({ mode, initialValues, onSubmit, className = '', ...props }
             </FieldArray>
           </fieldset>
           {!isValid ? (
-            <ul className="mb-11">
+            <ul className="mb-2">
               {Object.entries(errors)
                 .map(([name, value]) =>
                   name === 'items' ? (value as FormikErrors<Item>[]).map(item => item && Object.values(item)) : value
@@ -173,32 +173,34 @@ const EditInvoice = ({ mode, initialValues, onSubmit, className = '', ...props }
                 ))}
             </ul>
           ) : null}
-          <div className="flex justify-between">
-            {mode === 'new' && (
-              <button type="button" className="btn-secondary">
-                Discard
-              </button>
-            )}
-            <div className={`flex ${mode === 'edit' ? 'ml-auto' : ''}`}>
-              {mode === 'edit' ? (
-                <>
-                  <button type="button" className="btn-secondary mr-2">
-                    Cancel
-                  </button>
-                  <button type="submit" className="btn-primary">
-                    Save Changes
-                  </button>
-                </>
-              ) : (
-                <>
-                  <button type="button" className="btn-save mr-2">
-                    Save as Draft
-                  </button>
-                  <button type="submit" className="btn-primary">
-                    Save & Send
-                  </button>
-                </>
+          <div className="z-10 fixed left-0 right-0 bottom-0 h-52 flex items-end justify-items-stretch bg-gradient-to-t from-sidebar">
+            <div className="w-full flex justify-between px-14 py-8 rounded-r-sidebar bg-white dark:bg-grey-darker">
+              {mode === 'new' && (
+                <button type="button" className="btn-secondary">
+                  Discard
+                </button>
               )}
+              <div className={`flex ${mode === 'edit' ? 'ml-auto' : ''}`}>
+                {mode === 'edit' ? (
+                  <>
+                    <button type="button" className="btn-secondary mr-2">
+                      Cancel
+                    </button>
+                    <button type="submit" className="btn-primary">
+                      Save Changes
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button type="button" className="btn-save mr-2">
+                      Save as Draft
+                    </button>
+                    <button type="submit" className="btn-primary">
+                      Save & Send
+                    </button>
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </Form>

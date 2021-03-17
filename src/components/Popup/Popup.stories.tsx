@@ -1,24 +1,47 @@
 import React, { useState } from 'react'
-import Layout from '.'
-import Popup from '@/components/Popup'
+import { Story } from '@storybook/react'
+import Popup, { PopupProps } from '.'
 import EditInvoice from '@/components/EditInvoice'
 
 export default {
-  title: 'Layout',
-  component: Layout,
-  parameters: {
-    layout: 'fullscreen',
-  },
+  title: 'Popup',
+  component: Popup,
 }
 
-export const Primary = () => {
+const PrimaryTemplate: Story<PopupProps> = args => {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
   return (
-    <Layout>
+    <>
+      <button className="btn-delete" onClick={() => setIsPopupOpen(true)}>
+        Delete
+      </button>
+      <Popup {...args} isOpen={isPopupOpen} onRequestClose={() => setIsPopupOpen(false)}>
+        <p className="text-grey-light leading-5 mb-4">
+          Are you sure you want to delete invoice #XM9141? This action cannot be undone.
+        </p>
+        <div className="flex justify-end">
+          <button className="btn-secondary mr-2" onClick={() => setIsPopupOpen(false)}>
+            Cancel
+          </button>
+          <button className="btn-delete">Delete</button>
+        </div>
+      </Popup>
+    </>
+  )
+}
+export const Primary = PrimaryTemplate.bind({})
+Primary.args = {
+  heading: 'Confirm Deletion',
+}
+
+const SidebarTemplate: Story<PopupProps> = args => {
+  const [isPopupOpen, setIsPopupOpen] = useState(false)
+  return (
+    <>
       <button className="btn-secondary" onClick={() => setIsPopupOpen(true)}>
         Edit
       </button>
-      <Popup heading="Edit #XM9141" isSidebar isOpen={isPopupOpen} onRequestClose={() => setIsPopupOpen(false)}>
+      <Popup {...args} isOpen={isPopupOpen} onRequestClose={() => setIsPopupOpen(false)}>
         <EditInvoice
           mode="edit"
           initialValues={{
@@ -53,6 +76,11 @@ export const Primary = () => {
           }}
         />
       </Popup>
-    </Layout>
+    </>
   )
+}
+export const Sidebar = SidebarTemplate.bind({})
+Sidebar.args = {
+  isSidebar: true,
+  heading: 'Edit #XM9141',
 }

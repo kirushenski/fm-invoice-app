@@ -12,14 +12,14 @@ const Sidebar = ({ className = '', ...props }: React.HTMLProps<HTMLDivElement>) 
   const [colorScheme, setColorScheme] = useColorScheme()
   return (
     <aside
-      className={`flex h-20 lg:h-auto lg:w-logo lg:flex-col justify-between bg-grey-darker-alt overflow-hidden lg:rounded-r-sidebar ${className}`}
+      className={`z-20 flex h-20 lg:h-auto lg:w-sidebar lg:flex-col justify-between bg-grey-darker-alt overflow-hidden lg:rounded-r-sidebar ${className}`}
       {...props}
     >
       <Link
         to="/"
-        className="relative w-20 lg:w-full h-full lg:h-logo bg-purple-dark overflow-hidden rounded-r-sidebar"
+        className="relative w-20 lg:w-full h-full lg:h-sidebar bg-purple-dark overflow-hidden rounded-r-sidebar"
       >
-        <div className="absolute top-1/2 left-0 right-0 h-20 lg:h-logo bg-purple rounded-l-sidebar" />
+        <div className="absolute top-1/2 left-0 right-0 h-20 lg:h-sidebar bg-purple rounded-l-sidebar" />
         <Logo title="To home page" className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
       </Link>
       <div className="flex-grow flex justify-end lg:items-end">
