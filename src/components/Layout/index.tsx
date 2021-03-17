@@ -1,7 +1,5 @@
 import React from 'react'
-import { useColorScheme } from '@/components/ColorSchemeProvider'
-import Moon from '@/icons/moon.svg'
-import Sun from '@/icons/sun.svg'
+import Sidebar from '@/components/Sidebar'
 
 export interface LayoutProps {
   /** Page content */
@@ -10,19 +8,12 @@ export interface LayoutProps {
 
 /** Component shares layout structure between pages. Pass common sections like header, footer and content container here and wrap page components with it */
 const Layout = ({ children }: LayoutProps) => {
-  const [colorScheme, setColorScheme] = useColorScheme()
   return (
-    <div>
-      <main>{children}</main>
-      <aside>
-        <button
-          onClick={() => setColorScheme(colorScheme === 'light' ? 'dark' : 'light')}
-          aria-label="Dark mode"
-          aria-pressed={colorScheme === 'dark'}
-        >
-          {colorScheme === 'light' ? <Moon /> : <Sun />}
-        </button>
-      </aside>
+    <div className="min-h-screen flex flex-col lg:flex-row">
+      <Sidebar />
+      <main className="flex-grow grid justify-items-center py-8 md:py-14 lg:py-18 px-6 md:px-12">
+        <div className="w-full max-w-container">{children}</div>
+      </main>
     </div>
   )
 }

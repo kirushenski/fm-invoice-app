@@ -16,6 +16,7 @@ module.exports = {
       'grey-darker-alt': '#373B53',
       'grey-dark': '#1E2139',
       grey: '#252945',
+      'grey-alt': '#494E6E',
       'grey-light': '#888EB0',
       'grey-light-alt': '#777F98',
       'grey-lighter': '#DFE3FA',
@@ -50,6 +51,7 @@ module.exports = {
         checkbox: '2px',
         input: '4px',
         dropdown: '8px',
+        sidebar: '20px',
       },
       inset: {
         arrow: '-1.125rem',
@@ -57,6 +59,15 @@ module.exports = {
       gridTemplateColumns: {
         item: '4fr 1fr 2fr 1fr 13px',
         'item-mobile': '1fr 2fr 1fr 13px',
+      },
+      width: {
+        logo: '103px',
+      },
+      height: {
+        logo: '103px',
+      },
+      maxWidth: {
+        container: '45.625rem',
       },
     },
   },
