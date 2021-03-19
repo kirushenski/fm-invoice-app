@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import { useMedia } from 'react-media'
+import { format } from 'date-fns'
 import ArrowRight from '@/icons/arrow-right.svg'
 
 export interface InvoiceProps extends Omit<React.HTMLProps<HTMLAnchorElement>, 'ref'> {
@@ -11,12 +12,9 @@ export interface InvoiceProps extends Omit<React.HTMLProps<HTMLAnchorElement>, '
   status: 'paid' | 'pending' | 'draft'
 }
 
-// TODO Transform dates
-// TODO Transform prices
-// TODO Add responsive version
-
 const Invoice = ({ id, paymentDue, clientName, total, status, className = '', ...props }: InvoiceProps) => {
   const isTablet = useMedia({ query: '(min-width: 768px)' })
+  const paymentDueDate = new Date(paymentDue)
 
   return (
     <Link
@@ -30,10 +28,14 @@ const Invoice = ({ id, paymentDue, clientName, total, status, className = '', ..
       </div>
       <div className="absolute md:static left-6 top-15">
         <span className="text-grey-light dark:text-grey-lighter">Due </span>
-        <time className="text-purple-light dark:text-grey-lighter">{paymentDue}</time>
+        <time dateTime={paymentDueDate.toISOString()} className="text-purple-light dark:text-grey-lighter">
+          {format(paymentDueDate, 'dd MMM yyyy')}
+        </time>
       </div>
       <div className="text-grey-light-alt2 text-right md:text-left">{clientName}</div>
-      <div className="font-bold text-h3 pr-5 md:text-right">£ {total}</div>
+      <div className="font-bold text-h3 pr-5 md:text-right">
+        {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'GBP' }).format(total).replace(/^(\D)/, '$1 ')}
+      </div>
       <div
         className={`ml-auto md:ml-0 ${
           status === 'paid' ? 'status-paid' : status === 'pending' ? 'status-pending' : 'status-draft'
