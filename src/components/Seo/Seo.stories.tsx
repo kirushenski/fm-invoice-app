@@ -3,7 +3,7 @@ import { Story } from '@storybook/react'
 import Seo, { SeoProps } from '.'
 
 export default {
-  title: 'Seo',
+  title: 'Basics / Seo',
   component: Seo,
 }
 

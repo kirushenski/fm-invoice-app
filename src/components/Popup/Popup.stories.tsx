@@ -4,7 +4,7 @@ import Popup, { PopupProps } from '.'
 import EditInvoice from '@/components/EditInvoice'
 
 export default {
-  title: 'Popup',
+  title: 'Edit / Popup',
   component: Popup,
 }
 

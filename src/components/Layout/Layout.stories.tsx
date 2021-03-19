@@ -4,7 +4,7 @@ import Popup from '@/components/Popup'
 import EditInvoice from '@/components/EditInvoice'
 
 export default {
-  title: 'Layout',
+  title: 'Basics / Layout',
   component: Layout,
   parameters: {
     layout: 'fullscreen',

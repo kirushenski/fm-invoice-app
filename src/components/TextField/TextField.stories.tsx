@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 import TextField, { TextFieldProps } from '.'
 
 export default {
-  title: 'Forms / TextField',
+  title: 'Edit / TextField',
   component: TextField,
 }
 

@@ -2,7 +2,7 @@ import React from 'react'
 import GoBack from '.'
 
 export default {
-  title: 'GoBack',
+  title: 'Invoice / GoBack',
   component: GoBack,
 }
 

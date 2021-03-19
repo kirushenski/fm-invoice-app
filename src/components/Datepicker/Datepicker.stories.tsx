@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 import Datepicker, { DatepickerProps } from '.'
 
 export default {
-  title: 'Forms / Datepicker',
+  title: 'Edit / Datepicker',
   component: Datepicker,
   argTypes: {
     className: { table: { disable: true } },

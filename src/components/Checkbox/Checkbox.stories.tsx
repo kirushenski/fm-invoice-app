@@ -3,7 +3,7 @@ import { Story } from '@storybook/react'
 import Checkbox, { CheckboxProps } from '.'
 
 export default {
-  title: 'Forms / Checkbox',
+  title: 'Home / Checkbox',
   component: Checkbox,
 }
 

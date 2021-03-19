@@ -8,6 +8,8 @@ export interface InvoiceStatusProps extends React.HTMLProps<HTMLDivElement> {
   onMarkAsPaid: () => void
 }
 
+// TODO Add mobile version of actions bar
+
 const InvoiceStatus = ({ status, onEdit, onDelete, onMarkAsPaid, className = '', ...props }: InvoiceStatusProps) => {
   const isTablet = useMedia({ query: '(min-width: 768px)' })
 

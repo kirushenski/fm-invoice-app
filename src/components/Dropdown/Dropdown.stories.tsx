@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 import Dropdown, { DropdownProps } from '.'
 
 export default {
-  title: 'Forms / Dropdown',
+  title: 'Edit / Dropdown',
   component: Dropdown,
   argTypes: {
     selectedItem: { control: false },

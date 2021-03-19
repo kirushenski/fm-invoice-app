@@ -3,6 +3,8 @@ import { PageProps } from 'gatsby'
 import Layout from '@/components/Layout'
 import Seo from '@/components/Seo'
 
+// TODO Fill up 404 page
+
 const NotFoundPage = ({ location }: PageProps) => {
   return (
     <Layout>

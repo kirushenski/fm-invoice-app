@@ -3,7 +3,7 @@ import { Story } from '@storybook/react'
 import Invoice, { InvoiceProps } from '.'
 
 export default {
-  title: 'Invoice',
+  title: 'Home / Invoice',
   component: Invoice,
 }
 

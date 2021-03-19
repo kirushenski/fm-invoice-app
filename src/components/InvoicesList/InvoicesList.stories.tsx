@@ -3,7 +3,7 @@ import InvoicesList from '.'
 import Invoice from '@/components/Invoice'
 
 export default {
-  title: 'InvoicesList',
+  title: 'Home / InvoicesList',
   component: InvoicesList,
 }
 

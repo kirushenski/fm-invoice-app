@@ -3,11 +3,13 @@ import { Story } from '@storybook/react'
 import EditInvoice, { EditInvoiceProps } from '.'
 
 export default {
-  title: 'Forms / EditInvoice',
+  title: 'Edit / EditInvoice',
   component: EditInvoice,
 }
 
 const Template: Story<EditInvoiceProps> = args => <EditInvoice {...args} />
+
+// TODO Fix relativeness inside the story
 
 export const New = Template.bind({})
 New.args = {
