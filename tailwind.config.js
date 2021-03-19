@@ -18,6 +18,7 @@ module.exports = {
       grey: '#252945',
       'grey-alt': '#494E6E',
       'grey-light': '#888EB0',
+      'grey-light-alt2': '#858BB2',
       'grey-light-alt': '#777F98',
       'grey-lighter': '#DFE3FA',
       'grey-lightest': '#F8F8FB',
@@ -47,6 +48,7 @@ module.exports = {
     boxShadow: {
       dropdown: '0px 10px 20px rgba(72, 84, 159, 0.25)',
       'dropdown-dark': '0px 10px 20px rgba(0, 0, 0, 0.25)',
+      invoice: ' 0px 10px 10px -10px rgba(72, 84, 159, 0.100397)',
     },
     extend: {
       outline: theme => ({
@@ -58,15 +60,18 @@ module.exports = {
         status: '6px',
         dropdown: '8px',
         popup: '8px',
+        invoice: '8px',
         sidebar: '20px',
       },
       inset: {
         arrow: '-1.125rem',
         sidebar: '6.5rem',
+        15: '3.75rem',
       },
       gridTemplateColumns: {
         item: '4fr 1fr 2fr 1fr 13px',
         'item-mobile': '1fr 2fr 1fr 13px',
+        invoice: '3fr 5fr 5fr 5fr 6.5rem 4px',
       },
       width: {
         sidebar: '7.5rem',

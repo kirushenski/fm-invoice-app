@@ -4,14 +4,13 @@ import Seo from '@/components/Seo'
 
 // TODO Create sidebar with scrollable wrapper for form
 
-// TODO Add react-modal and build delete popup
-// TODO Status component (tailwind only?)
-// TODO InvoiceItem and InvoicesList
 // TODO GoBack link
 // TODO StatusBar and ActionsBar components with react-media (on Details page)
 // TODO ItemsTable component
 // TODO InvoiceDetails component
 // TODO Component for empty invoices page
+
+// TODO Add focus styles
 
 // NEW FieldArray
 
