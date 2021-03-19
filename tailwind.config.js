@@ -89,6 +89,7 @@ module.exports = {
       maxWidth: {
         container: '45.625rem',
         popup: '30rem',
+        sidebar: '39.5rem',
       },
       gradientColorStops: {
         sidebar: 'rgba(0, 0, 0, .1)',

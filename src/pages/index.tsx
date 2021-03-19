@@ -2,7 +2,6 @@ import React from 'react'
 import Layout from '@/components/Layout'
 import Seo from '@/components/Seo'
 
-// TODO Component for empty invoices page
 // TODO Add focus styles
 // TODO Build static home page
 // TODO Build static invoice page

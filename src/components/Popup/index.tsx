@@ -7,12 +7,11 @@ export interface PopupProps extends ReactModalProps {
   isSidebar?: boolean
 }
 
-// TODO Fix transitions
 // TODO Pass buttons handlers
 // TODO Add auto shadowing
 // TODO Check offsets and stuff on different resolutions
 
-const Popup = ({ heading, children, isSidebar = false, closeTimeoutMS = 150, id = 'popup', ...props }: PopupProps) => {
+const Popup = ({ heading, children, isSidebar = false, id = 'popup', ...props }: PopupProps) => {
   return (
     <Modal
       bodyOpenClassName={null}
@@ -27,12 +26,12 @@ const Popup = ({ heading, children, isSidebar = false, closeTimeoutMS = 150, id 
         afterOpen: 'popup-content--after-open',
       }}
       aria={{ labelledby: id }}
-      closeTimeoutMS={closeTimeoutMS}
+      closeTimeoutMS={isSidebar ? 1000 : 300}
       {...props}
     >
       <div
         className={`relative ${
-          isSidebar ? 'pl-12 pr-6 pt-8 md:pl-20 md:pr-14 md:pt-14 md:rounded-r-sidebar' : 'max-w-popup p-8 md:p-12'
+          isSidebar ? 'max-w-sidebar pl-12 pr-6 pt-8 md:pl-20 md:pr-14 md:pt-14' : 'max-w-popup p-8 md:p-12'
         }`}
       >
         <div id={id} className={`text-popup font-bold ${isSidebar ? 'mb-6 md:mb-12' : 'mb-3'}`}>
