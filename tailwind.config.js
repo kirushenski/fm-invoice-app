@@ -24,9 +24,12 @@ module.exports = {
       'grey-lightest-alt': '#F9FAFE',
       red: '#EC5757',
       'red-light': '#FF9797',
+      green: '#33D69F',
+      orange: '#FF8F00',
       white: '#FFF',
       black: '#000',
       transparent: 'transparent',
+      current: 'currentColor',
     },
     fontFamily: {
       sans: ['SpartanVariable', ...defaultTheme.fontFamily.sans],
@@ -52,6 +55,7 @@ module.exports = {
       borderRadius: {
         checkbox: '2px',
         input: '4px',
+        status: '6px',
         dropdown: '8px',
         popup: '8px',
         sidebar: '20px',
@@ -66,6 +70,7 @@ module.exports = {
       },
       width: {
         sidebar: '7.5rem',
+        26: '6.5rem',
       },
       height: {
         sidebar: '7.5rem',
