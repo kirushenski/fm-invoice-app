@@ -4,6 +4,9 @@ import Seo from '@/components/Seo'
 
 // TODO Component for empty invoices page
 // TODO Add focus styles
+// TODO Build static home page
+// TODO Build static invoice page
+// TODO Manage local state
 
 // NEW FieldArray
 

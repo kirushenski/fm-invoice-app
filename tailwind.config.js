@@ -77,10 +77,14 @@ module.exports = {
       width: {
         sidebar: '7.5rem',
         26: '6.5rem',
+        empty: '242px',
+        'empty-mobile': '193px',
       },
       height: {
         sidebar: '7.5rem',
         form: 'calc(100vh - 8.5rem)',
+        empty: '200px',
+        'empty-mobile': '160px',
       },
       maxWidth: {
         container: '45.625rem',

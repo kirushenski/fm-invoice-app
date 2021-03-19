@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 /* TODO Add nesting */
+/* TODO Try to simplify components (can i split rules into files?) */
 
 @layer base {
   html {
