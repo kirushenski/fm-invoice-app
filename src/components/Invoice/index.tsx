@@ -19,7 +19,7 @@ const Invoice = ({ id, paymentDue, clientName, total, status, className = '', ..
   return (
     <Link
       to={`/${id}/`}
-      className={`relative grid grid-cols-2 md:grid-cols-invoice items-end md:items-center gap-6 md:gap-5 p-6 md:py-4 bg-white dark:bg-grey-dark text-grey-darkest dark:text-white rounded-invoice shadow-invoice ${className}`}
+      className={`invoice relative grid grid-cols-2 md:grid-cols-invoice items-end md:items-center gap-6 md:gap-5 p-6 md:py-4 ${className}`}
       {...props}
     >
       <div className="font-bold">

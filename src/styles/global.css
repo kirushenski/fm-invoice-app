@@ -230,4 +230,20 @@
   .status-draft {
     @apply status text-grey-darker-alt bg-grey-darker-alt bg-opacity-5 dark:text-grey-lighter dark:bg-grey-lighter dark:bg-opacity-5;
   }
+
+  .invoice {
+    @apply bg-white text-grey-darkest dark:bg-grey-dark dark:text-white rounded-invoice shadow-invoice;
+  }
+
+  .invoice-label {
+    @apply text-purple-light dark:text-grey-lighter mb-3;
+  }
+
+  .invoice-value {
+    @apply font-bold text-invoice;
+  }
+
+  .invoice-address {
+    @apply text-purple-light dark:text-grey-lighter text-small;
+  }
 }

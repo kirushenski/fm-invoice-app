@@ -44,6 +44,7 @@ module.exports = {
       legend: ['1.125rem', { lineHeight: '1.78', letterSpacing: '-0.02em' }],
       error: ['.625rem', { lineHeight: '1.5', letterSpacing: '-0.02em' }],
       popup: ['1.5rem', { lineHeight: '1.33', letterSpacing: '-0.02em' }],
+      invoice: ['.9375rem', { lineHeight: '1.33', letterSpacing: '-0.02em' }],
     },
     boxShadow: {
       dropdown: '0px 10px 20px rgba(72, 84, 159, 0.25)',
