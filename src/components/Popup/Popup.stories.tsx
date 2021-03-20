@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Story } from '@storybook/react'
 import Popup, { PopupProps } from '.'
 import EditInvoice from '@/components/EditInvoice'
+import Layout from '@/components/Layout'
 
 export default {
   title: 'Edit / Popup',
@@ -38,48 +39,57 @@ const SidebarTemplate: Story<PopupProps> = args => {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
   return (
     <>
-      <button className="btn-secondary" onClick={() => setIsPopupOpen(true)}>
-        Edit
-      </button>
-      <Popup {...args} isOpen={isPopupOpen} onRequestClose={() => setIsPopupOpen(false)}>
-        <EditInvoice
-          mode="edit"
-          initialValues={{
-            city: 'London',
-            clientCity: 'Bradford',
-            clientCountry: 'United Kingdom',
-            clientEmail: 'alexgrim@mail.com',
-            clientName: 'Alex Grim',
-            clientPostCode: 'BD1 9PB',
-            clientStreetAddress: '84 Church Way',
-            country: 'United Kingdom',
-            invoiceDate: '21 Aug 2021',
-            items: [
-              {
-                name: 'Banner Design',
-                price: '156.00',
-                qty: 1,
-              },
-              {
-                name: 'Email Design',
-                price: '200.00',
-                qty: 2,
-              },
-            ],
-            paymentTerms: 'Net 30 Days',
-            postCode: 'E1 3EZ',
-            projectDescription: 'Graphic Design',
-            streetAddress: '19 Union Terrace',
-          }}
-          onSubmit={values => {
-            console.log('Update invoice with changes: ', JSON.stringify(values, null, 2))
-          }}
-          onCancel={() => {
-            console.log('Reset form and close popup without saving')
-          }}
-          className="overflow-y-auto h-form"
-        />
-      </Popup>
+      <Layout id="layout">
+        <button className="btn-secondary" onClick={() => setIsPopupOpen(true)}>
+          Edit
+        </button>
+        <Popup
+          {...args}
+          isOpen={isPopupOpen}
+          onRequestClose={() => setIsPopupOpen(false)}
+          parentSelector={() => document.querySelector('#layout') as HTMLElement} // id is added for Storybook only
+        >
+          <EditInvoice
+            mode="edit"
+            initialValues={{
+              city: 'London',
+              clientCity: 'Bradford',
+              clientCountry: 'United Kingdom',
+              clientEmail: 'alexgrim@mail.com',
+              clientName: 'Alex Grim',
+              clientPostCode: 'BD1 9PB',
+              clientStreetAddress: '84 Church Way',
+              country: 'United Kingdom',
+              invoiceDate: '21 Aug 2021',
+              items: [
+                {
+                  name: 'Banner Design',
+                  price: '156.00',
+                  qty: 1,
+                },
+                {
+                  name: 'Email Design',
+                  price: '200.00',
+                  qty: 2,
+                },
+              ],
+              paymentTerms: 'Net 30 Days',
+              postCode: 'E1 3EZ',
+              projectDescription: 'Graphic Design',
+              streetAddress: '19 Union Terrace',
+            }}
+            onSubmit={values => {
+              console.log('Update invoice with changes: ', JSON.stringify(values, null, 2))
+              setIsPopupOpen(false)
+            }}
+            onCancel={() => {
+              console.log('Reset form and close popup without saving')
+              setIsPopupOpen(false)
+            }}
+            className="overflow-y-auto h-form"
+          />
+        </Popup>
+      </Layout>
     </>
   )
 }
@@ -87,4 +97,7 @@ export const Sidebar = SidebarTemplate.bind({})
 Sidebar.args = {
   isSidebar: true,
   heading: 'Edit #XM9141',
+}
+Sidebar.parameters = {
+  layout: 'fullscreen',
 }

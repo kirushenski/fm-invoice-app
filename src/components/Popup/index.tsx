@@ -7,7 +7,6 @@ export interface PopupProps extends ReactModalProps {
   isSidebar?: boolean
 }
 
-// TODO Pass buttons handlers
 // TODO Add auto shadowing
 // TODO Check offsets and stuff on different resolutions
 
@@ -30,8 +29,10 @@ const Popup = ({ heading, children, isSidebar = false, id = 'popup', ...props }:
       {...props}
     >
       <div
-        className={`relative ${
-          isSidebar ? 'max-w-sidebar pl-12 pr-6 pt-8 md:pl-20 md:pr-14 md:pt-14' : 'max-w-popup p-8 md:p-12'
+        className={`${
+          isSidebar
+            ? 'max-w-sidebar-mobile lg:max-w-sidebar p-6 pt-8 pb-0 md:p-14 md:pb-0 lg:pl-44'
+            : 'max-w-popup p-8 md:p-12'
         }`}
       >
         <div id={id} className={`text-popup font-bold ${isSidebar ? 'mb-6 md:mb-12' : 'mb-3'}`}>

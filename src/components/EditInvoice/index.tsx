@@ -185,8 +185,8 @@ const EditInvoice = ({
                 ))}
             </ul>
           ) : null}
-          <div className="z-10 fixed left-0 right-0 bottom-0 h-52 flex items-end justify-items-stretch bg-gradient-to-t from-sidebar pointer-events-none">
-            <div className="w-full flex justify-between px-14 py-8 rounded-r-sidebar bg-white dark:bg-grey-darker pointer-events-auto">
+          <div className="z-10 absolute left-0 right-0 bottom-0 h-52 flex items-end justify-items-stretch bg-gradient-to-t from-sidebar pointer-events-none">
+            <div className="w-full grid grid-flow-col gap-2 justify-between px-6 py-5 md:px-14 md:py-8 lg:pl-44 rounded-r-sidebar bg-white dark:bg-grey-darker pointer-events-auto">
               <div>
                 {mode === 'new' && (
                   <button type="button" className="btn-secondary" onClick={onCancel}>

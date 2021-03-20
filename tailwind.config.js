@@ -66,7 +66,6 @@ module.exports = {
       },
       inset: {
         arrow: '-1.125rem',
-        sidebar: '6.5rem',
         15: '3.75rem',
       },
       gridTemplateColumns: {
@@ -89,7 +88,8 @@ module.exports = {
       maxWidth: {
         container: '45.625rem',
         popup: '30rem',
-        sidebar: '39.5rem',
+        sidebar: '45rem',
+        'sidebar-mobile': '37.5rem',
       },
       gradientColorStops: {
         sidebar: 'rgba(0, 0, 0, .1)',

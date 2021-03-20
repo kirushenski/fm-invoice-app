@@ -35,7 +35,7 @@
 
 @layer components {
   .btn {
-    @apply flex justify-center items-center h-12 px-6 text-body font-bold rounded-full transition-colors;
+    @apply flex justify-center items-center h-12 px-4 md:px-6 text-body font-bold rounded-full transition-colors;
   }
 
   .btn-primary {
@@ -76,6 +76,7 @@
 
   .list-item {
     list-style-type: '– ';
+    @apply list-inside;
   }
 
   .legend {
@@ -164,7 +165,7 @@
   }
 
   .popup-overlay {
-    @apply fixed inset-0 bg-black bg-opacity-50 opacity-0 transition-opacity;
+    @apply absolute inset-0 bg-black bg-opacity-50 opacity-0 transition-opacity;
   }
 
   .popup-overlay:not(.popup-overlay--sidebar) {
@@ -172,7 +173,7 @@
   }
 
   .popup-overlay--sidebar {
-    @apply z-10 left-sidebar;
+    @apply z-10;
   }
 
   .popup-overlay--after-open {
@@ -192,7 +193,7 @@
   }
 
   .popup-content {
-    @apply relative inline-block bg-white dark:bg-grey-darker transform transition-transform;
+    @apply relative inline-block bg-white dark:bg-grey-darker overflow-hidden transform transition-transform;
   }
 
   .popup-content:not(.popup-content--sidebar) {
