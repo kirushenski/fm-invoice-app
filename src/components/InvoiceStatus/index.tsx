@@ -1,5 +1,6 @@
 import React from 'react'
 import { useMedia } from 'react-media'
+import InvoiceControls from '@/components/InvoiceControls'
 
 export interface InvoiceStatusProps extends React.HTMLProps<HTMLDivElement> {
   status: 'paid' | 'pending' | 'draft'
@@ -7,8 +8,6 @@ export interface InvoiceStatusProps extends React.HTMLProps<HTMLDivElement> {
   onDelete: () => void
   onMarkAsPaid: () => void
 }
-
-// TODO Add mobile version of actions bar
 
 const InvoiceStatus = ({ status, onEdit, onDelete, onMarkAsPaid, className = '', ...props }: InvoiceStatusProps) => {
   const isTablet = useMedia({ query: '(min-width: 768px)' })
@@ -24,19 +23,7 @@ const InvoiceStatus = ({ status, onEdit, onDelete, onMarkAsPaid, className = '',
           {status.slice(1)}
         </div>
       </div>
-      {isTablet && (
-        <div className="grid grid-flow-col gap-2">
-          <button className="btn-secondary" onClick={onEdit}>
-            Edit
-          </button>
-          <button className="btn-delete" onClick={onDelete}>
-            Delete
-          </button>
-          <button className="btn-primary" onClick={onMarkAsPaid}>
-            Mark as Paid
-          </button>
-        </div>
-      )}
+      {isTablet && <InvoiceControls onEdit={onEdit} onDelete={onDelete} onMarkAsPaid={onMarkAsPaid} />}
     </section>
   )
 }

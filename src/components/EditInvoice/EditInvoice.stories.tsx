@@ -9,8 +9,6 @@ export default {
 
 const Template: Story<EditInvoiceProps> = args => <EditInvoice {...args} />
 
-// TODO Fix relativeness inside the story
-
 export const New = Template.bind({})
 New.args = {
   mode: 'new',
