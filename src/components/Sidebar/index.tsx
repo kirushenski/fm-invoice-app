@@ -12,22 +12,27 @@ const Sidebar = ({ className = '', ...props }: React.HTMLProps<HTMLDivElement>) 
   const [colorScheme, setColorScheme] = useColorScheme()
   return (
     <aside
-      className={`z-20 flex h-18 md:h-20 lg:h-auto lg:w-sidebar lg:flex-col justify-between bg-grey-darker-alt overflow-hidden lg:rounded-r-sidebar ${className}`}
+      className={`z-20 flex h-18 md:h-20 lg:h-auto lg:w-26 lg:flex-col justify-between bg-grey-darker-alt overflow-hidden lg:rounded-r-sidebar ${className}`}
       {...props}
     >
       <Link
         to="/"
-        className="relative w-18 md:w-20 lg:w-full h-full lg:h-sidebar bg-purple-dark overflow-hidden rounded-r-sidebar"
+        className="logo relative w-18 md:w-20 lg:w-full h-full lg:h-sidebar rounded-r-sidebar overflow-hidden"
       >
-        <div className="absolute top-1/2 left-0 right-0 h-18 md:h-20 lg:h-sidebar bg-purple rounded-l-sidebar" />
-        <Logo title="To home page" className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+        <div className="logo-pattern absolute top-1/2 left-0 right-0 h-18 md:h-20 lg:h-sidebar rounded-l-sidebar" />
+        <Logo
+          title="To home page"
+          className="logo-icon absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        />
       </Link>
       <div className="flex-grow flex justify-end lg:items-end">
         <button
           onClick={() => setColorScheme(colorScheme === 'light' ? 'dark' : 'light')}
           aria-label="Dark mode"
           aria-pressed={colorScheme === 'dark'}
-          className="grid place-items-center px-8 lg:py-8 lg:w-full"
+          className={`grid place-items-center px-8 lg:py-8 lg:w-full ${
+            colorScheme === 'light' ? 'text-purple-light' : 'text-grey-light-alt2'
+          } hover:text-grey-lighter focus:outline-none focus-visible:text-grey-lighter transition-colors`}
         >
           {colorScheme === 'light' ? <Moon /> : <Sun />}
         </button>

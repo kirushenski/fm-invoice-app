@@ -1,5 +1,6 @@
 import React from 'react'
-import Filter from '.'
+import { Story } from '@storybook/react'
+import Filter, { FilterProps } from '.'
 
 export default {
   title: 'Home / Filter',
@@ -7,6 +8,14 @@ export default {
   parameters: {
     layout: 'centered',
   },
+  argTypes: {
+    className: { table: { disable: true } },
+  },
 }
 
-export const Primary = () => <Filter />
+const Template: Story<FilterProps> = args => <Filter {...args} />
+export const Primary = Template.bind({})
+Primary.args = {
+  items: ['draft', 'pending', 'paid'],
+  initialSelectedItems: ['draft', 'pending', 'paid'],
+}

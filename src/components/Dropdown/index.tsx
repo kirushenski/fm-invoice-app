@@ -29,6 +29,7 @@ function Dropdown({ name, children, items, className = '', ...props }: DropdownP
     },
     ...props,
   })
+
   return (
     <div className={`relative ${className}`}>
       <label className={`label ${isError ? 'text-red' : ''}`} {...getLabelProps()}>
@@ -45,9 +46,13 @@ function Dropdown({ name, children, items, className = '', ...props }: DropdownP
         {...getToggleButtonProps()}
       >
         {selectedItem}
-        <ArrowDown className="absolute right-4 top-1/2 transform -translate-y-1/2" />
+        <ArrowDown
+          className={`absolute right-4 top-1/2 transform -translate-y-1/2 transition-transform ${
+            isOpen ? '-rotate-180' : ''
+          }`}
+        />
       </button>
-      <ul className="dropdown right-0" {...getMenuProps()}>
+      <ul className="dropdown right-0 focus:outline-none" {...getMenuProps()}>
         {isOpen &&
           items.map((item, index) => (
             <li

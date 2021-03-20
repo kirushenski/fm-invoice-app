@@ -43,7 +43,7 @@ function Datepicker({ name, children, className = '', dayPickerProps, ...props }
           }}
           component={({ className = '', ...props }) => (
             <div className="relative">
-              <input className={`input pr-12 ${className}`} {...props} />
+              <input className={`input pr-12 ${className}`} autoComplete="off" {...props} />
               <Calendar className="absolute right-4 top-1/2 transform -translate-y-1/2" />
             </div>
           )}

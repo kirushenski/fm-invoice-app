@@ -46,15 +46,13 @@ module.exports = {
       popup: ['1.5rem', { lineHeight: '1.33', letterSpacing: '-0.02em' }],
       invoice: ['.9375rem', { lineHeight: '1.33', letterSpacing: '-0.02em' }],
     },
-    boxShadow: {
-      dropdown: '0px 10px 20px rgba(72, 84, 159, 0.25)',
-      'dropdown-dark': '0px 10px 20px rgba(0, 0, 0, 0.25)',
-      invoice: ' 0px 10px 10px -10px rgba(72, 84, 159, 0.100397)',
-    },
+    boxShadow: theme => ({
+      dropdown: '0 10px 20px rgba(72, 84, 159, .25)',
+      'dropdown-dark': '0 10px 20px rgba(0, 0, 0, .25)',
+      invoice: '0 10px 10px -10px rgba(72, 84, 159, .1)',
+      focus: `0 0 0 1px ${theme('colors.purple-dark')}`,
+    }),
     extend: {
-      outline: theme => ({
-        DEFAULT: [`3px solid ${theme('colors.grey-darkest')}`, '2px'],
-      }),
       borderRadius: {
         checkbox: '2px',
         input: '4px',
@@ -75,7 +73,6 @@ module.exports = {
         invoice: '3fr 5fr 5fr 5fr 6.5rem 4px',
       },
       width: {
-        sidebar: '7.5rem',
         26: '6.5rem',
         empty: '242px',
         'empty-mobile': '193px',
@@ -95,7 +92,7 @@ module.exports = {
         container: '45.625rem',
         popup: '30rem',
         sidebar: '45rem',
-        'sidebar-mobile': '37.5rem',
+        'sidebar-mobile': '38.5rem',
       },
       padding: {
         38: '9.5rem',
@@ -106,13 +103,19 @@ module.exports = {
       translate: {
         18: '4.5rem',
       },
+      rotate: {
+        360: '360deg',
+      },
     },
   },
   variants: {
     extend: {
       borderWidth: ['last'],
-      boxShadow: ['dark'],
+      borderColor: ['focus-visible'],
+      boxShadow: ['dark', 'focus-visible'],
       margin: ['last'],
+      textColor: ['focus-visible'],
+      backgroundColor: ['focus-visible'],
     },
   },
 }

@@ -167,8 +167,12 @@ const EditInvoice = ({
                               : '–'}
                           </output>
                         </div>
-                        <button type="button" onClick={() => remove(index)}>
-                          <Delete title="Remove item" className="text-grey-light hover:text-red transition-colors" />
+                        <button
+                          type="button"
+                          onClick={() => remove(index)}
+                          className="text-grey-light hover:text-red focus-visible:text-red focus:outline-none transition-colors"
+                        >
+                          <Delete title={`Remove item ${index}`} />
                         </button>
                       </div>
                     ))}

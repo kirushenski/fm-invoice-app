@@ -10,7 +10,7 @@ const Checkbox = ({ id, children, ...props }: CheckboxProps) => {
     <>
       <input type="checkbox" id={id} className="sr-only" {...props} />
       <label htmlFor={id} className="checkbox">
-        <Check className="absolute top-2 left-2 transform -translate-x-1/2 -translate-y-1/2 hidden" />
+        <Check className="absolute top-4 left-2 transform -translate-x-1/2 -translate-y-1/2 hidden" />
         {children}
       </label>
     </>

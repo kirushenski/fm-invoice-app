@@ -27,13 +27,9 @@
     -moz-appearance: textfield;
   }
 
-  /* :focus:not(.focus-visible) {
+  :focus:not(:focus-visible) {
     @apply outline-none;
-  } */
-
-  /* :focus {
-    @apply outline;
-  } */
+  }
 }
 
 @layer utilities {
@@ -43,8 +39,12 @@
 }
 
 @layer components {
+  .focus {
+    @apply focus:outline-none focus-visible:shadow-focus;
+  }
+
   .btn {
-    @apply flex justify-center items-center h-12 px-4 md:px-6 text-body font-bold rounded-full transition-colors;
+    @apply flex justify-center items-center h-12 px-4 md:px-6 text-body font-bold rounded-full focus transition-colors;
   }
 
   .btn-primary {
@@ -68,7 +68,7 @@
   }
 
   .input {
-    @apply w-full h-12 px-5 bg-white dark:bg-grey-dark border border-grey-lighter dark:border-grey focus:border-purple font-bold text-left rounded-input placeholder-opacity-40 transition-colors;
+    @apply w-full h-12 px-5 bg-white dark:bg-grey-dark border border-grey-lighter dark:border-grey focus:outline-none focus:border-purple-dark font-bold text-left rounded-input placeholder-opacity-40 transition-colors;
   }
 
   .dropdown {
@@ -97,7 +97,7 @@
   }
 
   .checkbox {
-    @apply relative flex items-center mb-4 last:mb-0 font-bold cursor-pointer;
+    @apply relative flex items-center py-2 font-bold cursor-pointer;
   }
 
   .checkbox::before {
@@ -109,7 +109,7 @@
     @apply border-purple-dark;
   }
 
-  input:focus + .checkbox::before {
+  input:focus-visible + .checkbox::before {
     @apply border-purple-dark;
   }
 
@@ -277,6 +277,28 @@
   }
 
   .sidebar-paddings {
-    @apply px-6 md:px-14 lg:pl-44;
+    @apply px-6 md:px-14 lg:pl-40;
+  }
+
+  .logo {
+    @apply bg-purple-dark hover:bg-purple focus-visible:bg-purple focus:outline-none transition-colors duration-500 ease-in-out;
+  }
+
+  .logo-pattern {
+    @apply bg-purple transition-colors duration-500 ease-in-out;
+  }
+
+  .logo-icon {
+    @apply transition-transform duration-500 ease-in-out;
+  }
+
+  .logo:hover .logo-pattern,
+  .logo:focus-visible .logo-pattern {
+    @apply bg-purple-dark;
+  }
+
+  .logo:hover .logo-icon,
+  .logo:focus-visible .logo-icon {
+    @apply rotate-360;
   }
 }
