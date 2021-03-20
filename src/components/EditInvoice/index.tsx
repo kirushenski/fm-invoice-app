@@ -33,9 +33,21 @@ export interface EditInvoiceProps extends Omit<React.HTMLProps<HTMLFormElement>,
   mode: 'new' | 'edit'
   initialValues: InitialValues
   onSubmit: (values: InitialValues, formikHelpers: FormikHelpers<InitialValues>) => void
+  onCancel: () => void
+  onSaveAsDraft?: (values: InitialValues) => void
 }
 
-const EditInvoice = ({ mode, initialValues, onSubmit, className = '', ...props }: EditInvoiceProps) => {
+// TODO Is saveAsDraft needs submit-like logic or draft can be saved without validation?
+
+const EditInvoice = ({
+  mode,
+  initialValues,
+  onSubmit,
+  onCancel,
+  onSaveAsDraft,
+  className = '',
+  ...props
+}: EditInvoiceProps) => {
   return (
     <Formik
       initialValues={initialValues}
@@ -66,7 +78,7 @@ const EditInvoice = ({ mode, initialValues, onSubmit, className = '', ...props }
       onSubmit={onSubmit}
     >
       {({ values, errors, isValid }) => (
-        <Form noValidate className={`overflow-y-auto h-form pb-28 ${className}`} {...props}>
+        <Form noValidate className={`pb-52 ${className}`} {...props}>
           <fieldset className="mb-10 md:mb-12">
             <legend className="legend">Bill From</legend>
             <div className="form">
@@ -111,7 +123,7 @@ const EditInvoice = ({ mode, initialValues, onSubmit, className = '', ...props }
               </TextField>
             </div>
           </fieldset>
-          <fieldset className="mb-2">
+          <fieldset>
             <legend className="font-bold text-legend text-grey-light-alt mb-4">Item List</legend>
             <div className="hidden md:grid grid-cols-item gap-4">
               <div className="label">Item Name</div>
@@ -122,11 +134,11 @@ const EditInvoice = ({ mode, initialValues, onSubmit, className = '', ...props }
             </div>
             <FieldArray name="items">
               {({ push, remove }) => (
-                <div>
+                <div className="grid gap-12 md:gap-4">
                   {values.items.map((item, index) => (
                     <div
                       key={index}
-                      className="grid grid-cols-item-mobile md:grid-cols-item gap-x-4 gap-y-6 md:gap-y-4 mb-12 md:mb-4"
+                      className="grid grid-cols-item-mobile md:grid-cols-item gap-x-4 gap-y-6 md:gap-y-4"
                     >
                       <TextField name={`items[${index}].name`} hidden className="col-span-full md:col-span-1">
                         Item Name
@@ -160,7 +172,7 @@ const EditInvoice = ({ mode, initialValues, onSubmit, className = '', ...props }
             </FieldArray>
           </fieldset>
           {!isValid ? (
-            <ul className="mb-2">
+            <ul className="mt-8">
               {Object.entries(errors)
                 .map(([name, value]) =>
                   name === 'items' ? (value as FormikErrors<Item>[]).map(item => item && Object.values(item)) : value
@@ -173,17 +185,19 @@ const EditInvoice = ({ mode, initialValues, onSubmit, className = '', ...props }
                 ))}
             </ul>
           ) : null}
-          <div className="z-10 fixed left-0 right-0 bottom-0 h-52 flex items-end justify-items-stretch bg-gradient-to-t from-sidebar">
-            <div className="w-full flex justify-between px-14 py-8 rounded-r-sidebar bg-white dark:bg-grey-darker">
-              {mode === 'new' && (
-                <button type="button" className="btn-secondary">
-                  Discard
-                </button>
-              )}
-              <div className={`flex ${mode === 'edit' ? 'ml-auto' : ''}`}>
+          <div className="z-10 fixed left-0 right-0 bottom-0 h-52 flex items-end justify-items-stretch bg-gradient-to-t from-sidebar pointer-events-none">
+            <div className="w-full flex justify-between px-14 py-8 rounded-r-sidebar bg-white dark:bg-grey-darker pointer-events-auto">
+              <div>
+                {mode === 'new' && (
+                  <button type="button" className="btn-secondary" onClick={onCancel}>
+                    Discard
+                  </button>
+                )}
+              </div>
+              <div className="grid grid-flow-col gap-2">
                 {mode === 'edit' ? (
                   <>
-                    <button type="button" className="btn-secondary mr-2">
+                    <button type="reset" className="btn-secondary" onClick={onCancel}>
                       Cancel
                     </button>
                     <button type="submit" className="btn-primary">
@@ -192,7 +206,7 @@ const EditInvoice = ({ mode, initialValues, onSubmit, className = '', ...props }
                   </>
                 ) : (
                   <>
-                    <button type="button" className="btn-save mr-2">
+                    <button type="button" className="btn-save" onClick={() => onSaveAsDraft?.(values)}>
                       Save as Draft
                     </button>
                     <button type="submit" className="btn-primary">

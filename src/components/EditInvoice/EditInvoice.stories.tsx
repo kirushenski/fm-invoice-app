@@ -31,7 +31,13 @@ New.args = {
     items: [],
   },
   onSubmit: values => {
-    console.log(JSON.stringify(values, null, 2))
+    console.log('Create new invoice with data: ', JSON.stringify(values, null, 2))
+  },
+  onCancel: () => {
+    console.log('Close popup without saving')
+  },
+  onSaveAsDraft: values => {
+    console.log('Create new invoice with data as draft: ', JSON.stringify(values, null, 2))
   },
 }
 
@@ -58,6 +64,9 @@ Edit.args = {
     ],
   },
   onSubmit: values => {
-    console.log(JSON.stringify(values, null, 2))
+    console.log('Update invoice with changes: ', JSON.stringify(values, null, 2))
+  },
+  onCancel: () => {
+    console.log('Reset form and close popup without saving')
   },
 }

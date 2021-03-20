@@ -49,8 +49,12 @@ export const Primary = () => {
             streetAddress: '19 Union Terrace',
           }}
           onSubmit={values => {
-            console.log(JSON.stringify(values, null, 2))
+            console.log('Update invoice with changes: ', JSON.stringify(values, null, 2))
           }}
+          onCancel={() => {
+            console.log('Reset form and close popup without saving')
+          }}
+          className="overflow-y-auto h-form"
         />
       </Popup>
     </Layout>
