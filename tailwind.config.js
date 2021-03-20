@@ -67,9 +67,10 @@ module.exports = {
       inset: {
         arrow: '-1.125rem',
         15: '3.75rem',
+        22: '5.5rem',
       },
       gridTemplateColumns: {
-        item: '4fr 1fr 2fr 1fr 13px',
+        item: '3fr 1fr 2fr 1fr 13px',
         'item-mobile': '1fr 2fr 1fr 13px',
         invoice: '3fr 5fr 5fr 5fr 6.5rem 4px',
       },
@@ -78,12 +79,17 @@ module.exports = {
         26: '6.5rem',
         empty: '242px',
         'empty-mobile': '193px',
+        18: '4.5rem',
       },
       height: {
         sidebar: '7.5rem',
-        form: 'calc(100vh - 8.5rem)',
+        'form-desktop': 'calc(100vh - 8.5rem)',
+        'form-tablet': 'calc(100vh - 13.5rem)',
+        'form-mobile': 'calc(100vh - 10rem)',
         empty: '200px',
         'empty-mobile': '160px',
+        18: '4.5rem',
+        50: '12.5rem',
       },
       maxWidth: {
         container: '45.625rem',
@@ -91,8 +97,14 @@ module.exports = {
         sidebar: '45rem',
         'sidebar-mobile': '37.5rem',
       },
+      padding: {
+        38: '9.5rem',
+      },
       gradientColorStops: {
         sidebar: 'rgba(0, 0, 0, .1)',
+      },
+      translate: {
+        18: '4.5rem',
       },
     },
   },

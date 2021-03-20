@@ -86,7 +86,6 @@ const SidebarTemplate: Story<PopupProps> = args => {
               console.log('Reset form and close popup without saving')
               setIsPopupOpen(false)
             }}
-            className="overflow-y-auto h-form"
           />
         </Popup>
       </Layout>

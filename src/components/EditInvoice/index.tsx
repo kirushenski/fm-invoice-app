@@ -78,143 +78,154 @@ const EditInvoice = ({
       onSubmit={onSubmit}
     >
       {({ values, errors, isValid }) => (
-        <Form noValidate className={`pb-52 ${className}`} {...props}>
-          <fieldset className="mb-10 md:mb-12">
-            <legend className="legend">Bill From</legend>
-            <div className="form">
-              <TextField name="streetAddress" className="col-span-full">
-                Street Address
-              </TextField>
-              <TextField name="city">City</TextField>
-              <TextField name="postCode">Post Code</TextField>
-              <TextField name="country" className="col-span-full md:col-span-1">
-                Country
-              </TextField>
-            </div>
-          </fieldset>
-          <fieldset className="mb-10 md:mb-12">
-            <legend className="legend">Bill To</legend>
-            <div className="form">
-              <TextField name="clientName" className="col-span-full">
-                Client’s Name
-              </TextField>
-              <TextField name="clientEmail" type="email" placeholder="e.g. email@example.com" className="col-span-full">
-                Client’s Email
-              </TextField>
-              <TextField name="clientStreetAddress" className="col-span-full">
-                Street Address
-              </TextField>
-              <TextField name="clientCity">City</TextField>
-              <TextField name="clientPostCode">Post Code</TextField>
-              <TextField name="clientCountry" className="col-span-full md:col-span-1">
-                Country
-              </TextField>
-            </div>
-          </fieldset>
-          <fieldset className="mb-16 md:mb-8">
-            <legend className="sr-only">Details</legend>
-            <div className="grid md:grid-cols-2 gap-6">
-              <Datepicker name="invoiceDate">Invoice Date</Datepicker>
-              <Dropdown name="paymentTerms" items={['Net 1 Day', 'Net 7 Days', 'Net 14 Days', 'Net 30 Days']}>
-                Payment Terms
-              </Dropdown>
-              <TextField name="projectDescription" placeholder="e.g. Graphic Design Service" className="col-span-full">
-                Project Description
-              </TextField>
-            </div>
-          </fieldset>
-          <fieldset>
-            <legend className="font-bold text-legend text-grey-light-alt mb-4">Item List</legend>
-            <div className="hidden md:grid grid-cols-item gap-4">
-              <div className="label">Item Name</div>
-              <div className="label">Qty.</div>
-              <div className="label">Price</div>
-              <div className="label">Total</div>
-              <div className="sr-only">Remove</div>
-            </div>
-            <FieldArray name="items">
-              {({ push, remove }) => (
-                <div className="grid gap-12 md:gap-4">
-                  {values.items.map((item, index) => (
-                    <div
-                      key={index}
-                      className="grid grid-cols-item-mobile md:grid-cols-item gap-x-4 gap-y-6 md:gap-y-4"
-                    >
-                      <TextField name={`items[${index}].name`} hidden className="col-span-full md:col-span-1">
-                        Item Name
-                      </TextField>
-                      <TextField name={`items[${index}].qty`} type="number" min={1} hidden>
-                        Qty.
-                      </TextField>
-                      <TextField name={`items[${index}].price`} hidden>
-                        Price
-                      </TextField>
-                      <div>
-                        <div className="label md:sr-only">Total</div>
-                        <output className="input flex items-center bg-transparent dark:bg-transparent text-grey-light border-none px-0">
-                          {!Number.isNaN(parseFloat(item.price)) ? (parseFloat(item.price) * item.qty).toFixed(2) : '–'}
-                        </output>
+        <Form noValidate className={`relative ${className}`} {...props}>
+          <div className="h-form-mobile md:h-form-tablet lg:h-form-desktop overflow-y-auto scroll-gradient sidebar-paddings pb-38 md:pb-64">
+            <fieldset className="mb-10 md:mb-12">
+              <legend className="legend">Bill From</legend>
+              <div className="form">
+                <TextField name="streetAddress" className="col-span-full">
+                  Street Address
+                </TextField>
+                <TextField name="city">City</TextField>
+                <TextField name="postCode">Post Code</TextField>
+                <TextField name="country" className="col-span-full md:col-span-1">
+                  Country
+                </TextField>
+              </div>
+            </fieldset>
+            <fieldset className="mb-10 md:mb-12">
+              <legend className="legend">Bill To</legend>
+              <div className="form">
+                <TextField name="clientName" className="col-span-full">
+                  Client’s Name
+                </TextField>
+                <TextField
+                  name="clientEmail"
+                  type="email"
+                  placeholder="e.g. email@example.com"
+                  className="col-span-full"
+                >
+                  Client’s Email
+                </TextField>
+                <TextField name="clientStreetAddress" className="col-span-full">
+                  Street Address
+                </TextField>
+                <TextField name="clientCity">City</TextField>
+                <TextField name="clientPostCode">Post Code</TextField>
+                <TextField name="clientCountry" className="col-span-full md:col-span-1">
+                  Country
+                </TextField>
+              </div>
+            </fieldset>
+            <fieldset className="mb-16 md:mb-8">
+              <legend className="sr-only">Details</legend>
+              <div className="grid md:grid-cols-2 gap-6">
+                <Datepicker name="invoiceDate">Invoice Date</Datepicker>
+                <Dropdown name="paymentTerms" items={['Net 1 Day', 'Net 7 Days', 'Net 14 Days', 'Net 30 Days']}>
+                  Payment Terms
+                </Dropdown>
+                <TextField
+                  name="projectDescription"
+                  placeholder="e.g. Graphic Design Service"
+                  className="col-span-full"
+                >
+                  Project Description
+                </TextField>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend className="font-bold text-legend text-grey-light-alt mb-4">Item List</legend>
+              <div className="hidden md:grid grid-cols-item gap-4">
+                <div className="label">Item Name</div>
+                <div className="label">Qty.</div>
+                <div className="label">Price</div>
+                <div className="label">Total</div>
+                <div className="sr-only">Remove</div>
+              </div>
+              <FieldArray name="items">
+                {({ push, remove }) => (
+                  <div className="grid gap-12 md:gap-4">
+                    {values.items.map((item, index) => (
+                      <div
+                        key={index}
+                        className="grid grid-cols-item-mobile md:grid-cols-item gap-x-4 gap-y-6 md:gap-y-4"
+                      >
+                        <TextField name={`items[${index}].name`} hidden className="col-span-full md:col-span-1">
+                          Item Name
+                        </TextField>
+                        <TextField name={`items[${index}].qty`} type="number" min={1} hidden>
+                          Qty.
+                        </TextField>
+                        <TextField name={`items[${index}].price`} hidden>
+                          Price
+                        </TextField>
+                        <div>
+                          <div className="label md:sr-only">Total</div>
+                          <output className="input flex items-center bg-transparent dark:bg-transparent text-grey-light border-none px-0">
+                            {!Number.isNaN(parseFloat(item.price))
+                              ? (parseFloat(item.price) * item.qty).toFixed(2)
+                              : '–'}
+                          </output>
+                        </div>
+                        <button type="button" onClick={() => remove(index)}>
+                          <Delete title="Remove item" className="text-grey-light hover:text-red transition-colors" />
+                        </button>
                       </div>
-                      <button type="button" onClick={() => remove(index)}>
-                        <Delete title="Remove item" />
-                      </button>
-                    </div>
+                    ))}
+                    <button
+                      type="button"
+                      className="btn-secondary w-full"
+                      onClick={() => push({ name: '', qty: 1, price: '0.00' })}
+                    >
+                      + Add New Item
+                    </button>
+                  </div>
+                )}
+              </FieldArray>
+            </fieldset>
+            {!isValid ? (
+              <ul className="mt-8">
+                {Object.entries(errors)
+                  .map(([name, value]) =>
+                    name === 'items' ? (value as FormikErrors<Item>[]).map(item => item && Object.values(item)) : value
+                  )
+                  .flat(2)
+                  .map((error, index) => (
+                    <li key={index} className="list-item error">
+                      {error}
+                    </li>
                   ))}
-                  <button
-                    type="button"
-                    className="btn-secondary w-full"
-                    onClick={() => push({ name: '', qty: 1, price: '0.00' })}
-                  >
-                    + Add New Item
-                  </button>
-                </div>
+              </ul>
+            ) : null}
+          </div>
+          <div className="z-10 absolute left-0 right-0 bottom-0 grid grid-flow-col gap-2 justify-between sidebar-paddings py-5 md:py-8 md:rounded-r-sidebar bg-white dark:bg-grey-darker">
+            <div>
+              {mode === 'new' && (
+                <button type="button" className="btn-secondary" onClick={onCancel}>
+                  Discard
+                </button>
               )}
-            </FieldArray>
-          </fieldset>
-          {!isValid ? (
-            <ul className="mt-8">
-              {Object.entries(errors)
-                .map(([name, value]) =>
-                  name === 'items' ? (value as FormikErrors<Item>[]).map(item => item && Object.values(item)) : value
-                )
-                .flat(2)
-                .map((error, index) => (
-                  <li key={index} className="list-item error">
-                    {error}
-                  </li>
-                ))}
-            </ul>
-          ) : null}
-          <div className="z-10 absolute left-0 right-0 bottom-0 h-52 flex items-end justify-items-stretch bg-gradient-to-t from-sidebar pointer-events-none">
-            <div className="w-full grid grid-flow-col gap-2 justify-between px-6 py-5 md:px-14 md:py-8 lg:pl-44 rounded-r-sidebar bg-white dark:bg-grey-darker pointer-events-auto">
-              <div>
-                {mode === 'new' && (
-                  <button type="button" className="btn-secondary" onClick={onCancel}>
-                    Discard
+            </div>
+            <div className="grid grid-flow-col gap-2">
+              {mode === 'edit' ? (
+                <>
+                  <button type="reset" className="btn-secondary" onClick={onCancel}>
+                    Cancel
                   </button>
-                )}
-              </div>
-              <div className="grid grid-flow-col gap-2">
-                {mode === 'edit' ? (
-                  <>
-                    <button type="reset" className="btn-secondary" onClick={onCancel}>
-                      Cancel
-                    </button>
-                    <button type="submit" className="btn-primary">
-                      Save Changes
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <button type="button" className="btn-save" onClick={() => onSaveAsDraft?.(values)}>
-                      Save as Draft
-                    </button>
-                    <button type="submit" className="btn-primary">
-                      Save & Send
-                    </button>
-                  </>
-                )}
-              </div>
+                  <button type="submit" className="btn-primary">
+                    Save Changes
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button type="button" className="btn-save" onClick={() => onSaveAsDraft?.(values)}>
+                    Save as Draft
+                  </button>
+                  <button type="submit" className="btn-primary">
+                    Save & Send
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </Form>
