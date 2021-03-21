@@ -77,7 +77,7 @@ const EditInvoice = ({
     >
       {({ values, errors, isValid }) => (
         <Form noValidate className={`relative ${className}`} {...props}>
-          <div className="h-form-mobile md:h-form-tablet lg:h-form-desktop overflow-y-auto scroll-gradient sidebar-paddings pb-38 md:pb-64">
+          <div className="h-full overflow-y-auto scroll-gradient sidebar-paddings pb-38 md:pb-64">
             <fieldset className="mb-10 md:mb-12">
               <legend className="legend">Bill From</legend>
               <div className="form">

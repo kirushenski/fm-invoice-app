@@ -50,6 +50,7 @@ const SidebarTemplate: Story<PopupProps> = args => {
           parentSelector={() => document.querySelector('#layout') as HTMLElement} // id is added for Storybook only
         >
           <EditInvoice
+            className="h-form-mobile md:h-form-tablet lg:h-form-desktop"
             mode="edit"
             initialValues={{
               city: 'London',
