@@ -14,8 +14,6 @@ export default {
   },
 }
 
-// TODO Fix handler in this story
-
 const Template: Story<DropdownProps> = args => (
   <Formik
     initialValues={{ paymentTerms: 'Net 30 Days' }}

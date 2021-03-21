@@ -37,8 +37,6 @@ export interface EditInvoiceProps extends Omit<React.HTMLProps<HTMLFormElement>,
   onSaveAsDraft?: (values: InitialValues) => void
 }
 
-// TODO Is saveAsDraft needs submit-like logic or draft can be saved without validation?
-
 const EditInvoice = ({
   mode,
   initialValues,

@@ -1,32 +1,30 @@
 import React from 'react'
-import { useSelect, useMultipleSelection, UseSelectProps } from 'downshift'
+import { useSelect, useMultipleSelection, UseSelectProps, UseMultipleSelectionStateChange } from 'downshift'
 import Checkbox from '@/components/Checkbox'
 import ArrowDown from '@/icons/arrow-down.svg'
 
-// TODO Add animation
-// TODO Make this component work (a11y & state)
-
 export interface FilterProps extends UseSelectProps<string> {
   initialSelectedItems?: string[]
+  onSelectedItemsChange?: (changes: UseMultipleSelectionStateChange<string>) => void
   className?: string
 }
 
-const Filter = ({ items, initialSelectedItems, className = '', ...props }: FilterProps) => {
-  const { getDropdownProps, addSelectedItem } = useMultipleSelection({ initialSelectedItems })
+const Filter = ({ items, initialSelectedItems, onSelectedItemsChange, className = '', ...props }: FilterProps) => {
+  const { getDropdownProps, addSelectedItem, removeSelectedItem, selectedItems } = useMultipleSelection({
+    initialSelectedItems,
+    onSelectedItemsChange,
+  })
+
   const { isOpen, getToggleButtonProps, getMenuProps, getItemProps } = useSelect({
     items,
     selectedItem: null,
-    defaultHighlightedIndex: 0, // after selection, highlight the first item.
     stateReducer: (_, actionAndChanges) => {
       const { changes, type } = actionAndChanges
       switch (type) {
         case useSelect.stateChangeTypes.MenuKeyDownEnter:
         case useSelect.stateChangeTypes.MenuKeyDownSpaceButton:
         case useSelect.stateChangeTypes.ItemClick:
-          return {
-            ...changes,
-            isOpen: true, // keep the menu open after selection.
-          }
+          return { ...changes, isOpen: true }
       }
       return changes
     },
@@ -36,11 +34,12 @@ const Filter = ({ items, initialSelectedItems, className = '', ...props }: Filte
         case useSelect.stateChangeTypes.MenuKeyDownSpaceButton:
         case useSelect.stateChangeTypes.ItemClick:
           if (selectedItem) {
-            addSelectedItem(selectedItem)
+            if (selectedItems.includes(selectedItem)) {
+              removeSelectedItem(selectedItem)
+            } else {
+              addSelectedItem(selectedItem)
+            }
           }
-          break
-        default:
-          break
       }
     },
     ...props,
@@ -56,20 +55,19 @@ const Filter = ({ items, initialSelectedItems, className = '', ...props }: Filte
         <span className="font-bold mr-4">Filter by status</span>
         <ArrowDown className={`transform transition-transform ${isOpen ? '-rotate-180' : ''}`} />
       </button>
-      {isOpen && (
-        <div className="dropdown p-6 w-48 left-1/2 -translate-x-1/2 translate-y-2" {...getMenuProps()}>
-          {isOpen &&
-            items.map((item, index) => (
-              <Checkbox
-                key={`${item}${index}`}
-                {...getItemProps({ item, index, name: 'filter', value: item, id: item })}
-              >
-                {item[0].toUpperCase()}
-                {item.slice(1)}
-              </Checkbox>
+      <div className="dropdown-wrapper" {...getMenuProps()}>
+        {isOpen && (
+          <ul className="dropdown w-48 p-6 left-1/2 -translate-x-1/2 translate-y-2">
+            {items.map((item, index) => (
+              <li key={item} {...getItemProps({ item, index })}>
+                <Checkbox id={item} checked={selectedItems.includes(item)} disabled>
+                  {`${item[0].toUpperCase()}${item.slice(1)}`}
+                </Checkbox>
+              </li>
             ))}
-        </div>
-      )}
+          </ul>
+        )}
+      </div>
     </div>
   )
 }

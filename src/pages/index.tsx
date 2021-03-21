@@ -2,10 +2,12 @@ import React from 'react'
 import Layout from '@/components/Layout'
 import Seo from '@/components/Seo'
 
-// TODO Add focus styles
-// TODO Build static home page
-// TODO Build static invoice page
-// TODO Manage local state
+// 1. Downshift Nightmare (Datepicker, Dropdown, Datepicker)
+// 2. Images Nightmare (Sidebar)
+// 3. Tailwind Nightmare (Theme, Styles)
+// 4. Build static pages
+// 5. Manage local state
+// 6. Setup serverless app
 
 // NEW FieldArray
 

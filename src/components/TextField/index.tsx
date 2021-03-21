@@ -9,8 +9,6 @@ export interface TextFieldProps extends React.HTMLProps<HTMLInputElement> {
   Input?: React.ReactNode
 }
 
-// TODO Fix initial value rerender for datepicker
-
 function TextField({
   children,
   type = 'text',

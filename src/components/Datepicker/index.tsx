@@ -14,6 +14,7 @@ export interface DatepickerProps extends DayPickerInputProps {
   className?: string
 }
 
+// TODO Fix initial value rerender for datepicker
 // TODO Fix blur on type
 
 function Datepicker({ name, children, className = '', dayPickerProps, ...props }: DatepickerProps) {

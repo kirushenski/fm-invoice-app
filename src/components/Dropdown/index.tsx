@@ -9,6 +9,8 @@ export interface DropdownProps extends UseSelectProps<string> {
   className?: string
 }
 
+// TODO Fix handler in this story
+
 function Dropdown({ name, children, items, className = '', ...props }: DropdownProps) {
   const [field, meta, helpers] = useField(name)
   const isError = meta.touched && meta.error
@@ -52,20 +54,24 @@ function Dropdown({ name, children, items, className = '', ...props }: DropdownP
           }`}
         />
       </button>
-      <ul className="dropdown right-0 focus:outline-none" {...getMenuProps()}>
-        {isOpen &&
-          items.map((item, index) => (
-            <li
-              key={`${item}${index}`}
-              className={`flex items-center h-12 px-5 font-bold border-b last:border-none border-grey-lighter dark:border-grey-dark cursor-pointer ${
-                index === highlightedIndex ? 'text-purple-dark dark:text-purple' : ''
-              }`}
-              {...getItemProps({ item, index })}
-            >
-              {item}
-            </li>
-          ))}
-      </ul>
+
+      <div className="dropdown-wrapper" {...getMenuProps()}>
+        {isOpen && (
+          <ul className="dropdown right-0">
+            {items.map((item, index) => (
+              <li
+                key={item}
+                className={`flex items-center h-12 px-5 font-bold border-b last:border-none border-grey-lighter dark:border-grey-dark cursor-pointer ${
+                  index === highlightedIndex ? 'text-purple-dark dark:text-purple' : ''
+                }`}
+                {...getItemProps({ item, index })}
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   )
 }
