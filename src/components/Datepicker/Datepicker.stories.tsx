@@ -14,7 +14,7 @@ export default {
 
 const Template: Story<DatepickerProps> = args => (
   <Formik
-    initialValues={{ invoiceDate: '' }}
+    initialValues={{ invoiceDate: '21 Aug 2021' }}
     validationSchema={Yup.object().shape({
       invoiceDate: Yup.date().nullable().required('Invoice Date cannot be empty'),
     })}

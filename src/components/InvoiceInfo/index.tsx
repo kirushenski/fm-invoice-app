@@ -62,7 +62,7 @@ const InvoiceInfo = ({
         <div>
           <div className="invoice-label">Invoice Date</div>
           <time dateTime={createdAtDate.toISOString()} className="invoice-value">
-            {format(createdAtDate, 'dd MMM yyyy')}
+            {format(createdAtDate, 'dd MMM y')}
           </time>
         </div>
         <div className="row-span-2">
@@ -78,7 +78,7 @@ const InvoiceInfo = ({
         <div className="md:order-2">
           <div className="invoice-label">Payment Due</div>
           <time dateTime={paymentDueDate.toISOString()} className="invoice-value">
-            {format(paymentDueDate, 'dd MMM yyyy')}
+            {format(paymentDueDate, 'dd MMM y')}
           </time>
         </div>
         <div className="md:order-1 col-span-full md:col-span-1">

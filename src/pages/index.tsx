@@ -2,7 +2,6 @@ import React from 'react'
 import Layout from '@/components/Layout'
 import Seo from '@/components/Seo'
 
-// 1. Downshift Nightmare (Datepicker, Dropdown, Datepicker)
 // 2. Images Nightmare (Sidebar)
 // 3. Tailwind Nightmare (Theme, Styles)
 // 4. Build static pages

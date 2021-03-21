@@ -29,7 +29,7 @@ const Invoice = ({ id, paymentDue, clientName, total, status, className = '', ..
       <div className="absolute md:static left-6 top-15">
         <span className="text-grey-light dark:text-grey-lighter">Due </span>
         <time dateTime={paymentDueDate.toISOString()} className="text-purple-light dark:text-grey-lighter">
-          {format(paymentDueDate, 'dd MMM yyyy')}
+          {format(paymentDueDate, 'dd MMM y')}
         </time>
       </div>
       <div className="text-grey-light-alt2 text-right md:text-left">{clientName}</div>

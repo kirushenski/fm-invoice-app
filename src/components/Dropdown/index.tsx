@@ -9,8 +9,6 @@ export interface DropdownProps extends UseSelectProps<string> {
   className?: string
 }
 
-// TODO Fix handler in this story
-
 function Dropdown({ name, children, items, className = '', ...props }: DropdownProps) {
   const [field, meta, helpers] = useField(name)
   const isError = meta.touched && meta.error

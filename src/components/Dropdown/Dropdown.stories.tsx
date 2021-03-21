@@ -8,8 +8,6 @@ export default {
   title: 'Edit / Dropdown',
   component: Dropdown,
   argTypes: {
-    selectedItem: { control: false },
-    onSelectedItemChange: { control: false },
     className: { table: { disable: true } },
   },
 }
