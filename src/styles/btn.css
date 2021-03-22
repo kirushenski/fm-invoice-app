@@ -7,11 +7,11 @@
     }
 
     &-secondary {
-      @apply bg-grey-lightest-alt hover:bg-grey-lighter dark:bg-grey dark:hover:bg-white text-purple-light dark:text-grey-lighter;
+      @apply bg-grey-lightest hover:bg-grey-lighter dark:bg-grey dark:hover:bg-white text-purple-light dark:text-grey-lighter;
     }
 
     &-save {
-      @apply bg-grey-darker-alt hover:bg-grey-darkest dark:hover:bg-grey-dark text-grey-light dark:text-grey-lighter;
+      @apply bg-grey hover:bg-grey-darkest dark:hover:bg-grey-dark text-grey-light dark:text-grey-lighter;
     }
 
     &-delete {

@@ -123,7 +123,7 @@ const EditInvoice = ({
               </div>
             </fieldset>
             <fieldset>
-              <legend className="font-bold text-legend text-grey-light-alt mb-4">Item List</legend>
+              <legend className="font-bold text-legend text-purple-light mb-4">Item List</legend>
               <div className="hidden md:grid grid-cols-item gap-4">
                 <div className="label">Item Name</div>
                 <div className="label">Qty.</div>

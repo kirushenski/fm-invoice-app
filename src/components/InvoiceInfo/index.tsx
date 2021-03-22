@@ -63,7 +63,7 @@ const InvoiceInfo = ({
           <div className="invoice-value">{clientEmail}</div>
         </div>
       </div>
-      <div className="bg-grey-lightest-alt dark:bg-grey rounded-invoice overflow-hidden">
+      <div className="bg-grey-lightest dark:bg-grey rounded-invoice overflow-hidden">
         <div className="p-6 md:p-8 md:pb-10">
           <div className="sr-only md:not-sr-only mb-8 md:mb-8 grid grid-cols-6 text-small text-purple-light">
             <div id="invoice-name" className="col-span-3">
@@ -113,7 +113,7 @@ const InvoiceInfo = ({
             ))}
           </ol>
         </div>
-        <div className="flex justify-between items-center p-6 md:px-8 bg-grey-darker-alt dark:grey-darkest text-white">
+        <div className="flex justify-between items-center p-6 md:px-8 bg-grey dark:grey-darkest text-white">
           <div className="text-small">Amount Due</div>
           <div className="text-popup font-bold">
             {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'GBP' })

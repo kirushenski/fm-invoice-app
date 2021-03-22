@@ -16,7 +16,7 @@
     }
 
     &-draft {
-      @apply text-grey-darker-alt bg-grey-darker-alt bg-opacity-5 dark:text-grey-lighter dark:bg-grey-lighter dark:bg-opacity-5;
+      @apply text-grey bg-grey bg-opacity-5 dark:text-grey-lighter dark:bg-grey-lighter dark:bg-opacity-5;
     }
   }
 }

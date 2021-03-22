@@ -27,7 +27,7 @@ const Invoice = ({ id, paymentDue, clientName, total, status, className = '', ..
           {format(paymentDueDate, 'dd MMM y')}
         </time>
       </div>
-      <div className="text-grey-light-alt2 dark:text-white text-right md:text-left">{clientName}</div>
+      <div className="text-purple-light dark:text-white text-right md:text-left">{clientName}</div>
       <div className="font-bold text-h3 pr-5 md:text-right">
         {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'GBP' }).format(total).replace(/^(\D)/, '$1 ')}
       </div>

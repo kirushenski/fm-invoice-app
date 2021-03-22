@@ -12,7 +12,7 @@ const InvoiceStatus = ({ status, onEdit, onDelete, onMarkAsPaid, className = '',
   return (
     <section className={`invoice flex items-center justify-between p-6 md:px-8 md:py-5 ${className}`} {...props}>
       <div className="w-full md:w-auto grid grid-flow-col gap-4 items-center justify-between md:justify-start">
-        <div className="text-grey-light-alt2 dark:text-grey-lighter">Status</div>
+        <div className="text-purple-light dark:text-grey-lighter">Status</div>
         <div
           className={`status ${
             status === 'paid' ? 'status-paid' : status === 'pending' ? 'status-pending' : 'status-draft'
