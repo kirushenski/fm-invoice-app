@@ -167,7 +167,7 @@ const EditInvoice = ({
                     ))}
                     <button
                       type="button"
-                      className="btn-secondary w-full"
+                      className="btn btn-secondary w-full"
                       onClick={() => push({ name: '', qty: 1, price: '0.00' })}
                     >
                       + Add New Item
@@ -194,7 +194,7 @@ const EditInvoice = ({
           <div className="absolute left-0 right-0 bottom-0 grid grid-flow-col gap-2 justify-between sidebar-paddings py-5 md:py-8 md:rounded-r-sidebar bg-white dark:bg-grey-darker">
             <div>
               {mode === 'new' && (
-                <button type="button" className="btn-secondary" onClick={onCancel}>
+                <button type="button" className="btn btn-secondary" onClick={onCancel}>
                   Discard
                 </button>
               )}
@@ -202,19 +202,19 @@ const EditInvoice = ({
             <div className="grid grid-flow-col gap-2">
               {mode === 'edit' ? (
                 <>
-                  <button type="reset" className="btn-secondary" onClick={onCancel}>
+                  <button type="reset" className="btn btn-secondary" onClick={onCancel}>
                     Cancel
                   </button>
-                  <button type="submit" className="btn-primary">
+                  <button type="submit" className="btn btn-primary">
                     Save Changes
                   </button>
                 </>
               ) : (
                 <>
-                  <button type="button" className="btn-save" onClick={() => onSaveAsDraft?.(values)}>
+                  <button type="button" className="btn btn-save" onClick={() => onSaveAsDraft?.(values)}>
                     Save as Draft
                   </button>
-                  <button type="submit" className="btn-primary">
+                  <button type="submit" className="btn btn-primary">
                     Save & Send
                   </button>
                 </>

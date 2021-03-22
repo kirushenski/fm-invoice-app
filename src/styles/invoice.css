@@ -1,22 +1,22 @@
 @layer components {
   .invoice {
     @apply bg-white text-grey-darkest dark:bg-grey-dark dark:text-white rounded-invoice shadow-invoice;
-  }
 
-  .invoice-label {
-    @apply text-purple-light dark:text-grey-lighter mb-3;
-  }
+    &-label {
+      @apply text-purple-light dark:text-grey-lighter mb-3;
+    }
 
-  .invoice-value {
-    @apply font-bold text-invoice;
-  }
+    &-value {
+      @apply font-bold text-invoice;
+    }
 
-  .invoice-address {
-    @apply text-purple-light dark:text-grey-lighter text-small;
-  }
+    &-address {
+      @apply text-purple-light dark:text-grey-lighter text-small;
+    }
 
-  .invoice-price::before {
-    content: 'x';
-    @apply mx-1 md:hidden;
+    &-price::before {
+      content: 'x';
+      @apply mx-1 md:hidden;
+    }
   }
 }

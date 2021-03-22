@@ -1,57 +1,59 @@
 @layer components {
-  .popup-overlay {
-    @apply fixed inset-0 bg-black bg-opacity-50 opacity-0 transition-opacity;
-  }
+  .popup {
+    &-overlay {
+      @apply fixed inset-0 bg-black bg-opacity-50 opacity-0 transition-opacity;
 
-  .popup-overlay:not(.popup-overlay--sidebar) {
-    @apply z-30 grid place-items-center px-6;
-  }
+      &:not(&--sidebar) {
+        @apply z-30 grid place-items-center px-6;
+      }
 
-  .popup-overlay--sidebar {
-    @apply z-10;
-  }
+      &--sidebar {
+        @apply z-10;
+      }
 
-  .popup-overlay--after-open {
-    @apply opacity-100;
-  }
+      &--after-open {
+        @apply opacity-100;
+      }
 
-  .popup-overlay--before-close {
-    @apply opacity-0;
-  }
+      &--before-close {
+        @apply opacity-0;
+      }
 
-  .popup-overlay--before-close:not(.popup-overlay--sidebar) {
-    @apply duration-300;
-  }
+      &--before-close:not(&--sidebar) {
+        @apply duration-300;
+      }
 
-  .popup-overlay--before-close.popup-overlay--sidebar {
-    @apply duration-300 delay-700;
-  }
+      &--before-close&--sidebar {
+        @apply duration-300 delay-700;
+      }
+    }
 
-  .popup-content {
-    @apply relative inline-block bg-white dark:bg-grey-darker overflow-hidden transform transition-transform;
-  }
+    &-content {
+      @apply relative inline-block bg-white dark:bg-grey-darker overflow-hidden transform transition-transform;
 
-  .popup-content:not(.popup-content--sidebar) {
-    @apply max-h-full rounded-popup scale-90;
-  }
+      &:not(&--sidebar) {
+        @apply max-h-full rounded-popup scale-90;
+      }
 
-  .popup-content--sidebar {
-    @apply h-full md:rounded-r-sidebar translate-y-18 md:translate-y-20 lg:translate-y-0 -translate-x-full duration-500 delay-150;
-  }
+      &--sidebar {
+        @apply h-full md:rounded-r-sidebar translate-y-18 md:translate-y-20 lg:translate-y-0 -translate-x-full duration-500 delay-150;
+      }
 
-  .popup-content--after-open:not(.popup-content--sidebar) {
-    @apply scale-100;
-  }
+      &--after-open:not(&--sidebar) {
+        @apply scale-100;
+      }
 
-  .popup-content--before-close:not(.popup-content--sidebar) {
-    @apply scale-90 duration-300;
-  }
+      &--before-close:not(&--sidebar) {
+        @apply scale-90 duration-300;
+      }
 
-  .popup-content--after-open.popup-content--sidebar {
-    @apply translate-x-0;
-  }
+      &--after-open&--sidebar {
+        @apply translate-x-0;
+      }
 
-  .popup-content--before-close.popup-content--sidebar {
-    @apply -translate-x-full duration-700;
+      &--before-close&--sidebar {
+        @apply -translate-x-full duration-700;
+      }
+    }
   }
 }

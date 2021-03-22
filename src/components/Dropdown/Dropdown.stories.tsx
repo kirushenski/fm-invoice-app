@@ -24,7 +24,7 @@ const Template: Story<DropdownProps> = args => (
   >
     <Form noValidate>
       <Dropdown {...args} />
-      <button type="submit" className="btn-primary mt-4">
+      <button type="submit" className="btn btn-primary mt-4">
         Submit
       </button>
     </Form>

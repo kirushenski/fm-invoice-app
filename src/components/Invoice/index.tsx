@@ -32,7 +32,7 @@ const Invoice = ({ id, paymentDue, clientName, total, status, className = '', ..
         {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'GBP' }).format(total).replace(/^(\D)/, '$1 ')}
       </div>
       <div
-        className={`ml-auto md:ml-0 ${
+        className={`ml-auto md:ml-0 status ${
           status === 'paid' ? 'status-paid' : status === 'pending' ? 'status-pending' : 'status-draft'
         }`}
       >
