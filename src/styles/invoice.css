@@ -1,13 +1,13 @@
 @layer components {
   .invoice {
-    @apply bg-white text-grey-darkest dark:bg-grey-dark dark:text-white rounded-invoice shadow-invoice;
+    @apply bg-white text-grey-darkest dark:bg-grey-dark dark:text-white rounded shadow-invoice;
 
     &-label {
       @apply text-purple-light dark:text-grey-lighter mb-3;
     }
 
     &-value {
-      @apply font-bold text-invoice;
+      @apply font-bold text-h4;
     }
 
     &-address {

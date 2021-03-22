@@ -16,7 +16,7 @@
   }
 
   .error {
-    @apply text-error text-red font-semibold;
+    @apply text-small text-red font-semibold;
   }
 
   .legend {

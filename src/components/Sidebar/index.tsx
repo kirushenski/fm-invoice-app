@@ -16,11 +16,8 @@ const Sidebar = ({ avatar, className = '', ...props }: SidebarProps) => {
       className={`z-20 flex h-18 md:h-20 lg:h-auto lg:w-26 lg:flex-col justify-between bg-grey overflow-hidden lg:rounded-r-sidebar ${className}`}
       {...props}
     >
-      <Link
-        to="/"
-        className="logo relative w-18 md:w-20 lg:w-full h-full lg:h-sidebar rounded-r-sidebar overflow-hidden"
-      >
-        <div className="logo-pattern absolute top-1/2 left-0 right-0 h-18 md:h-20 lg:h-sidebar rounded-l-sidebar" />
+      <Link to="/" className="logo relative w-18 md:w-20 lg:w-full h-full lg:h-26 rounded-r-sidebar overflow-hidden">
+        <div className="logo-pattern absolute top-1/2 left-0 right-0 h-18 md:h-20 lg:h-26 rounded-l-sidebar" />
         <Logo
           title="To home page"
           className="logo-icon absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-7 md:w-8 lg:w-10"

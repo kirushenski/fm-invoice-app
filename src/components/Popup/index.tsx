@@ -8,6 +8,7 @@ export interface PopupProps extends ReactModalProps {
 }
 
 // TODO Fix component inside Storybook (id conflict)
+// TODO Colorize id hash
 
 const Popup = ({ heading, children, isSidebar = false, id = 'popup', ...props }: PopupProps) => {
   return (
@@ -30,7 +31,7 @@ const Popup = ({ heading, children, isSidebar = false, id = 'popup', ...props }:
       <div
         className={`${isSidebar ? 'max-w-sidebar-mobile lg:max-w-sidebar pt-8 md:pt-14' : 'max-w-popup p-8 md:p-12'}`}
       >
-        <div id={id} className={`text-popup font-bold ${isSidebar ? 'mb-6 md:mb-12 sidebar-paddings' : 'mb-3'}`}>
+        <div id={id} className={`text-h2 font-bold ${isSidebar ? 'mb-6 md:mb-12 sidebar-paddings' : 'mb-3'}`}>
           {heading}
         </div>
         {children}

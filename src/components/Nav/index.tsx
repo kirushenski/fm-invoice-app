@@ -16,7 +16,7 @@ const Nav = ({ invoicesCount, onFiltersChange, onNewInvoiceCreate, className = '
   return (
     <nav className={`flex items-center ${className}`} {...props}>
       <div className="flex-grow">
-        <h1 className="text-h2 md:text-h1 font-bold mb-1 md:mb-2">Invoices</h1>
+        <h1 className="text-h3 md:text-h1 font-bold mb-1 md:mb-2">Invoices</h1>
         <div className="text-grey-light dark:text-grey-lighter">
           {invoicesCount
             ? `${isTablet ? 'There are ' : ''}${invoicesCount}${isTablet ? ' total' : ''} invoices`

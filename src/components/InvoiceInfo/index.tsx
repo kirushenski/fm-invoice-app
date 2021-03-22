@@ -24,7 +24,7 @@ const InvoiceInfo = ({
     <section className={`invoice p-6 md:p-8 lg:p-12 ${className}`} {...props}>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-5 mb-12">
         <div>
-          <div className="font-bold text-h3 mb-2">
+          <div className="font-bold md:text-h4 mb-2">
             <span className="text-grey-light">#</span>
             {id}
           </div>
@@ -63,7 +63,7 @@ const InvoiceInfo = ({
           <div className="invoice-value">{clientEmail}</div>
         </div>
       </div>
-      <div className="bg-grey-lightest dark:bg-grey rounded-invoice overflow-hidden">
+      <div className="bg-grey-lightest dark:bg-grey rounded overflow-hidden">
         <div className="p-6 md:p-8 md:pb-10">
           <div className="sr-only md:not-sr-only mb-8 md:mb-8 grid grid-cols-6 text-small text-purple-light">
             <div id="invoice-name" className="col-span-3">
@@ -115,7 +115,7 @@ const InvoiceInfo = ({
         </div>
         <div className="flex justify-between items-center p-6 md:px-8 bg-grey dark:grey-darkest text-white">
           <div className="text-small">Amount Due</div>
-          <div className="text-popup font-bold">
+          <div className="text-h2 font-bold">
             {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'GBP' })
               .format(total)
               .replace(/^(\D)/, '$1 ')}
