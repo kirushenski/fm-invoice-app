@@ -2,7 +2,6 @@ import React from 'react'
 import Layout from '@/components/Layout'
 import Seo from '@/components/Seo'
 
-// 2. Images Nightmare (Sidebar)
 // 3. Tailwind Nightmare (Theme, Styles)
 // 4. Build static pages
 // 5. Manage local state

@@ -1,14 +1,15 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import { StaticImage } from 'gatsby-plugin-image'
 import { useColorScheme } from '@/components/ColorSchemeProvider'
 import Logo from '@/icons/logo.svg'
 import Moon from '@/icons/moon.svg'
 import Sun from '@/icons/sun.svg'
 
-// TODO Fix image inside Storybook
+export interface SidebarProps extends React.HTMLProps<HTMLDivElement> {
+  avatar: string
+}
 
-const Sidebar = ({ className = '', ...props }: React.HTMLProps<HTMLDivElement>) => {
+const Sidebar = ({ avatar, className = '', ...props }: SidebarProps) => {
   const [colorScheme, setColorScheme] = useColorScheme()
   return (
     <aside
@@ -38,7 +39,7 @@ const Sidebar = ({ className = '', ...props }: React.HTMLProps<HTMLDivElement>) 
         </button>
       </div>
       <div className="grid place-items-center px-8 py-6 border-l lg:border-0 lg:border-t border-grey-alt">
-        <StaticImage src="../../images/avatar.jpg" alt="Avatar" width={40} height={40} className="rounded-full" />
+        <img src={avatar} alt="Avatar" width={40} height={40} className="rounded-full" />
       </div>
     </aside>
   )

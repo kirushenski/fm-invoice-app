@@ -1,9 +1,15 @@
 import React from 'react'
-import Sidebar from '.'
+import { Story } from '@storybook/react'
+import Sidebar, { SidebarProps } from '.'
+import avatar from '@/images/avatar.jpg'
 
 export default {
   title: 'Basics / Sidebar',
   component: Sidebar,
 }
 
-export const Primary = () => <Sidebar />
+const Template: Story<SidebarProps> = args => <Sidebar {...args} />
+export const Primary = Template.bind({})
+Primary.args = {
+  avatar,
+}
