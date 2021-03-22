@@ -6,8 +6,8 @@ export default {
 }
 
 export const NewInvoice = () => (
-  <button className="btn-primary pl-2 pr-4">
-    <div className="grid place-items-center w-8 h-8 mr-4 rounded-full bg-white">
+  <button className="btn-primary pl-2 pr-4 h-11 md:h-12">
+    <div className="grid place-items-center w-8 h-8 mr-2 md:mr-4 rounded-full bg-white">
       <Plus />
     </div>
     New Invoice

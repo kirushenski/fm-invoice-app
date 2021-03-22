@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelect, useMultipleSelection, UseSelectProps, UseMultipleSelectionStateChange } from 'downshift'
+import { useMedia } from 'react-media'
 import Checkbox from '@/components/Checkbox'
 import ArrowDown from '@/icons/arrow-down.svg'
 
@@ -10,6 +11,8 @@ export interface FilterProps extends UseSelectProps<string> {
 }
 
 const Filter = ({ items, initialSelectedItems, onSelectedItemsChange, className = '', ...props }: FilterProps) => {
+  const isTablet = useMedia({ query: '(min-width: 768px)' })
+
   const { getDropdownProps, addSelectedItem, removeSelectedItem, selectedItems } = useMultipleSelection({
     initialSelectedItems,
     onSelectedItemsChange,
@@ -52,7 +55,7 @@ const Filter = ({ items, initialSelectedItems, onSelectedItemsChange, className 
         className="flex items-center p-4 rounded-input focus"
         {...getToggleButtonProps(getDropdownProps({ preventKeyAction: isOpen }))}
       >
-        <span className="font-bold mr-4">Filter by status</span>
+        <span className="font-bold mr-3 md:mr-4">Filter{isTablet && ' by status'}</span>
         <ArrowDown className={`transform transition-transform ${isOpen ? '-rotate-180' : ''}`} />
       </button>
       <div className="dropdown-wrapper" {...getMenuProps()}>
