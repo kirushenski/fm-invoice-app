@@ -1,0 +1,26 @@
+@layer base {
+  html {
+    @apply scroll-behaviour-smooth;
+  }
+
+  body {
+    @apply text-body font-medium bg-grey-lightest dark:bg-grey-darker text-grey-darkest dark:text-white;
+  }
+
+  svg {
+    fill: currentColor;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+
+  :focus:not(:focus-visible) {
+    @apply outline-none;
+  }
+}

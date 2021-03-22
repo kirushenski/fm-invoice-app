@@ -1,0 +1,23 @@
+@layer components {
+  .logo {
+    @apply bg-purple-dark hover:bg-purple focus-visible:bg-purple focus:outline-none transition-colors duration-500 ease-in-out;
+  }
+
+  .logo-pattern {
+    @apply bg-purple transition-colors duration-500 ease-in-out;
+  }
+
+  .logo-icon {
+    @apply transition-transform duration-500 ease-in-out;
+  }
+
+  .logo:hover .logo-pattern,
+  .logo:focus-visible .logo-pattern {
+    @apply bg-purple-dark;
+  }
+
+  .logo:hover .logo-icon,
+  .logo:focus-visible .logo-icon {
+    @apply rotate-360;
+  }
+}

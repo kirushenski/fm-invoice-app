@@ -2,7 +2,7 @@ import React from 'react'
 import ColorSchemeProvider from '@/components/ColorSchemeProvider'
 import 'focus-visible'
 import '@fontsource/spartan/variable.css'
-import '@/styles/global.css'
+import '@/styles/index.css'
 
 export interface RootWrapperProps {
   /** Site content */

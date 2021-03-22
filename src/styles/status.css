@@ -1,0 +1,22 @@
+@layer components {
+  .status {
+    @apply flex items-center justify-center w-26 h-10 rounded-status font-bold;
+  }
+
+  .status::before {
+    content: '';
+    @apply w-2 h-2 rounded-full mr-2 bg-current;
+  }
+
+  .status-paid {
+    @apply status text-green bg-green bg-opacity-5;
+  }
+
+  .status-pending {
+    @apply status text-orange bg-orange bg-opacity-5;
+  }
+
+  .status-draft {
+    @apply status text-grey-darker-alt bg-grey-darker-alt bg-opacity-5 dark:text-grey-lighter dark:bg-grey-lighter dark:bg-opacity-5;
+  }
+}

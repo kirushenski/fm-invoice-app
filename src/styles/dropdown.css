@@ -1,0 +1,13 @@
+@layer components {
+  .dropdown-wrapper {
+    @apply focus:outline-none;
+  }
+
+  .dropdown {
+    @apply z-10 absolute top-full left-0 transform translate-y-6 bg-white dark:bg-grey shadow-dropdown dark:shadow-dropdown-dark rounded-dropdown border border-transparent;
+  }
+
+  .dropdown-wrapper:focus-visible .dropdown {
+    @apply border-purple-dark;
+  }
+}

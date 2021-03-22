@@ -1,0 +1,30 @@
+@layer components {
+  .checkbox {
+    @apply relative flex items-center py-2 font-bold cursor-pointer;
+  }
+
+  .checkbox::before {
+    content: '';
+    @apply block w-4 h-4 mr-3 rounded-checkbox bg-grey-lighter dark:bg-grey-dark border border-grey-lighter transition-colors;
+  }
+
+  .checkbox:hover::before {
+    @apply border-purple-dark;
+  }
+
+  [aria-selected='true'] input:not(:checked) + .checkbox::before {
+    @apply border-purple-dark;
+  }
+
+  [aria-selected='true'] input:checked + .checkbox::before {
+    @apply border-grey-darkest dark:border-grey-lightest;
+  }
+
+  input:checked + .checkbox::before {
+    @apply bg-purple-dark border-purple-dark;
+  }
+
+  input:checked + .checkbox svg {
+    @apply block;
+  }
+}

@@ -9,10 +9,10 @@ import EditInvoice from '@/components/EditInvoice'
 import EmptyList from '@/components/EmptyList'
 import invoices from '../../data.json'
 
-// 3. Tailwind Nightmare (Theme, Styles)
-// 4. Build static pages
-// 5. Manage local state
-// 6. Setup serverless app
+// 5. Write business logic and manage state locally
+// 6. Bug fixes
+// 7. Write tests and run a11y/perf tests
+// 8. Setup serverless app
 
 // NEW FieldArray
 

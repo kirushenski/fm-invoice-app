@@ -1,0 +1,16 @@
+@import 'tailwindcss/base';
+@import './base.css';
+
+@import 'tailwindcss/components';
+@import './btn.css';
+@import './checkbox.css';
+@import './components.css';
+@import './datepicker.css';
+@import './dropdown.css';
+@import './invoice.css';
+@import './logo.css';
+@import './popup.css';
+@import './status.css';
+
+@import 'tailwindcss/utilities';
+@import './utilities.css';

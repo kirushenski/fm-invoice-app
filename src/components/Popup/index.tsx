@@ -7,6 +7,8 @@ export interface PopupProps extends ReactModalProps {
   isSidebar?: boolean
 }
 
+// TODO Fix component inside Storybook (id conflict)
+
 const Popup = ({ heading, children, isSidebar = false, id = 'popup', ...props }: PopupProps) => {
   return (
     <Modal

@@ -18,6 +18,7 @@ export interface EditInvoiceProps extends Omit<React.HTMLProps<HTMLFormElement>,
 
 // TODO Fix Items error
 // TODO Do not show errors summary before submit
+// TODO Fix popup break on field focus
 
 const EditInvoice = ({
   mode,
@@ -183,7 +184,7 @@ const EditInvoice = ({
                   )
                   .flat(2)
                   .map((error, index) => (
-                    <li key={index} className="list-item error">
+                    <li key={index} className="list-dash list-inside error">
                       {error}
                     </li>
                   ))}
