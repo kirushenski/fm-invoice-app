@@ -37,6 +37,6 @@ const Popup = ({ heading, children, isSidebar = false, id = 'popup', ...props }:
   )
 }
 
-Modal.setAppElement('#root')
+Modal.setAppElement('#___gatsby')
 
 export default Popup

@@ -23,7 +23,7 @@ const Sidebar = ({ avatar, className = '', ...props }: SidebarProps) => {
         <div className="logo-pattern absolute top-1/2 left-0 right-0 h-18 md:h-20 lg:h-sidebar rounded-l-sidebar" />
         <Logo
           title="To home page"
-          className="logo-icon absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+          className="logo-icon absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-7 md:w-8 lg:w-10"
         />
       </Link>
       <div className="flex-grow flex justify-end lg:items-end">
@@ -39,7 +39,7 @@ const Sidebar = ({ avatar, className = '', ...props }: SidebarProps) => {
         </button>
       </div>
       <div className="grid place-items-center px-8 py-6 border-l lg:border-0 lg:border-t border-grey-alt">
-        <img src={avatar} alt="Avatar" width={40} height={40} className="rounded-full" />
+        <img src={avatar} alt="Avatar" className="rounded-full w-8 h-8 lg:w-10 lg:h-10" />
       </div>
     </aside>
   )

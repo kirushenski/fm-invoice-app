@@ -79,7 +79,7 @@ module.exports = {
         18: '4.5rem',
       },
       height: {
-        sidebar: '7.5rem',
+        sidebar: '6.5rem',
         'form-desktop': 'calc(100vh - 8.5rem)',
         'form-tablet': 'calc(100vh - 13.5rem)',
         'form-mobile': 'calc(100vh - 10rem)',
@@ -95,6 +95,7 @@ module.exports = {
         'sidebar-mobile': '38.5rem',
       },
       padding: {
+        18: '4.5rem',
         38: '9.5rem',
       },
       gradientColorStops: {

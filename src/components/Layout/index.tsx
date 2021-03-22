@@ -12,7 +12,7 @@ const Layout = ({ children, className = '', ...props }: LayoutProps) => {
   return (
     <div className={`relative min-h-screen flex flex-col lg:flex-row overflow-hidden ${className}`} {...props}>
       <Sidebar avatar={avatar} />
-      <main className="flex-grow grid justify-items-center py-8 md:py-14 lg:py-18 px-6 md:px-12">
+      <main className="flex-grow grid justify-items-center py-8 px-6 md:py-14 md:px-12 lg:py-18">
         <div className="w-full max-w-container">{children}</div>
       </main>
     </div>
