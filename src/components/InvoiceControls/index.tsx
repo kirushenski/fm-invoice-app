@@ -1,10 +1,12 @@
 import React from 'react'
 
-export interface InvoiceControlsProps extends React.HTMLProps<HTMLDivElement> {
+export interface InvoiceControlsHandlers {
   onEdit: () => void
   onDelete: () => void
   onMarkAsPaid: () => void
 }
+
+export type InvoiceControlsProps = InvoiceControlsHandlers & React.HTMLProps<HTMLDivElement>
 
 const InvoiceControls = ({ onEdit, onDelete, onMarkAsPaid, className = '', ...props }: InvoiceControlsProps) => {
   return (

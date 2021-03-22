@@ -16,10 +16,13 @@ import invoices from '../../data.json'
 
 // NEW FieldArray
 
-const INITIAL_FILTERS = ['draft', 'pending', 'paid']
+// Each ID should be 2 random uppercased letters followed by 4 random numbers.
+// Invoices can be created either as drafts or as pending. Clicking "Save as Draft" should allow the user to leave any form field blank, but should create an ID if one doesn't exist and set the status to "draft". Clicking "Save & Send" should require all forms fields to be filled in, and should set the status to "pending".
+// Changing the Payments Terms field should set the `paymentDue` property based on the `createdAt` date plus the numbers of days set for the payment terms.
+// The `total` should be the sum of all items on the invoice.
 
 const IndexPage = () => {
-  const [filters, setFilters] = useState(INITIAL_FILTERS)
+  const [filters, setFilters] = useState(['draft', 'pending', 'paid'])
   const filteredInvoices = invoices.filter(invoice => filters.includes(invoice.status))
   const [isPopupOpen, setIsPopupOpen] = useState(false)
 
@@ -27,8 +30,6 @@ const IndexPage = () => {
     <Layout>
       <Seo title="Home" />
       <Nav
-        filters={INITIAL_FILTERS}
-        initialFilters={INITIAL_FILTERS}
         invoicesCount={filteredInvoices.length}
         onFiltersChange={({ selectedItems }) => {
           selectedItems && setFilters(selectedItems)
@@ -52,25 +53,29 @@ const IndexPage = () => {
       ) : (
         <EmptyList className="mt-32" />
       )}
-      <Popup heading="New Invoice" isSidebar isOpen={isPopupOpen} onRequestClose={() => setIsPopupOpen(false)}>
+      <Popup isOpen={isPopupOpen} onRequestClose={() => setIsPopupOpen(false)} heading="New Invoice" isSidebar>
         <EditInvoice
-          initialValues={{
-            city: '',
-            clientCity: '',
-            clientCountry: '',
-            clientEmail: '',
-            clientName: '',
-            clientPostCode: '',
-            clientStreetAddress: '',
-            country: '',
-            invoiceDate: '',
-            items: [],
-            paymentTerms: '',
-            postCode: '',
-            projectDescription: '',
-            streetAddress: '',
-          }}
           mode="new"
+          initialValues={{
+            createdAt: '',
+            description: '',
+            paymentTerms: 30,
+            clientName: '',
+            clientEmail: '',
+            senderAddress: {
+              street: '',
+              city: '',
+              postCode: '',
+              country: '',
+            },
+            clientAddress: {
+              street: '',
+              city: '',
+              postCode: '',
+              country: '',
+            },
+            items: [],
+          }}
           onCancel={() => {
             console.log('Close popup without saving')
             setIsPopupOpen(false)

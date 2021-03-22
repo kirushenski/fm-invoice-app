@@ -6,21 +6,11 @@ import Plus from '@/icons/plus.svg'
 
 export interface NavProps extends React.HTMLProps<HTMLDivElement> {
   invoicesCount: number
-  filters: string[]
-  initialFilters?: string[]
   onFiltersChange: (changes: UseMultipleSelectionStateChange<string>) => void
   onNewInvoiceCreate: () => void
 }
 
-const Nav = ({
-  invoicesCount,
-  filters,
-  initialFilters,
-  onFiltersChange,
-  onNewInvoiceCreate,
-  className = '',
-  ...props
-}: NavProps) => {
+const Nav = ({ invoicesCount, onFiltersChange, onNewInvoiceCreate, className = '', ...props }: NavProps) => {
   const isTablet = useMedia({ query: '(min-width: 768px)' })
 
   return (
@@ -33,12 +23,7 @@ const Nav = ({
             : 'No invoices'}
         </div>
       </div>
-      <Filter
-        items={filters}
-        initialSelectedItems={initialFilters}
-        onSelectedItemsChange={onFiltersChange}
-        className="md:mr-6"
-      />
+      <Filter onFiltersChange={onFiltersChange} className="md:mr-6" />
       <button className="btn-primary pl-2 pr-4 h-11 md:h-12" onClick={onNewInvoiceCreate}>
         <div className="grid place-items-center w-8 h-8 mr-2 md:mr-4 rounded-full bg-white">
           <Plus />

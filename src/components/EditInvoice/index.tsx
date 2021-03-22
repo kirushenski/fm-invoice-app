@@ -1,33 +1,12 @@
 import React from 'react'
-import { Form, Formik, FormikHelpers, FormikErrors, FieldArray } from 'formik'
+import { Form, Formik, FormikHelpers, FieldArray } from 'formik'
 import * as Yup from 'yup'
 import TextField from '@/components/TextField'
 import Datepicker from '@/components/Datepicker'
 import Dropdown from '@/components/Dropdown'
 import Delete from '@/icons/delete.svg'
 
-interface Item {
-  name: string
-  qty: number
-  price: string
-}
-
-interface InitialValues {
-  streetAddress: string
-  city: string
-  postCode: string
-  country: string
-  clientName: string
-  clientEmail: string
-  clientStreetAddress: string
-  clientCity: string
-  clientPostCode: string
-  clientCountry: string
-  invoiceDate: string
-  paymentTerms: string
-  projectDescription: string
-  items: Item[]
-}
+type InitialValues = Omit<Invoice, 'id' | 'paymentDue' | 'status' | 'total'>
 
 export interface EditInvoiceProps extends Omit<React.HTMLProps<HTMLFormElement>, 'ref' | 'onSubmit'> {
   mode: 'new' | 'edit'
@@ -36,6 +15,9 @@ export interface EditInvoiceProps extends Omit<React.HTMLProps<HTMLFormElement>,
   onCancel: () => void
   onSaveAsDraft?: (values: InitialValues) => void
 }
+
+// TODO Fix Items error
+// TODO Do not show errors summary before submit
 
 const EditInvoice = ({
   mode,
@@ -50,19 +32,23 @@ const EditInvoice = ({
     <Formik
       initialValues={initialValues}
       validationSchema={Yup.object().shape({
-        streetAddress: Yup.string().required('Street Address cannot be empty'),
-        city: Yup.string().required('City cannot be empty'),
-        postCode: Yup.string().required('Post Code cannot be empty'),
-        country: Yup.string().required('Country cannot be empty'),
+        senderAddress: Yup.object().shape({
+          street: Yup.string().required('Street Address cannot be empty'),
+          city: Yup.string().required('City cannot be empty'),
+          postCode: Yup.string().required('Post Code cannot be empty'),
+          country: Yup.string().required('Country cannot be empty'),
+        }),
+        clientAddress: Yup.object().shape({
+          street: Yup.string().required('Client’s Street Address cannot be empty'),
+          city: Yup.string().required('Client’s City cannot be empty'),
+          postCode: Yup.string().required('Client’s Post Code cannot be empty'),
+          country: Yup.string().required('Client’s Country cannot be empty'),
+        }),
         clientName: Yup.string().required('Client’s Name cannot be empty'),
         clientEmail: Yup.string().required('Client’s Email cannot be empty'),
-        clientStreetAddress: Yup.string().required('Client’s Street Address cannot be empty'),
-        clientCity: Yup.string().required('Client’s City cannot be empty'),
-        clientPostCode: Yup.string().required('Client’s Post Code cannot be empty'),
-        clientCountry: Yup.string().required('Client’s Country cannot be empty'),
-        invoiceDate: Yup.date().nullable().required('Invoice Date cannot be empty'),
-        paymentTerms: Yup.string().required('Payment Terms cannot be empty'),
-        projectDescription: Yup.string().required('Project Description cannot be empty'),
+        createdAt: Yup.date().nullable().required('Invoice Date cannot be empty'),
+        paymentTerms: Yup.number().required('Payment Terms cannot be empty'),
+        description: Yup.string().required('Project Description cannot be empty'),
         items: Yup.array().of(
           Yup.object().shape({
             name: Yup.string().required(({ path }) => `Item ${path.match(/\[(\d+)\]/)?.[1]} Name cannot be empty`),
@@ -81,12 +67,12 @@ const EditInvoice = ({
             <fieldset className="mb-10 md:mb-12">
               <legend className="legend">Bill From</legend>
               <div className="form">
-                <TextField name="streetAddress" className="col-span-full">
+                <TextField name="senderAddress.street" className="col-span-full">
                   Street Address
                 </TextField>
-                <TextField name="city">City</TextField>
-                <TextField name="postCode">Post Code</TextField>
-                <TextField name="country" className="col-span-full md:col-span-1">
+                <TextField name="senderAddress.city">City</TextField>
+                <TextField name="senderAddress.postCode">Post Code</TextField>
+                <TextField name="senderAddress.country" className="col-span-full md:col-span-1">
                   Country
                 </TextField>
               </div>
@@ -105,12 +91,12 @@ const EditInvoice = ({
                 >
                   Client’s Email
                 </TextField>
-                <TextField name="clientStreetAddress" className="col-span-full">
+                <TextField name="clientAddress.street" className="col-span-full">
                   Street Address
                 </TextField>
-                <TextField name="clientCity">City</TextField>
-                <TextField name="clientPostCode">Post Code</TextField>
-                <TextField name="clientCountry" className="col-span-full md:col-span-1">
+                <TextField name="clientAddress.city">City</TextField>
+                <TextField name="clientAddress.postCode">Post Code</TextField>
+                <TextField name="clientAddress.country" className="col-span-full md:col-span-1">
                   Country
                 </TextField>
               </div>
@@ -118,15 +104,19 @@ const EditInvoice = ({
             <fieldset className="mb-16 md:mb-8">
               <legend className="sr-only">Details</legend>
               <div className="grid md:grid-cols-2 gap-6">
-                <Datepicker name="invoiceDate">Invoice Date</Datepicker>
-                <Dropdown name="paymentTerms" items={['Net 1 Day', 'Net 7 Days', 'Net 14 Days', 'Net 30 Days']}>
+                <Datepicker name="createdAt">Invoice Date</Datepicker>
+                <Dropdown
+                  name="paymentTerms"
+                  items={[
+                    { name: 'Net 1 Day', value: 1 },
+                    { name: 'Net 7 Days', value: 7 },
+                    { name: 'Net 14 Days', value: 14 },
+                    { name: 'Net 30 Days', value: 30 },
+                  ]}
+                >
                   Payment Terms
                 </Dropdown>
-                <TextField
-                  name="projectDescription"
-                  placeholder="e.g. Graphic Design Service"
-                  className="col-span-full"
-                >
+                <TextField name="description" placeholder="e.g. Graphic Design Service" className="col-span-full">
                   Project Description
                 </TextField>
               </div>
@@ -151,7 +141,7 @@ const EditInvoice = ({
                         <TextField name={`items[${index}].name`} hidden className="col-span-full md:col-span-1">
                           Item Name
                         </TextField>
-                        <TextField name={`items[${index}].qty`} type="number" min={1} hidden>
+                        <TextField name={`items[${index}].quantity`} type="number" min={1} hidden>
                           Qty.
                         </TextField>
                         <TextField name={`items[${index}].price`} hidden>
@@ -160,8 +150,8 @@ const EditInvoice = ({
                         <div>
                           <div className="label md:sr-only">Total</div>
                           <output className="input flex items-center bg-transparent dark:bg-transparent text-grey-light border-none px-0">
-                            {!Number.isNaN(parseFloat(item.price))
-                              ? (parseFloat(item.price) * item.qty).toFixed(2)
+                            {item.price !== undefined && item.quantity !== undefined
+                              ? (item.price * item.quantity).toFixed(2)
                               : '–'}
                           </output>
                         </div>
@@ -189,7 +179,7 @@ const EditInvoice = ({
               <ul className="mt-8">
                 {Object.entries(errors)
                   .map(([name, value]) =>
-                    name === 'items' ? (value as FormikErrors<Item>[]).map(item => item && Object.values(item)) : value
+                    name === 'items' ? (value as any).map((item: any) => item && Object.values(item)) : value
                   )
                   .flat(2)
                   .map((error, index) => (
@@ -200,7 +190,7 @@ const EditInvoice = ({
               </ul>
             ) : null}
           </div>
-          <div className="z-10 absolute left-0 right-0 bottom-0 grid grid-flow-col gap-2 justify-between sidebar-paddings py-5 md:py-8 md:rounded-r-sidebar bg-white dark:bg-grey-darker">
+          <div className="absolute left-0 right-0 bottom-0 grid grid-flow-col gap-2 justify-between sidebar-paddings py-5 md:py-8 md:rounded-r-sidebar bg-white dark:bg-grey-darker">
             <div>
               {mode === 'new' && (
                 <button type="button" className="btn-secondary" onClick={onCancel}>

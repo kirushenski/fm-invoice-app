@@ -53,31 +53,37 @@ const SidebarTemplate: Story<PopupProps> = args => {
             className="h-form-mobile md:h-form-tablet lg:h-form-desktop"
             mode="edit"
             initialValues={{
-              city: 'London',
-              clientCity: 'Bradford',
-              clientCountry: 'United Kingdom',
-              clientEmail: 'alexgrim@mail.com',
+              createdAt: '2021-08-21',
+              description: 'Graphic Design',
+              paymentTerms: 30,
               clientName: 'Alex Grim',
-              clientPostCode: 'BD1 9PB',
-              clientStreetAddress: '84 Church Way',
-              country: 'United Kingdom',
-              invoiceDate: '21 Aug 2021',
+              clientEmail: 'alexgrim@mail.com',
+              senderAddress: {
+                street: '19 Union Terrace',
+                city: 'London',
+                postCode: 'E1 3EZ',
+                country: 'United Kingdom',
+              },
+              clientAddress: {
+                street: '84 Church Way',
+                city: 'Bradford',
+                postCode: 'BD1 9PB',
+                country: 'United Kingdom',
+              },
               items: [
                 {
                   name: 'Banner Design',
-                  price: '156.00',
-                  qty: 1,
+                  quantity: 1,
+                  price: 156.0,
+                  total: 156.0,
                 },
                 {
                   name: 'Email Design',
-                  price: '200.00',
-                  qty: 2,
+                  quantity: 2,
+                  price: 200.0,
+                  total: 400.0,
                 },
               ],
-              paymentTerms: 'Net 30 Days',
-              postCode: 'E1 3EZ',
-              projectDescription: 'Graphic Design',
-              streetAddress: '19 Union Terrace',
             }}
             onSubmit={values => {
               console.log('Update invoice with changes: ', JSON.stringify(values, null, 2))

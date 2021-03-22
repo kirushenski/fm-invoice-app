@@ -4,13 +4,8 @@ import { useMedia } from 'react-media'
 import { format } from 'date-fns'
 import ArrowRight from '@/icons/arrow-right.svg'
 
-export interface InvoiceProps extends Omit<React.HTMLProps<HTMLAnchorElement>, 'ref'> {
-  id: string
-  paymentDue: string
-  clientName: string
-  total: number
-  status: 'paid' | 'pending' | 'draft'
-}
+export type InvoiceProps = Pick<Invoice, 'id' | 'paymentDue' | 'clientName' | 'total' | 'status'> &
+  Omit<React.HTMLProps<HTMLAnchorElement>, 'ref'>
 
 const Invoice = ({ id, paymentDue, clientName, total, status, className = '', ...props }: InvoiceProps) => {
   const isTablet = useMedia({ query: '(min-width: 768px)' })
@@ -18,7 +13,7 @@ const Invoice = ({ id, paymentDue, clientName, total, status, className = '', ..
 
   return (
     <Link
-      to={`/${id}/`}
+      to={`/invoice?id=${id}`}
       className={`invoice relative grid grid-cols-2 md:grid-cols-invoice items-end md:items-center gap-7 md:gap-5 p-6 md:py-4 border border-transparent hover:border-purple-dark focus-visible:border-purple-dark focus:outline-none transition-colors ${className}`}
       {...props}
     >

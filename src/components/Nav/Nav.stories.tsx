@@ -11,6 +11,9 @@ const Template: Story<NavProps> = args => <Nav {...args} />
 export const Primary = Template.bind({})
 Primary.args = {
   invoicesCount: 7,
-  filters: ['draft', 'pending', 'paid'],
-  initialFilters: ['draft', 'pending', 'paid'],
+}
+
+export const Empty = Template.bind({})
+Empty.args = {
+  invoicesCount: 0,
 }

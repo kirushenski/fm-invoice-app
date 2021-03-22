@@ -1,30 +1,7 @@
 import React from 'react'
 import { format } from 'date-fns'
 
-interface Address {
-  street: string
-  city: string
-  postCode: string
-  country: string
-}
-
-export interface InvoiceInfoProps extends React.HTMLProps<HTMLDivElement> {
-  id: string
-  createdAt: string
-  paymentDue: string
-  description: string
-  clientName: string
-  clientEmail: string
-  senderAddress: Address
-  clientAddress: Address
-  items: {
-    name: string
-    quantity: number
-    price: number
-    total: number
-  }[]
-  total: number
-}
+export type InvoiceInfoProps = Omit<Invoice, 'paymentTerms' | 'status'> & React.HTMLProps<HTMLDivElement>
 
 const InvoiceInfo = ({
   id,

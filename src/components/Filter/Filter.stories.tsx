@@ -8,14 +8,8 @@ export default {
   parameters: {
     layout: 'centered',
   },
-  argTypes: {
-    className: { table: { disable: true } },
-  },
 }
 
 const Template: Story<FilterProps> = args => <Filter {...args} />
 export const Primary = Template.bind({})
-Primary.args = {
-  items: ['draft', 'pending', 'paid'],
-  initialSelectedItems: ['draft', 'pending', 'paid'],
-}
+Primary.args = {}

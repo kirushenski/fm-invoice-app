@@ -14,7 +14,7 @@ export default {
 
 const Template: Story<DropdownProps> = args => (
   <Formik
-    initialValues={{ paymentTerms: 'Net 30 Days' }}
+    initialValues={{ paymentTerms: 30 }}
     validationSchema={Yup.object().shape({
       paymentTerms: Yup.string().required('Payment Terms cannot be empty'),
     })}
@@ -34,5 +34,10 @@ export const Primary = Template.bind({})
 Primary.args = {
   name: 'paymentTerms',
   children: 'Payment Terms',
-  items: ['Net 1 Day', 'Net 7 Days', 'Net 14 Days', 'Net 30 Days'],
+  items: [
+    { name: 'Net 1 Day', value: 1 },
+    { name: 'Net 7 Days', value: 7 },
+    { name: 'Net 14 Days', value: 14 },
+    { name: 'Net 30 Days', value: 30 },
+  ],
 }

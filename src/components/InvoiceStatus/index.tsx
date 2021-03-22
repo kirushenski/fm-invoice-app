@@ -1,12 +1,9 @@
 import React from 'react'
 import { useMedia } from 'react-media'
-import InvoiceControls from '@/components/InvoiceControls'
+import InvoiceControls, { InvoiceControlsHandlers } from '@/components/InvoiceControls'
 
-export interface InvoiceStatusProps extends React.HTMLProps<HTMLDivElement> {
-  status: 'paid' | 'pending' | 'draft'
-  onEdit: () => void
-  onDelete: () => void
-  onMarkAsPaid: () => void
+export interface InvoiceStatusProps extends InvoiceControlsHandlers, React.HTMLProps<HTMLDivElement> {
+  status: InvoiceStatus
 }
 
 const InvoiceStatus = ({ status, onEdit, onDelete, onMarkAsPaid, className = '', ...props }: InvoiceStatusProps) => {

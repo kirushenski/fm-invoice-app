@@ -1,25 +1,25 @@
 import React from 'react'
-import { useSelect, useMultipleSelection, UseSelectProps, UseMultipleSelectionStateChange } from 'downshift'
+import { useSelect, useMultipleSelection, UseMultipleSelectionStateChange } from 'downshift'
 import { useMedia } from 'react-media'
 import Checkbox from '@/components/Checkbox'
 import ArrowDown from '@/icons/arrow-down.svg'
 
-export interface FilterProps extends UseSelectProps<string> {
-  initialSelectedItems?: string[]
-  onSelectedItemsChange?: (changes: UseMultipleSelectionStateChange<string>) => void
-  className?: string
+export interface FilterProps extends React.HTMLProps<HTMLDivElement> {
+  onFiltersChange?: (changes: UseMultipleSelectionStateChange<string>) => void
 }
 
-const Filter = ({ items, initialSelectedItems, onSelectedItemsChange, className = '', ...props }: FilterProps) => {
+const FILTERS = ['draft', 'pending', 'paid']
+
+const Filter = ({ onFiltersChange, className = '', ...props }: FilterProps) => {
   const isTablet = useMedia({ query: '(min-width: 768px)' })
 
   const { getDropdownProps, addSelectedItem, removeSelectedItem, selectedItems } = useMultipleSelection({
-    initialSelectedItems,
-    onSelectedItemsChange,
+    initialSelectedItems: FILTERS,
+    onSelectedItemsChange: onFiltersChange,
   })
 
   const { isOpen, getToggleButtonProps, getMenuProps, getItemProps } = useSelect({
-    items,
+    items: FILTERS,
     selectedItem: null,
     stateReducer: (_, actionAndChanges) => {
       const { changes, type } = actionAndChanges
@@ -61,10 +61,10 @@ const Filter = ({ items, initialSelectedItems, onSelectedItemsChange, className 
       <div className="dropdown-wrapper" {...getMenuProps()}>
         {isOpen && (
           <ul className="dropdown w-48 p-6 left-1/2 -translate-x-1/2 translate-y-2">
-            {items.map((item, index) => (
-              <li key={item} {...getItemProps({ item, index })}>
-                <Checkbox id={item} checked={selectedItems.includes(item)} disabled>
-                  {`${item[0].toUpperCase()}${item.slice(1)}`}
+            {FILTERS.map((filter, index) => (
+              <li key={filter} {...getItemProps({ item: filter, index })}>
+                <Checkbox id={filter} checked={selectedItems.includes(filter)} disabled>
+                  {`${filter[0].toUpperCase()}${filter.slice(1)}`}
                 </Checkbox>
               </li>
             ))}
