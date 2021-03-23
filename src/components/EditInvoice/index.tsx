@@ -10,6 +10,7 @@ type InitialValues = Omit<Invoice, 'id' | 'paymentDue' | 'status' | 'total'>
 
 export interface EditInvoiceProps extends Omit<React.HTMLProps<HTMLFormElement>, 'ref' | 'onSubmit'> {
   mode: 'new' | 'edit'
+  status?: InvoiceStatus
   initialValues: InitialValues
   onSubmit: (values: InitialValues, formikHelpers: FormikHelpers<InitialValues>) => void
   onCancel: () => void
@@ -17,11 +18,11 @@ export interface EditInvoiceProps extends Omit<React.HTMLProps<HTMLFormElement>,
 }
 
 // TODO Add items length validation (summary block once again?)
-// TODO Disable validation for draft edit
 // TODO Add total readonly calculated field
 
 const EditInvoice = ({
   mode,
+  status,
   initialValues,
   onSubmit,
   onCancel,
@@ -32,32 +33,36 @@ const EditInvoice = ({
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={Yup.object().shape({
-        senderAddress: Yup.object().shape({
-          street: Yup.string().required("can't be empty"),
-          city: Yup.string().required("can't be empty"),
-          postCode: Yup.string().required("can't be empty"),
-          country: Yup.string().required("can't be empty"),
-        }),
-        clientAddress: Yup.object().shape({
-          street: Yup.string().required("can't be empty"),
-          city: Yup.string().required("can't be empty"),
-          postCode: Yup.string().required("can't be empty"),
-          country: Yup.string().required("can't be empty"),
-        }),
-        clientName: Yup.string().required("can't be empty"),
-        clientEmail: Yup.string().required("can't be empty"),
-        createdAt: Yup.date().nullable().required("can't be empty"),
-        paymentTerms: Yup.number().required("can't be empty"),
-        description: Yup.string().required("can't be empty"),
-        items: Yup.array().of(
-          Yup.object().shape({
-            name: Yup.string().required("can't be empty"),
-            quantity: Yup.number().required("can't be empty"),
-            price: Yup.number().min(0, 'must be greater than or equal to 0').required("can't be empty"),
-          })
-        ),
-      })}
+      validationSchema={
+        status !== 'draft'
+          ? Yup.object().shape({
+              senderAddress: Yup.object().shape({
+                street: Yup.string().required("can't be empty"),
+                city: Yup.string().required("can't be empty"),
+                postCode: Yup.string().required("can't be empty"),
+                country: Yup.string().required("can't be empty"),
+              }),
+              clientAddress: Yup.object().shape({
+                street: Yup.string().required("can't be empty"),
+                city: Yup.string().required("can't be empty"),
+                postCode: Yup.string().required("can't be empty"),
+                country: Yup.string().required("can't be empty"),
+              }),
+              clientName: Yup.string().required("can't be empty"),
+              clientEmail: Yup.string().required("can't be empty"),
+              createdAt: Yup.date().nullable().required("can't be empty"),
+              paymentTerms: Yup.number().required("can't be empty"),
+              description: Yup.string().required("can't be empty"),
+              items: Yup.array().of(
+                Yup.object().shape({
+                  name: Yup.string().required("can't be empty"),
+                  quantity: Yup.number().required("can't be empty"),
+                  price: Yup.number().min(0, 'must be greater than or equal to 0').required("can't be empty"),
+                })
+              ),
+            })
+          : null
+      }
       onSubmit={onSubmit}
     >
       {({ values }) => (

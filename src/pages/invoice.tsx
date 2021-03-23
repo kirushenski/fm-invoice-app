@@ -97,6 +97,7 @@ const NotFoundPage = ({ location }: PageProps) => {
           >
             <EditInvoice
               mode="edit"
+              status={invoice.status}
               initialValues={{
                 createdAt: invoice.createdAt ? format(new Date(invoice.createdAt), SHOW_DATE_FORMAT) : '',
                 description: invoice.description,

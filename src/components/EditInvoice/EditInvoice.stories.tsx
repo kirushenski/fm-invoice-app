@@ -46,6 +46,7 @@ New.args = {
 export const Edit = Template.bind({})
 Edit.args = {
   mode: 'edit',
+  status: 'pending',
   initialValues: {
     createdAt: '21 Aug 2021',
     description: 'Graphic Design',
