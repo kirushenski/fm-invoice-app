@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useMedia } from 'react-media'
 import { add, format, parse } from 'date-fns'
 import Layout from '@/components/Layout'
 import Seo from '@/components/Seo'
@@ -7,7 +8,7 @@ import InvoicesList from '@/components/InvoicesList'
 import Invoice from '@/components/Invoice'
 import Popup from '@/components/Popup'
 import EditInvoice from '@/components/EditInvoice'
-import EmptyList from '@/components/EmptyList'
+import ErrorMessage from '@/components/ErrorMessage'
 import { useInvoices } from '@/components/InvoicesProvider'
 import generateId from '@/utils/generateId'
 
@@ -25,6 +26,7 @@ import generateId from '@/utils/generateId'
 
 const IndexPage = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
+  const isTablet = useMedia({ query: '(min-width: 768px)' })
 
   const [invoices, setInvoices] = useInvoices()
   const [filters, setFilters] = useState(['draft', 'pending', 'paid'])
@@ -64,7 +66,11 @@ const IndexPage = () => {
           ))}
         </InvoicesList>
       ) : (
-        <EmptyList className="mt-32" />
+        <ErrorMessage>
+          Create an invoice by clicking the
+          <br />
+          <strong>New{isTablet && ' Invoice'}</strong> button and get started
+        </ErrorMessage>
       )}
       <Popup isOpen={isPopupOpen} onRequestClose={() => setIsPopupOpen(false)} heading="New Invoice" isSidebar>
         <EditInvoice

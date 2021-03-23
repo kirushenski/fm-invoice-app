@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default {
-  title: 'Basics / Status',
+  title: 'Global / Status',
 }
 
 export const Paid = () => <div className="status status-paid">Paid</div>

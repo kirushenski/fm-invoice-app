@@ -14,7 +14,7 @@ const Invoice = ({ id, paymentDue, clientName, total, status, className = '', ..
   return (
     <Link
       to={`/invoice?id=${id}`}
-      className={`invoice relative grid grid-cols-2 md:grid-cols-invoice items-end md:items-center gap-7 md:gap-5 p-6 md:py-4 border border-transparent hover:border-purple-dark focus-visible:border-purple-dark focus:outline-none transition-colors ${className}`}
+      className={`invoice relative grid grid-cols-2 md:grid-cols-invoice items-end md:items-center gap-x-2 gap-y-7 md:gap-5 p-6 md:py-4 border border-transparent hover:border-purple-dark focus-visible:border-purple-dark focus:outline-none transition-colors ${className}`}
       {...props}
     >
       <div className="font-bold">
@@ -30,7 +30,7 @@ const Invoice = ({ id, paymentDue, clientName, total, status, className = '', ..
         )}
       </div>
       <div className="text-purple-light dark:text-white text-right md:text-left">{clientName || '–'}</div>
-      <div className="font-bold text-h4 pr-5 md:text-right">
+      <div className="font-bold text-h4 md:pr-5 md:text-right">
         {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'GBP' }).format(total).replace(/^(\D)/, '$1 ')}
       </div>
       <div

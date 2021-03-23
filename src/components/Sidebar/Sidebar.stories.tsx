@@ -4,7 +4,7 @@ import Sidebar, { SidebarProps } from '.'
 import avatar from '@/images/avatar.jpg'
 
 export default {
-  title: 'Basics / Sidebar',
+  title: 'Global / Sidebar',
   component: Sidebar,
 }
 

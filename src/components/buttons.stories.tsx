@@ -2,7 +2,7 @@ import React from 'react'
 import Plus from '@/icons/plus.svg'
 
 export default {
-  title: 'Basics / Button',
+  title: 'Global / Button',
 }
 
 export const NewInvoice = () => (

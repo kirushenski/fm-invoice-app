@@ -2,7 +2,7 @@ import React from 'react'
 import Layout from '.'
 
 export default {
-  title: 'Basics / Layout',
+  title: 'Global / Layout',
   component: Layout,
   parameters: {
     layout: 'fullscreen',
