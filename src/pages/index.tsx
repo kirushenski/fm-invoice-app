@@ -13,17 +13,11 @@ import generateId from '@/utils/generateId'
 import getCreatedAt from '@/utils/getCreatedAt'
 import getPaymentDue from '@/utils/getPaymentDue'
 
-// 5. Write business logic and manage state locally
 // 6. Bug fixes
 // 7. Write tests and run a11y/perf tests
 // 8. Setup serverless app
 
 // NEW FieldArray
-
-// Each ID should be 2 random uppercased letters followed by 4 random numbers.
-// Invoices can be created either as drafts or as pending. Clicking "Save as Draft" should allow the user to leave any form field blank, but should create an ID if one doesn't exist and set the status to "draft". Clicking "Save & Send" should require all forms fields to be filled in, and should set the status to "pending".
-// Changing the Payments Terms field should set the `paymentDue` property based on the `createdAt` date plus the numbers of days set for the payment terms.
-// The `total` should be the sum of all items on the invoice.
 
 const IndexPage = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
@@ -49,7 +43,7 @@ const IndexPage = () => {
 
   return (
     <Layout>
-      <Seo title="Home" />
+      <Seo />
       <Nav
         invoicesCount={filteredInvoices.length}
         onFiltersChange={({ selectedItems }) => {

@@ -4,9 +4,6 @@ import Layout from '@/components/Layout'
 import Seo from '@/components/Seo'
 import ErrorMessage from '@/components/ErrorMessage'
 
-// TODO More content on 404?
-// TODO Improve SEO on pages
-
 const NotFoundPage = ({ location }: PageProps) => {
   return (
     <Layout>

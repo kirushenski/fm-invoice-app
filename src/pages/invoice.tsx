@@ -50,7 +50,7 @@ const NotFoundPage = ({ location }: PageProps) => {
 
   return (
     <Layout className="pt-4 md:pt-8 lg:pt-12">
-      <Seo />
+      <Seo title={`Invoice #${id}`} />
       <h1 className="sr-only">Invoice #{id}</h1>
       {invoice ? (
         <>
