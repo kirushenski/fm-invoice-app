@@ -23,7 +23,7 @@ export const InvoiceNotFound = () => {
     <ErrorMessage isLink>
       Invoice with id{' '}
       <span className="font-bold">
-        <span className="text-purple-light">#</span>
+        <span className="text-grey-light">#</span>
         XM9141
       </span>{' '}
       doesn’t exist

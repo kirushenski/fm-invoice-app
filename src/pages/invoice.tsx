@@ -88,7 +88,11 @@ const NotFoundPage = ({ location }: PageProps) => {
           <Popup
             isOpen={isEditPopupOpen}
             onRequestClose={() => setIsEditPopupOpen(false)}
-            heading={`Edit #${id}`}
+            heading={
+              <>
+                Edit <span className="text-grey-light">#</span>XM9141
+              </>
+            }
             isSidebar
           >
             <EditInvoice
@@ -104,7 +108,6 @@ const NotFoundPage = ({ location }: PageProps) => {
                 items: invoice.items,
               }}
               onSubmit={values => {
-                console.log(values)
                 setInvoices(
                   invoices.map(invoice =>
                     invoice.id === id
@@ -152,7 +155,7 @@ const NotFoundPage = ({ location }: PageProps) => {
         <ErrorMessage isLink>
           Invoice with id{' '}
           <span className="font-bold">
-            <span className="text-purple-light">#</span>
+            <span className="text-grey-light">#</span>
             {id}
           </span>{' '}
           doesn’t exist

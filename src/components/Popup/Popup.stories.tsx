@@ -39,16 +39,11 @@ const SidebarTemplate: Story<PopupProps> = args => {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
   return (
     <>
-      <Layout id="layout">
+      <Layout>
         <button className="btn btn-secondary" onClick={() => setIsPopupOpen(true)}>
           Edit
         </button>
-        <Popup
-          {...args}
-          isOpen={isPopupOpen}
-          onRequestClose={() => setIsPopupOpen(false)}
-          parentSelector={() => document.querySelector('#layout') as HTMLElement} // id is added for Storybook only
-        >
+        <Popup {...args} isOpen={isPopupOpen} onRequestClose={() => setIsPopupOpen(false)}>
           <EditInvoice
             className="h-form-mobile md:h-form-tablet lg:h-form-desktop"
             mode="edit"
@@ -102,7 +97,11 @@ const SidebarTemplate: Story<PopupProps> = args => {
 export const Sidebar = SidebarTemplate.bind({})
 Sidebar.args = {
   isSidebar: true,
-  heading: 'Edit #XM9141',
+  heading: (
+    <>
+      Edit <span className="text-grey-light">#</span>XM9141
+    </>
+  ),
 }
 Sidebar.parameters = {
   layout: 'fullscreen',

@@ -20,7 +20,7 @@ const Invoice = ({ id, paymentDue, clientName, total, status, className = '', ..
       {...props}
     >
       <div className="font-bold">
-        <span className="text-purple-light">#</span>
+        <span className="text-grey-light">#</span>
         {id}
       </div>
       <div className="absolute md:static left-6 top-15">

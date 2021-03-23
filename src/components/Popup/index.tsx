@@ -7,9 +7,6 @@ export interface PopupProps extends ReactModalProps {
   isSidebar?: boolean
 }
 
-// TODO Fix component inside Storybook (id conflict)
-// TODO Colorize id hash
-
 const Popup = ({ heading, children, isSidebar = false, id = 'popup', ...props }: PopupProps) => {
   return (
     <Modal
@@ -40,6 +37,10 @@ const Popup = ({ heading, children, isSidebar = false, id = 'popup', ...props }:
   )
 }
 
-Modal.setAppElement('#___gatsby')
+if (process.env.STORYBOOK !== 'true') {
+  Modal.setAppElement('#___gatsby')
+} else {
+  Modal.setAppElement('#root')
+}
 
 export default Popup
