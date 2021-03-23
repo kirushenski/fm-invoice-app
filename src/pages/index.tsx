@@ -13,11 +13,8 @@ import generateId from '@/utils/generateId'
 import getCreatedAt from '@/utils/getCreatedAt'
 import getPaymentDue from '@/utils/getPaymentDue'
 
-// 6. Bug fixes
-// 7. Write tests and run a11y/perf tests
+// 7. Write tests
 // 8. Setup serverless app
-
-// NEW FieldArray
 
 const IndexPage = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false)

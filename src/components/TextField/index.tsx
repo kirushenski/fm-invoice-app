@@ -8,7 +8,7 @@ export interface TextFieldProps extends React.HTMLProps<HTMLInputElement> {
   Input?: React.ReactNode
 }
 
-function TextField({
+const TextField = ({
   children,
   type = 'text',
   name,
@@ -17,7 +17,7 @@ function TextField({
   required = true,
   className = '',
   ...props
-}: TextFieldProps) {
+}: TextFieldProps) => {
   const [field, meta] = useField(name)
   const isError = meta.touched && meta.error
 

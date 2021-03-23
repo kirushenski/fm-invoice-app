@@ -7,10 +7,6 @@
     @apply flex justify-between items-center text-purple-light dark:text-grey-lighter leading-normal mb-2;
   }
 
-  .input {
-    @apply w-full h-12 px-5 bg-white dark:bg-grey-dark border border-grey-lighter dark:border-grey focus:outline-none focus:border-purple-dark font-bold text-left rounded-input placeholder-opacity-40 transition-colors;
-  }
-
   .arrow {
     @apply grid place-items-center w-12 h-12 absolute top-arrow;
   }

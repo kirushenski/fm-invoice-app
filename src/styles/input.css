@@ -1,0 +1,9 @@
+@layer components {
+  .input {
+    @apply w-full h-12 px-5 bg-white dark:bg-grey-dark border border-grey-lighter dark:border-grey focus:outline-none focus:border-purple-dark font-bold text-left rounded-input placeholder-opacity-40 transition-colors;
+
+    &:read-only {
+      @apply flex items-center bg-transparent dark:bg-transparent text-grey-light border-none px-0;
+    }
+  }
+}

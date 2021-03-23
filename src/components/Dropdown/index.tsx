@@ -9,7 +9,7 @@ export interface DropdownProps extends UseSelectProps<{ name: string; value: num
   className?: string
 }
 
-function Dropdown({ name, children, items, className = '', ...props }: DropdownProps) {
+const Dropdown = ({ name, children, items, className = '', ...props }: DropdownProps) => {
   const [field, meta, helpers] = useField(name)
   const isError = meta.touched && meta.error
 

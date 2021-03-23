@@ -1,7 +1,7 @@
-import React from 'react'
-import { Form, Formik, FormikHelpers, FieldArray } from 'formik'
+import React, { useEffect } from 'react'
+import { Form, Formik, FormikHelpers, FieldArray, useFormikContext } from 'formik'
 import * as Yup from 'yup'
-import TextField from '@/components/TextField'
+import TextField, { TextFieldProps } from '@/components/TextField'
 import Datepicker from '@/components/Datepicker'
 import Dropdown from '@/components/Dropdown'
 import Delete from '@/icons/delete.svg'
@@ -17,7 +17,18 @@ export interface EditInvoiceProps extends Omit<React.HTMLProps<HTMLFormElement>,
   onSaveAsDraft?: (values: InitialValues) => void
 }
 
-// TODO Add total readonly calculated field
+const TotalField = ({ index, name, ...props }: { index: number } & TextFieldProps) => {
+  const { values, setFieldValue } = useFormikContext<InitialValues>()
+  const quantity = values.items[index].quantity
+  const price = values.items[index].price
+
+  useEffect(() => {
+    const total = Math.floor(price * quantity * 100) / 100
+    setFieldValue(name, !Number.isNaN(total) ? total : '0.00')
+  }, [quantity, price, setFieldValue, name])
+
+  return <TextField name={name} {...props} />
+}
 
 const EditInvoice = ({
   mode,
@@ -149,17 +160,12 @@ const EditInvoice = ({
                         <TextField name={`items[${index}].quantity`} type="number" min={1} hidden>
                           Qty.
                         </TextField>
-                        <TextField name={`items[${index}].price`} hidden>
+                        <TextField name={`items[${index}].price`} placeholder="0.00" hidden>
                           Price
                         </TextField>
-                        <div>
-                          <div className="label md:sr-only">Total</div>
-                          <output className="input flex items-center bg-transparent dark:bg-transparent text-grey-light border-none px-0">
-                            {item.price !== undefined && item.quantity !== undefined
-                              ? (item.price * item.quantity).toFixed(2)
-                              : '–'}
-                          </output>
-                        </div>
+                        <TotalField index={index} name={`items[${index}].total`} hidden readOnly>
+                          Total
+                        </TotalField>
                         <button
                           type="button"
                           onClick={() => remove(index)}
@@ -172,7 +178,7 @@ const EditInvoice = ({
                     <button
                       type="button"
                       className="btn btn-secondary w-full"
-                      onClick={() => push({ name: '', quantity: 1, price: 0, total: 0 })}
+                      onClick={() => push({ name: '', quantity: 1, price: '', total: '' })}
                     >
                       + Add New Item
                     </button>

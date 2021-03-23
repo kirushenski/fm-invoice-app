@@ -15,7 +15,7 @@ export interface DatepickerProps extends React.HTMLProps<HTMLInputElement> {
   className?: string
 }
 
-function Datepicker({ children, name, id, hidden, required = true, className = '', ...props }: DatepickerProps) {
+const Datepicker = ({ children, name, id, hidden, required = true, className = '', ...props }: DatepickerProps) => {
   const [field, meta, helpers] = useField(name)
   const isError = meta.touched && meta.error
 
