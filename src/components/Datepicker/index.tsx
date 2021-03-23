@@ -3,6 +3,7 @@ import DayPickerInput from 'react-day-picker/DayPickerInput'
 import { DateUtils } from 'react-day-picker'
 import { format as dateFnsFormat, parse as dateFnsParse } from 'date-fns'
 import { useField } from 'formik'
+import { SHOW_DATE_FORMAT } from '@/utils/constants'
 import Calendar from '@/icons/calendar.svg'
 import ArrowLeft from '@/icons/arrow-left.svg'
 import ArrowRight from '@/icons/arrow-right.svg'
@@ -13,8 +14,6 @@ export interface DatepickerProps extends React.HTMLProps<HTMLInputElement> {
   children: string
   className?: string
 }
-
-const FORMAT = 'dd MMM y'
 
 function Datepicker({ children, name, id, hidden, required = true, className = '', ...props }: DatepickerProps) {
   const [field, meta, helpers] = useField(name)
@@ -43,9 +42,9 @@ function Datepicker({ children, name, id, hidden, required = true, className = '
         <DayPickerInput
           value={field.value}
           onDayChange={day => {
-            if (day) helpers.setValue(formatDate(day, FORMAT))
+            if (day) helpers.setValue(formatDate(day, SHOW_DATE_FORMAT))
           }}
-          format={FORMAT}
+          format={SHOW_DATE_FORMAT}
           parseDate={parseDate}
           formatDate={formatDate}
           placeholder="21 Aug 2021"

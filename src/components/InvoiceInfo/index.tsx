@@ -1,5 +1,7 @@
 import React from 'react'
 import { format } from 'date-fns'
+import convertPrice from '@/utils/convertPrice'
+import { SHOW_DATE_FORMAT } from '@/utils/constants'
 
 export type InvoiceInfoProps = Omit<Invoice, 'paymentTerms' | 'status'> & React.HTMLProps<HTMLDivElement>
 
@@ -19,7 +21,6 @@ const InvoiceInfo = ({
 }: InvoiceInfoProps) => {
   const createdAtDate = new Date(createdAt)
   const paymentDueDate = new Date(paymentDue)
-  console.log(createdAt, paymentDue)
 
   return (
     <section className={`invoice p-6 md:p-8 lg:p-12 ${className}`} {...props}>
@@ -41,7 +42,7 @@ const InvoiceInfo = ({
           <div className="invoice-label">Invoice Date</div>
           {createdAt ? (
             <time dateTime={createdAtDate.toISOString()} className="invoice-value">
-              {format(createdAtDate, 'dd MMM y')}
+              {format(createdAtDate, SHOW_DATE_FORMAT)}
             </time>
           ) : (
             <div className="invoice-value">–</div>
@@ -61,7 +62,7 @@ const InvoiceInfo = ({
           <div className="invoice-label">Payment Due</div>
           {paymentDue ? (
             <time dateTime={paymentDueDate.toISOString()} className="invoice-value">
-              {format(paymentDueDate, 'dd MMM y')}
+              {format(paymentDueDate, SHOW_DATE_FORMAT)}
             </time>
           ) : (
             <div className="invoice-value">–</div>
@@ -110,18 +111,14 @@ const InvoiceInfo = ({
                       aria-labelledby="invoice-price"
                       className="invoice-price md:text-right text-purple-light dark:text-grey-lighter"
                     >
-                      {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'GBP' })
-                        .format(price)
-                        .replace(/^(\D)/, '$1 ')}
+                      {convertPrice(price)}
                     </div>
                   </div>
                   <div
                     aria-labelledby="invoice-total"
                     className="order-1 md:order-none row-span-2 md:row-span-1 text-right"
                   >
-                    {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'GBP' })
-                      .format(total)
-                      .replace(/^(\D)/, '$1 ')}
+                    {convertPrice(total)}
                   </div>
                 </li>
               ))}
@@ -130,11 +127,7 @@ const InvoiceInfo = ({
         </div>
         <div className="flex justify-between items-center p-6 md:px-8 bg-grey dark:bg-grey-darkest text-white">
           <div className="text-small">Amount Due</div>
-          <div className="text-h2 font-bold">
-            {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'GBP' })
-              .format(total)
-              .replace(/^(\D)/, '$1 ')}
-          </div>
+          <div className="text-h2 font-bold">{convertPrice(total)}</div>
         </div>
       </div>
     </section>

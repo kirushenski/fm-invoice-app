@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'gatsby'
 import { useMedia } from 'react-media'
 import { format } from 'date-fns'
+import convertPrice from '@/utils/convertPrice'
+import { SHOW_DATE_FORMAT } from '@/utils/constants'
 import ArrowRight from '@/icons/arrow-right.svg'
 
 export type InvoiceProps = Pick<Invoice, 'id' | 'paymentDue' | 'clientName' | 'total' | 'status'> &
@@ -25,14 +27,12 @@ const Invoice = ({ id, paymentDue, clientName, total, status, className = '', ..
         <span className="text-grey-light dark:text-grey-lighter">{paymentDue ? 'Due ' : '–'}</span>
         {paymentDue && (
           <time dateTime={paymentDueDate.toISOString()} className="text-purple-light dark:text-grey-lighter">
-            {format(paymentDueDate, 'dd MMM y')}
+            {format(paymentDueDate, SHOW_DATE_FORMAT)}
           </time>
         )}
       </div>
       <div className="text-purple-light dark:text-white text-right md:text-left">{clientName || '–'}</div>
-      <div className="font-bold text-h4 md:pr-5 md:text-right">
-        {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'GBP' }).format(total).replace(/^(\D)/, '$1 ')}
-      </div>
+      <div className="font-bold text-h4 md:pr-5 md:text-right">{convertPrice(total)}</div>
       <div
         className={`ml-auto md:ml-0 status ${
           status === 'paid' ? 'status-paid' : status === 'pending' ? 'status-pending' : 'status-draft'

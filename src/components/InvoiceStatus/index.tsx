@@ -22,7 +22,7 @@ const InvoiceStatus = ({ status, onEdit, onDelete, onMarkAsPaid, className = '',
           {status.slice(1)}
         </div>
       </div>
-      {isTablet && <InvoiceControls onEdit={onEdit} onDelete={onDelete} onMarkAsPaid={onMarkAsPaid} />}
+      {isTablet && <InvoiceControls status={status} onEdit={onEdit} onDelete={onDelete} onMarkAsPaid={onMarkAsPaid} />}
     </section>
   )
 }

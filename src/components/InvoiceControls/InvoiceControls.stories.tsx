@@ -13,3 +13,6 @@ const Template: Story<InvoiceControlsProps> = args => (
   </nav>
 )
 export const Primary = Template.bind({})
+Primary.args = {
+  status: 'pending',
+}

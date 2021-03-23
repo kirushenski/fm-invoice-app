@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useMedia } from 'react-media'
-import { add, format, parse } from 'date-fns'
 import Layout from '@/components/Layout'
 import Seo from '@/components/Seo'
 import Nav from '@/components/Nav'
@@ -11,6 +10,8 @@ import EditInvoice from '@/components/EditInvoice'
 import ErrorMessage from '@/components/ErrorMessage'
 import { useInvoices } from '@/components/InvoicesProvider'
 import generateId from '@/utils/generateId'
+import getCreatedAt from '@/utils/getCreatedAt'
+import getPaymentDue from '@/utils/getPaymentDue'
 
 // 5. Write business logic and manage state locally
 // 6. Bug fixes
@@ -33,15 +34,13 @@ const IndexPage = () => {
   const filteredInvoices = invoices.filter(invoice => filters.includes(invoice.status))
 
   function createInvoice(values: Omit<Invoice, 'id' | 'paymentDue' | 'status' | 'total'>, isDraft = false) {
-    const parsedDate = values.createdAt && parse(values.createdAt, 'dd MMM y', new Date())
     setInvoices([
       ...invoices,
       {
         ...values,
         id: generateId(invoices.map(({ id }) => id)),
-        createdAt: parsedDate && format(parsedDate, 'y-mm-dd'),
-        paymentDue:
-          parsedDate && values.paymentTerms ? format(add(parsedDate, { days: values.paymentTerms }), 'y-mm-dd') : '',
+        createdAt: getCreatedAt(values.createdAt),
+        paymentDue: getPaymentDue(values.createdAt, values.paymentTerms),
         status: isDraft ? 'draft' : 'pending',
         total: values.items.reduce((acc, item) => acc + item.total, 0),
       },
@@ -95,9 +94,7 @@ const IndexPage = () => {
             },
             items: [],
           }}
-          onCancel={() => {
-            setIsPopupOpen(false)
-          }}
+          onCancel={() => setIsPopupOpen(false)}
           onSaveAsDraft={values => {
             createInvoice(values, true)
             setIsPopupOpen(false)

@@ -12,6 +12,9 @@ import InvoiceControls from '@/components/InvoiceControls'
 import InvoiceInfo from '@/components/InvoiceInfo'
 import ErrorMessage from '@/components/ErrorMessage'
 import { useInvoices } from '@/components/InvoicesProvider'
+import getCreatedAt from '@/utils/getCreatedAt'
+import getPaymentDue from '@/utils/getPaymentDue'
+import { SHOW_DATE_FORMAT } from '@/utils/constants'
 
 const NotFoundPage = ({ location }: PageProps) => {
   const [isEditPopupOpen, setIsEditPopupOpen] = useState(false)
@@ -21,21 +24,28 @@ const NotFoundPage = ({ location }: PageProps) => {
 
   const searchParams = new URLSearchParams(location.search)
   const id = searchParams.get('id')
-  const [invoices] = useInvoices()
+  const [invoices, setInvoices] = useInvoices()
   const invoice = invoices.find(invoice => invoice.id === id)
 
   function handleDelete() {
-    console.log('delete')
     setIsDeletePopupOpen(true)
   }
 
   function handleEdit() {
-    console.log('edit')
     setIsEditPopupOpen(true)
   }
 
   function handleMarkAsPaid() {
-    console.log('mark')
+    setInvoices(
+      invoices.map(invoice =>
+        invoice.id === id
+          ? {
+              ...invoice,
+              status: 'paid',
+            }
+          : invoice
+      )
+    )
   }
 
   return (
@@ -54,7 +64,12 @@ const NotFoundPage = ({ location }: PageProps) => {
           />
           {!isTablet && (
             <nav className="fixed left-0 right-0 bottom-0 px-6 py-5 bg-white dark:bg-grey-dark shadow-invoice">
-              <InvoiceControls onEdit={handleEdit} onDelete={handleDelete} onMarkAsPaid={handleMarkAsPaid} />
+              <InvoiceControls
+                status={invoice.status}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+                onMarkAsPaid={handleMarkAsPaid}
+              />
             </nav>
           )}
           <InvoiceInfo
@@ -79,7 +94,7 @@ const NotFoundPage = ({ location }: PageProps) => {
             <EditInvoice
               mode="edit"
               initialValues={{
-                createdAt: invoice.createdAt ? format(new Date(invoice.createdAt), 'dd MMM y') : '',
+                createdAt: invoice.createdAt ? format(new Date(invoice.createdAt), SHOW_DATE_FORMAT) : '',
                 description: invoice.description,
                 paymentTerms: invoice.paymentTerms,
                 clientName: invoice.clientName,
@@ -89,13 +104,23 @@ const NotFoundPage = ({ location }: PageProps) => {
                 items: invoice.items,
               }}
               onSubmit={values => {
-                console.log('Update invoice with changes: ', JSON.stringify(values, null, 2))
+                console.log(values)
+                setInvoices(
+                  invoices.map(invoice =>
+                    invoice.id === id
+                      ? {
+                          ...invoice,
+                          ...values,
+                          createdAt: getCreatedAt(values.createdAt),
+                          paymentDue: getPaymentDue(values.createdAt, values.paymentTerms),
+                          total: values.items.reduce((acc, item) => acc + item.total, 0),
+                        }
+                      : invoice
+                  )
+                )
                 setIsEditPopupOpen(false)
               }}
-              onCancel={() => {
-                console.log('Reset form and close popup without saving')
-                setIsEditPopupOpen(false)
-              }}
+              onCancel={() => setIsEditPopupOpen(false)}
               className="h-form-mobile md:h-form-tablet lg:h-form-desktop"
             />
           </Popup>
@@ -114,7 +139,7 @@ const NotFoundPage = ({ location }: PageProps) => {
               <button
                 className="btn btn-delete"
                 onClick={() => {
-                  console.log('Invoice is deleted')
+                  setInvoices(invoices.filter(invoice => invoice.id !== id))
                   navigate('/')
                 }}
               >

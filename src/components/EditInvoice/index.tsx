@@ -17,6 +17,8 @@ export interface EditInvoiceProps extends Omit<React.HTMLProps<HTMLFormElement>,
 }
 
 // TODO Add items length validation (summary block once again?)
+// TODO Disable validation for draft edit
+// TODO Add total readonly calculated field
 
 const EditInvoice = ({
   mode,

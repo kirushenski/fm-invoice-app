@@ -1,6 +1,7 @@
 import React from 'react'
 
 export interface InvoiceControlsHandlers {
+  status: InvoiceStatus
   onEdit: () => void
   onDelete: () => void
   onMarkAsPaid: () => void
@@ -8,7 +9,14 @@ export interface InvoiceControlsHandlers {
 
 export type InvoiceControlsProps = InvoiceControlsHandlers & React.HTMLProps<HTMLDivElement>
 
-const InvoiceControls = ({ onEdit, onDelete, onMarkAsPaid, className = '', ...props }: InvoiceControlsProps) => {
+const InvoiceControls = ({
+  status,
+  onEdit,
+  onDelete,
+  onMarkAsPaid,
+  className = '',
+  ...props
+}: InvoiceControlsProps) => {
   return (
     <div className={`grid grid-flow-col gap-2 justify-center ${className}`} {...props}>
       <button className="btn btn-secondary" onClick={onEdit}>
@@ -17,9 +25,11 @@ const InvoiceControls = ({ onEdit, onDelete, onMarkAsPaid, className = '', ...pr
       <button className="btn btn-delete" onClick={onDelete}>
         Delete
       </button>
-      <button className="btn btn-primary" onClick={onMarkAsPaid}>
-        Mark as Paid
-      </button>
+      {status === 'pending' && (
+        <button className="btn btn-primary" onClick={onMarkAsPaid}>
+          Mark as Paid
+        </button>
+      )}
     </div>
   )
 }
