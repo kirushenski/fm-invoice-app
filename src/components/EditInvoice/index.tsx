@@ -17,7 +17,6 @@ export interface EditInvoiceProps extends Omit<React.HTMLProps<HTMLFormElement>,
   onSaveAsDraft?: (values: InitialValues) => void
 }
 
-// TODO Add items length validation (summary block once again?)
 // TODO Add total readonly calculated field
 
 const EditInvoice = ({
@@ -53,19 +52,21 @@ const EditInvoice = ({
               createdAt: Yup.date().nullable().required("can't be empty"),
               paymentTerms: Yup.number().required("can't be empty"),
               description: Yup.string().required("can't be empty"),
-              items: Yup.array().of(
-                Yup.object().shape({
-                  name: Yup.string().required("can't be empty"),
-                  quantity: Yup.number().required("can't be empty"),
-                  price: Yup.number().min(0, 'must be greater than or equal to 0').required("can't be empty"),
-                })
-              ),
+              items: Yup.array()
+                .of(
+                  Yup.object().shape({
+                    name: Yup.string().required("can't be empty"),
+                    quantity: Yup.number().required("can't be empty"),
+                    price: Yup.number().min(0, 'must be greater than or equal to 0').required("can't be empty"),
+                  })
+                )
+                .min(1, 'An item must be added'),
             })
           : null
       }
       onSubmit={onSubmit}
     >
-      {({ values }) => (
+      {({ values, errors, isValid }) => (
         <Form noValidate className={`relative ${className}`} {...props}>
           <div className="h-full overflow-y-auto scroll-gradient sidebar-paddings pb-38 md:pb-64">
             <fieldset className="mb-10 md:mb-12">
@@ -171,7 +172,7 @@ const EditInvoice = ({
                     <button
                       type="button"
                       className="btn btn-secondary w-full"
-                      onClick={() => push({ name: '', quantity: 1, price: '0.00' })}
+                      onClick={() => push({ name: '', quantity: 1, price: 0, total: 0 })}
                     >
                       + Add New Item
                     </button>
@@ -179,6 +180,16 @@ const EditInvoice = ({
                 )}
               </FieldArray>
             </fieldset>
+            {!isValid ? (
+              <ul className="mt-8">
+                {Object.keys(errors).filter(field => field !== 'items').length || Array.isArray(errors.items) ? (
+                  <li className="list-dash list-inside error">All fields must be added</li>
+                ) : null}
+                {typeof errors.items === 'string' ? (
+                  <li className="list-dash list-inside error">{errors.items}</li>
+                ) : null}
+              </ul>
+            ) : null}
           </div>
           <div className="absolute left-0 right-0 bottom-0 grid grid-flow-col gap-2 justify-between sidebar-paddings py-5 md:py-8 md:rounded-r-sidebar bg-white dark:bg-grey-darker">
             <div>
