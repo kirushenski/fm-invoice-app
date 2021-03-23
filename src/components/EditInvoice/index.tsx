@@ -16,6 +16,8 @@ export interface EditInvoiceProps extends Omit<React.HTMLProps<HTMLFormElement>,
   onSaveAsDraft?: (values: InitialValues) => void
 }
 
+// TODO Add items length validation (summary block once again?)
+
 const EditInvoice = ({
   mode,
   initialValues,

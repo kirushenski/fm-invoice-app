@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { add, format, parse } from 'date-fns'
 import Layout from '@/components/Layout'
 import Seo from '@/components/Seo'
 import Nav from '@/components/Nav'
@@ -8,6 +9,7 @@ import Popup from '@/components/Popup'
 import EditInvoice from '@/components/EditInvoice'
 import EmptyList from '@/components/EmptyList'
 import { useInvoices } from '@/components/InvoicesProvider'
+import generateId from '@/utils/generateId'
 
 // 5. Write business logic and manage state locally
 // 6. Bug fixes
@@ -22,10 +24,27 @@ import { useInvoices } from '@/components/InvoicesProvider'
 // The `total` should be the sum of all items on the invoice.
 
 const IndexPage = () => {
-  const [invoices] = useInvoices()
+  const [isPopupOpen, setIsPopupOpen] = useState(false)
+
+  const [invoices, setInvoices] = useInvoices()
   const [filters, setFilters] = useState(['draft', 'pending', 'paid'])
   const filteredInvoices = invoices.filter(invoice => filters.includes(invoice.status))
-  const [isPopupOpen, setIsPopupOpen] = useState(false)
+
+  function createInvoice(values: Omit<Invoice, 'id' | 'paymentDue' | 'status' | 'total'>, isDraft = false) {
+    const parsedDate = values.createdAt && parse(values.createdAt, 'dd MMM y', new Date())
+    setInvoices([
+      ...invoices,
+      {
+        ...values,
+        id: generateId(invoices.map(({ id }) => id)),
+        createdAt: parsedDate && format(parsedDate, 'y-mm-dd'),
+        paymentDue:
+          parsedDate && values.paymentTerms ? format(add(parsedDate, { days: values.paymentTerms }), 'y-mm-dd') : '',
+        status: isDraft ? 'draft' : 'pending',
+        total: values.items.reduce((acc, item) => acc + item.total, 0),
+      },
+    ])
+  }
 
   return (
     <Layout>
@@ -41,14 +60,7 @@ const IndexPage = () => {
       {filteredInvoices.length ? (
         <InvoicesList>
           {filteredInvoices.map(({ clientName, id, paymentDue, status, total }) => (
-            <Invoice
-              key={id}
-              clientName={clientName}
-              id={id}
-              paymentDue={paymentDue}
-              status={status as any}
-              total={total}
-            />
+            <Invoice key={id} clientName={clientName} id={id} paymentDue={paymentDue} status={status} total={total} />
           ))}
         </InvoicesList>
       ) : (
@@ -78,15 +90,14 @@ const IndexPage = () => {
             items: [],
           }}
           onCancel={() => {
-            console.log('Close popup without saving')
             setIsPopupOpen(false)
           }}
           onSaveAsDraft={values => {
-            console.log('Create new invoice with data: ', JSON.stringify(values, null, 2))
+            createInvoice(values, true)
             setIsPopupOpen(false)
           }}
           onSubmit={values => {
-            console.log('Create new invoice with data: ', JSON.stringify(values, null, 2))
+            createInvoice(values)
             setIsPopupOpen(false)
           }}
           className="h-form-mobile md:h-form-tablet lg:h-form-desktop"

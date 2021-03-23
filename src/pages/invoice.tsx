@@ -13,7 +13,6 @@ import InvoiceInfo from '@/components/InvoiceInfo'
 import { useInvoices } from '@/components/InvoicesProvider'
 
 // TODO Wrong id
-// TODO Fallbacks for draft status
 
 const NotFoundPage = ({ location }: PageProps) => {
   const [isEditPopupOpen, setIsEditPopupOpen] = useState(false)
@@ -47,7 +46,7 @@ const NotFoundPage = ({ location }: PageProps) => {
       <h1 className="sr-only">Invoice #{id}</h1>
       <GoBack className="mb-4" />
       <InvoiceStatus
-        status={invoice.status as any}
+        status={invoice.status}
         onEdit={handleEdit}
         onDelete={handleDelete}
         onMarkAsPaid={handleMarkAsPaid}
@@ -80,7 +79,7 @@ const NotFoundPage = ({ location }: PageProps) => {
         <EditInvoice
           mode="edit"
           initialValues={{
-            createdAt: format(new Date(invoice.createdAt), 'dd MMM y'),
+            createdAt: invoice.createdAt ? format(new Date(invoice.createdAt), 'dd MMM y') : '',
             description: invoice.description,
             paymentTerms: invoice.paymentTerms,
             clientName: invoice.clientName,

@@ -22,12 +22,14 @@ const Invoice = ({ id, paymentDue, clientName, total, status, className = '', ..
         {id}
       </div>
       <div className="absolute md:static left-6 top-15">
-        <span className="text-grey-light dark:text-grey-lighter">Due </span>
-        <time dateTime={paymentDueDate.toISOString()} className="text-purple-light dark:text-grey-lighter">
-          {format(paymentDueDate, 'dd MMM y')}
-        </time>
+        <span className="text-grey-light dark:text-grey-lighter">{paymentDue ? 'Due ' : '–'}</span>
+        {paymentDue && (
+          <time dateTime={paymentDueDate.toISOString()} className="text-purple-light dark:text-grey-lighter">
+            {format(paymentDueDate, 'dd MMM y')}
+          </time>
+        )}
       </div>
-      <div className="text-purple-light dark:text-white text-right md:text-left">{clientName}</div>
+      <div className="text-purple-light dark:text-white text-right md:text-left">{clientName || '–'}</div>
       <div className="font-bold text-h4 pr-5 md:text-right">
         {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'GBP' }).format(total).replace(/^(\D)/, '$1 ')}
       </div>
