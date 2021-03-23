@@ -137,11 +137,11 @@ const NotFoundPage = ({ location }: PageProps) => {
               Are you sure you want to delete invoice #{id}? This action cannot be undone.
             </p>
             <div className="flex justify-end">
-              <button className="btn btn-secondary mr-2" onClick={() => setIsDeletePopupOpen(false)}>
+              <button className="btn-secondary mr-2" onClick={() => setIsDeletePopupOpen(false)}>
                 Cancel
               </button>
               <button
-                className="btn btn-delete"
+                className="btn-delete"
                 onClick={() => {
                   setInvoices(invoices.filter(invoice => invoice.id !== id))
                   navigate('/')

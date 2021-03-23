@@ -1,21 +1,21 @@
 @layer components {
   .btn {
     @apply flex justify-center items-center h-12 px-4 md:px-6 text-body font-bold rounded-full focus transition-colors;
+  }
 
-    &-primary {
-      @apply bg-purple-dark hover:bg-purple text-white;
-    }
+  .btn-primary {
+    @apply btn bg-purple-dark hover:bg-purple text-white;
+  }
 
-    &-secondary {
-      @apply bg-grey-lightest hover:bg-grey-lighter dark:bg-grey dark:hover:bg-white text-purple-light dark:text-grey-lighter;
-    }
+  .btn-secondary {
+    @apply btn bg-grey-lightest hover:bg-grey-lighter dark:bg-grey dark:hover:bg-white text-purple-light dark:text-grey-lighter;
+  }
 
-    &-save {
-      @apply bg-grey hover:bg-grey-darkest dark:hover:bg-grey-dark text-grey-light dark:text-grey-lighter;
-    }
+  .btn-save {
+    @apply btn bg-grey hover:bg-grey-darkest dark:hover:bg-grey-dark text-grey-light dark:text-grey-lighter;
+  }
 
-    &-delete {
-      @apply bg-red hover:bg-red-light text-white;
-    }
+  .btn-delete {
+    @apply btn bg-red hover:bg-red-light text-white;
   }
 }

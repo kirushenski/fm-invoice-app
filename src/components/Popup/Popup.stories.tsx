@@ -13,7 +13,7 @@ const PrimaryTemplate: Story<PopupProps> = args => {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
   return (
     <>
-      <button className="btn btn-delete" onClick={() => setIsPopupOpen(true)}>
+      <button className="btn-delete" onClick={() => setIsPopupOpen(true)}>
         Delete
       </button>
       <Popup {...args} isOpen={isPopupOpen} onRequestClose={() => setIsPopupOpen(false)}>
@@ -21,10 +21,10 @@ const PrimaryTemplate: Story<PopupProps> = args => {
           Are you sure you want to delete invoice #XM9141? This action cannot be undone.
         </p>
         <div className="flex justify-end">
-          <button className="btn btn-secondary mr-2" onClick={() => setIsPopupOpen(false)}>
+          <button className="btn-secondary mr-2" onClick={() => setIsPopupOpen(false)}>
             Cancel
           </button>
-          <button className="btn btn-delete">Delete</button>
+          <button className="btn-delete">Delete</button>
         </div>
       </Popup>
     </>
@@ -40,7 +40,7 @@ const SidebarTemplate: Story<PopupProps> = args => {
   return (
     <>
       <Layout>
-        <button className="btn btn-secondary" onClick={() => setIsPopupOpen(true)}>
+        <button className="btn-secondary" onClick={() => setIsPopupOpen(true)}>
           Edit
         </button>
         <Popup {...args} isOpen={isPopupOpen} onRequestClose={() => setIsPopupOpen(false)}>

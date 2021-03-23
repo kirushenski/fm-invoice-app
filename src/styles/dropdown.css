@@ -1,13 +1,13 @@
 @layer components {
   .dropdown {
     @apply z-10 absolute top-full left-0 transform translate-y-6 bg-white dark:bg-grey shadow-dropdown dark:shadow-dropdown-dark rounded border border-transparent;
+  }
 
-    &-wrapper {
-      @apply focus:outline-none;
+  .dropdown-wrapper {
+    @apply focus:outline-none;
+  }
 
-      &:focus-visible & {
-        @apply border-purple-dark;
-      }
-    }
+  .dropdown-wrapper:focus-visible .dropdown {
+    @apply border-purple-dark;
   }
 }

@@ -24,7 +24,7 @@ const Nav = ({ invoicesCount, onFiltersChange, onNewInvoiceCreate, className = '
         </div>
       </div>
       <Filter onFiltersChange={onFiltersChange} className="md:mr-6" />
-      <button className="btn btn-primary pl-2 pr-4 h-11 md:h-12" onClick={onNewInvoiceCreate}>
+      <button className="btn-primary pl-2 pr-4 h-11 md:h-12" onClick={onNewInvoiceCreate}>
         <div className="grid place-items-center w-8 h-8 mr-2 md:mr-4 rounded-full bg-white">
           <Plus />
         </div>

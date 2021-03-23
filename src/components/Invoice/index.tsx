@@ -34,7 +34,7 @@ const Invoice = ({ id, paymentDue, clientName, total, status, className = '', ..
       <div className="text-purple-light dark:text-white text-right md:text-left">{clientName || '–'}</div>
       <div className="font-bold text-h4 md:pr-5 md:text-right">{convertPrice(total)}</div>
       <div
-        className={`ml-auto md:ml-0 status ${
+        className={`ml-auto md:ml-0 ${
           status === 'paid' ? 'status-paid' : status === 'pending' ? 'status-pending' : 'status-draft'
         }`}
       >

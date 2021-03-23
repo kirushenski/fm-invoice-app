@@ -1,50 +1,53 @@
 @layer components {
   .datepicker {
     @apply relative;
+  }
 
-    .DayPicker {
-      @apply text-body font-bold;
+  .datepicker .DayPicker {
+    @apply text-body font-bold;
+  }
 
-      &-wrapper {
-        @apply pb-0;
-      }
+  .datepicker .DayPicker-wrapper {
+    @apply pb-0;
+  }
 
-      &-Month {
-        @apply m-0;
-      }
+  .datepicker .DayPicker-Month {
+    @apply m-0;
+  }
 
-      &-Caption {
-        @apply px-1 mb-6 text-center;
-      }
+  .datepicker .DayPicker-Caption {
+    @apply px-1 mb-6 text-center;
+  }
 
-      &-Body {
-        font-size: 0;
-      }
+  .datepicker .DayPicker-Body {
+    font-size: 0;
+  }
 
-      &-Day {
-        @apply p-2 text-body text-grey-darkest dark:text-grey-lighter transition-colors;
+  .datepicker .DayPicker-Day {
+    @apply p-2 text-body text-grey-darkest dark:text-grey-lighter transition-colors;
+  }
 
-        &--today {
-          @apply text-grey-darkest dark:text-grey-lighter;
-        }
+  .datepicker .DayPicker-Day--today {
+    @apply text-grey-darkest dark:text-grey-lighter;
+  }
 
-        &--outside {
-          @apply text-grey-darkest dark:text-grey-lighter text-opacity-10;
-        }
+  .datepicker .DayPicker-Day--outside {
+    @apply text-grey-darkest dark:text-grey-lighter text-opacity-10;
+  }
 
-        &--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-          @apply text-purple-dark bg-transparent;
-        }
-      }
+  .datepicker .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+    @apply text-purple-dark bg-transparent;
+  }
 
-      &:not(.DayPicker--interactionDisabled) {
-        .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover {
-          @apply text-purple-dark bg-transparent;
-        }
-        .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside):hover {
-          @apply text-purple-dark bg-transparent;
-        }
-      }
-    }
+  .datepicker
+    .DayPicker:not(.DayPicker--interactionDisabled)
+    .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover {
+    @apply text-purple-dark bg-transparent;
+  }
+
+  .datepicker
+    .DayPicker:not(.DayPicker--interactionDisabled)
+    .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside):hover {
+    @apply text-purple-dark bg-transparent;
   }
 }

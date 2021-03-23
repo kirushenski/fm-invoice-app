@@ -21,7 +21,7 @@ const Template: Story<TextFieldProps> = args => (
   >
     <Form noValidate>
       <TextField {...args} />
-      <button type="submit" className="btn btn-primary mt-4">
+      <button type="submit" className="btn-primary mt-4">
         Submit
       </button>
     </Form>

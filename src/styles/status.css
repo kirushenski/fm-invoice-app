@@ -1,22 +1,22 @@
 @layer components {
   .status {
     @apply flex items-center justify-center w-26 h-10 rounded-status font-bold;
+  }
 
-    &::before {
-      content: '';
-      @apply w-2 h-2 rounded-full mr-2 bg-current;
-    }
+  .status::before {
+    content: '';
+    @apply w-2 h-2 rounded-full mr-2 bg-current;
+  }
 
-    &-paid {
-      @apply text-green bg-green bg-opacity-5;
-    }
+  .status-paid {
+    @apply status text-green bg-green bg-opacity-5;
+  }
 
-    &-pending {
-      @apply text-orange bg-orange bg-opacity-5;
-    }
+  .status-pending {
+    @apply status text-orange bg-orange bg-opacity-5;
+  }
 
-    &-draft {
-      @apply text-grey bg-grey bg-opacity-5 dark:text-grey-lighter dark:bg-grey-lighter dark:bg-opacity-5;
-    }
+  .status-draft {
+    @apply status text-grey bg-grey bg-opacity-5 dark:text-grey-lighter dark:bg-grey-lighter dark:bg-opacity-5;
   }
 }

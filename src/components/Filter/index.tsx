@@ -18,7 +18,7 @@ const Filter = ({ onFiltersChange, className = '', ...props }: FilterProps) => {
     onSelectedItemsChange: onFiltersChange,
   })
 
-  const { isOpen, getToggleButtonProps, getMenuProps, getItemProps } = useSelect({
+  const { isOpen, highlightedIndex, getToggleButtonProps, getMenuProps, getItemProps } = useSelect({
     items: FILTERS,
     selectedItem: null,
     stateReducer: (_, actionAndChanges) => {
@@ -63,7 +63,12 @@ const Filter = ({ onFiltersChange, className = '', ...props }: FilterProps) => {
           <ul className="dropdown w-48 p-6 left-1/2 -translate-x-1/2 translate-y-2">
             {FILTERS.map((filter, index) => (
               <li key={filter} {...getItemProps({ item: filter, index })}>
-                <Checkbox id={filter} checked={selectedItems.includes(filter)} disabled>
+                <Checkbox
+                  id={filter}
+                  checked={selectedItems.includes(filter)}
+                  disabled
+                  className={`${index === highlightedIndex ? 'checkbox-focused' : ''}`}
+                >
                   {`${filter[0].toUpperCase()}${filter.slice(1)}`}
                 </Checkbox>
               </li>

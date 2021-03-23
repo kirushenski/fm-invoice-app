@@ -13,7 +13,7 @@ const EmptyList = ({ children, isLink = false, className = '', ...props }: Error
       <h2 className="text-h3 font-bold mb-6">There is nothing here</h2>
       <p className="text-grey-light dark:text-grey-lighter">{children}</p>
       {isLink && (
-        <Link to="/" className="btn btn-primary inline-flex mt-6">
+        <Link to="/" className="btn-primary inline-flex mt-6">
           Back to the invoices list
         </Link>
       )}

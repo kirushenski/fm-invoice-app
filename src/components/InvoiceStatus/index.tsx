@@ -14,9 +14,7 @@ const InvoiceStatus = ({ status, onEdit, onDelete, onMarkAsPaid, className = '',
       <div className="w-full md:w-auto grid grid-flow-col gap-4 items-center justify-between md:justify-start">
         <div className="text-purple-light dark:text-grey-lighter">Status</div>
         <div
-          className={`status ${
-            status === 'paid' ? 'status-paid' : status === 'pending' ? 'status-pending' : 'status-draft'
-          }`}
+          className={`${status === 'paid' ? 'status-paid' : status === 'pending' ? 'status-pending' : 'status-draft'}`}
         >
           {status[0].toUpperCase()}
           {status.slice(1)}
