@@ -4,7 +4,7 @@
   }
 
   .label {
-    @apply flex justify-between text-purple-light dark:text-grey-lighter mb-3;
+    @apply flex justify-between items-center text-purple-light dark:text-grey-lighter mb-2;
   }
 
   .input {

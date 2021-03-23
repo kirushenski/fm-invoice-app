@@ -16,10 +16,6 @@ export interface EditInvoiceProps extends Omit<React.HTMLProps<HTMLFormElement>,
   onSaveAsDraft?: (values: InitialValues) => void
 }
 
-// TODO Fix Items error
-// TODO Do not show errors summary before submit
-// TODO Fix popup break on field focus
-
 const EditInvoice = ({
   mode,
   initialValues,
@@ -34,35 +30,33 @@ const EditInvoice = ({
       initialValues={initialValues}
       validationSchema={Yup.object().shape({
         senderAddress: Yup.object().shape({
-          street: Yup.string().required('Street Address cannot be empty'),
-          city: Yup.string().required('City cannot be empty'),
-          postCode: Yup.string().required('Post Code cannot be empty'),
-          country: Yup.string().required('Country cannot be empty'),
+          street: Yup.string().required("can't be empty"),
+          city: Yup.string().required("can't be empty"),
+          postCode: Yup.string().required("can't be empty"),
+          country: Yup.string().required("can't be empty"),
         }),
         clientAddress: Yup.object().shape({
-          street: Yup.string().required('Client’s Street Address cannot be empty'),
-          city: Yup.string().required('Client’s City cannot be empty'),
-          postCode: Yup.string().required('Client’s Post Code cannot be empty'),
-          country: Yup.string().required('Client’s Country cannot be empty'),
+          street: Yup.string().required("can't be empty"),
+          city: Yup.string().required("can't be empty"),
+          postCode: Yup.string().required("can't be empty"),
+          country: Yup.string().required("can't be empty"),
         }),
-        clientName: Yup.string().required('Client’s Name cannot be empty'),
-        clientEmail: Yup.string().required('Client’s Email cannot be empty'),
-        createdAt: Yup.date().nullable().required('Invoice Date cannot be empty'),
-        paymentTerms: Yup.number().required('Payment Terms cannot be empty'),
-        description: Yup.string().required('Project Description cannot be empty'),
+        clientName: Yup.string().required("can't be empty"),
+        clientEmail: Yup.string().required("can't be empty"),
+        createdAt: Yup.date().nullable().required("can't be empty"),
+        paymentTerms: Yup.number().required("can't be empty"),
+        description: Yup.string().required("can't be empty"),
         items: Yup.array().of(
           Yup.object().shape({
-            name: Yup.string().required(({ path }) => `Item ${path.match(/\[(\d+)\]/)?.[1]} Name cannot be empty`),
-            qty: Yup.number().required(({ path }) => `Item ${path.match(/\[(\d+)\]/)?.[1]} Quantity cannot be empty`),
-            price: Yup.number()
-              .min(0, ({ path }) => `Item ${path.match(/\[(\d+)\]/)?.[1]} Price must be greater than or equal to 0`)
-              .required(({ path }) => `Item ${path.match(/\[(\d+)\]/)?.[1]} Price cannot be empty`),
+            name: Yup.string().required("can't be empty"),
+            quantity: Yup.number().required("can't be empty"),
+            price: Yup.number().min(0, 'must be greater than or equal to 0').required("can't be empty"),
           })
         ),
       })}
       onSubmit={onSubmit}
     >
-      {({ values, errors, isValid }) => (
+      {({ values }) => (
         <Form noValidate className={`relative ${className}`} {...props}>
           <div className="h-full overflow-y-auto scroll-gradient sidebar-paddings pb-38 md:pb-64">
             <fieldset className="mb-10 md:mb-12">
@@ -123,8 +117,8 @@ const EditInvoice = ({
               </div>
             </fieldset>
             <fieldset>
-              <legend className="font-bold text-h3 text-purple-light mb-4">Item List</legend>
-              <div className="hidden md:grid grid-cols-item gap-4">
+              <legend className="font-bold text-h3 text-purple-light mb-6">Item List</legend>
+              <div className="hidden md:grid grid-cols-item gap-4 mb-2">
                 <div className="label">Item Name</div>
                 <div className="label">Qty.</div>
                 <div className="label">Price</div>
@@ -168,7 +162,7 @@ const EditInvoice = ({
                     <button
                       type="button"
                       className="btn btn-secondary w-full"
-                      onClick={() => push({ name: '', qty: 1, price: '0.00' })}
+                      onClick={() => push({ name: '', quantity: 1, price: '0.00' })}
                     >
                       + Add New Item
                     </button>
@@ -176,20 +170,6 @@ const EditInvoice = ({
                 )}
               </FieldArray>
             </fieldset>
-            {!isValid ? (
-              <ul className="mt-8">
-                {Object.entries(errors)
-                  .map(([name, value]) =>
-                    name === 'items' ? (value as any).map((item: any) => item && Object.values(item)) : value
-                  )
-                  .flat(2)
-                  .map((error, index) => (
-                    <li key={index} className="list-dash list-inside error">
-                      {error}
-                    </li>
-                  ))}
-              </ul>
-            ) : null}
           </div>
           <div className="absolute left-0 right-0 bottom-0 grid grid-flow-col gap-2 justify-between sidebar-paddings py-5 md:py-8 md:rounded-r-sidebar bg-white dark:bg-grey-darker">
             <div>
@@ -202,7 +182,7 @@ const EditInvoice = ({
             <div className="grid grid-flow-col gap-2">
               {mode === 'edit' ? (
                 <>
-                  <button type="reset" className="btn btn-secondary" onClick={onCancel}>
+                  <button type="button" className="btn btn-secondary" onClick={onCancel}>
                     Cancel
                   </button>
                   <button type="submit" className="btn btn-primary">

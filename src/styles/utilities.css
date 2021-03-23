@@ -2,8 +2,4 @@
   .scroll-behaviour-smooth {
     scroll-behavior: smooth;
   }
-
-  .list-dash {
-    list-style-type: '– ';
-  }
 }
