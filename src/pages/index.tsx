@@ -7,7 +7,7 @@ import Invoice from '@/components/Invoice'
 import Popup from '@/components/Popup'
 import EditInvoice from '@/components/EditInvoice'
 import EmptyList from '@/components/EmptyList'
-import invoices from '../../data.json'
+import { useInvoices } from '@/components/InvoicesProvider'
 
 // 5. Write business logic and manage state locally
 // 6. Bug fixes
@@ -22,6 +22,7 @@ import invoices from '../../data.json'
 // The `total` should be the sum of all items on the invoice.
 
 const IndexPage = () => {
+  const [invoices] = useInvoices()
   const [filters, setFilters] = useState(['draft', 'pending', 'paid'])
   const filteredInvoices = invoices.filter(invoice => filters.includes(invoice.status))
   const [isPopupOpen, setIsPopupOpen] = useState(false)

@@ -9,8 +9,8 @@ import InvoiceStatus from '@/components/InvoiceStatus'
 import Popup from '@/components/Popup'
 import EditInvoice from '@/components/EditInvoice'
 import InvoiceControls from '@/components/InvoiceControls'
-import invoices from '../../data.json'
 import InvoiceInfo from '@/components/InvoiceInfo'
+import { useInvoices } from '@/components/InvoicesProvider'
 
 // TODO Wrong id
 // TODO Fallbacks for draft status
@@ -23,6 +23,7 @@ const NotFoundPage = ({ location }: PageProps) => {
 
   const searchParams = new URLSearchParams(location.search)
   const id = searchParams.get('id')
+  const [invoices] = useInvoices()
   const invoice = invoices.find(invoice => invoice.id === id)
   if (!invoice) return null
 

@@ -113,7 +113,7 @@ const InvoiceInfo = ({
             ))}
           </ol>
         </div>
-        <div className="flex justify-between items-center p-6 md:px-8 bg-grey dark:grey-darkest text-white">
+        <div className="flex justify-between items-center p-6 md:px-8 bg-grey dark:bg-grey-darkest text-white">
           <div className="text-small">Amount Due</div>
           <div className="text-h2 font-bold">
             {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'GBP' })

@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext, createContext } from 'react'
 
 interface ColorSchemeProviderProps {
-  /** Content with access to color scheme */
   children: React.ReactNode
 }
 
@@ -11,9 +10,7 @@ const ColorSchemeContext = createContext<[ColorSchemeTypes, (value: ColorSchemeT
 
 export const useColorScheme = () => {
   const context = useContext(ColorSchemeContext)
-
   if (!context) throw new Error('This component must be used within a <ColorSchemeProvider> component')
-
   return context
 }
 
