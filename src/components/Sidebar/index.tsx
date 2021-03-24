@@ -9,6 +9,8 @@ export interface SidebarProps extends React.HTMLProps<HTMLDivElement> {
   avatar: string
 }
 
+// TODO Set width/height attributes on image (make it dynamic first)
+
 const Sidebar = ({ avatar, className = '', ...props }: SidebarProps) => {
   const [colorScheme, setColorScheme] = useColorScheme()
   return (

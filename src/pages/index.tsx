@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useMedia } from 'react-media'
 import Layout from '@/components/Layout'
 import Seo from '@/components/Seo'
@@ -13,8 +13,8 @@ import generateId from '@/utils/generateId'
 import getCreatedAt from '@/utils/getCreatedAt'
 import getPaymentDue from '@/utils/getPaymentDue'
 
-// 7. Write tests
-// 8. Setup serverless app
+// 7. Setup serverless app
+// 8. Write tests
 
 const IndexPage = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
@@ -23,6 +23,19 @@ const IndexPage = () => {
   const [invoices, setInvoices] = useInvoices()
   const [filters, setFilters] = useState(['draft', 'pending', 'paid'])
   const filteredInvoices = invoices.filter(invoice => filters.includes(invoice.status))
+
+  useEffect(() => {
+    const request = async () => {
+      try {
+        const res = await fetch('/.netlify/functions/test')
+        const text = await res.text()
+        console.log(text)
+      } catch (e) {
+        console.error(e)
+      }
+    }
+    request()
+  }, [])
 
   function createInvoice(values: Omit<Invoice, 'id' | 'paymentDue' | 'status' | 'total'>, isDraft = false) {
     setInvoices([

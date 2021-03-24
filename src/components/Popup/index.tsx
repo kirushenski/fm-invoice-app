@@ -7,6 +7,8 @@ export interface PopupProps extends ReactModalProps {
   isSidebar?: boolean
 }
 
+// TODO Remove focus outline on production build
+
 const Popup = ({ heading, children, isSidebar = false, id = 'popup', ...props }: PopupProps) => {
   return (
     <Modal
