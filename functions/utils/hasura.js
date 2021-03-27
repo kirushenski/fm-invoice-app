@@ -8,11 +8,14 @@ exports.query = async ({ query, variables = {} }) => {
       'X-Hasura-Admin-Secret': process.env.HASURA_ADMIN_SECRET,
     },
     body: JSON.stringify({ query, variables }),
-  }).then(response => response.json())
+  })
 
-  if (response.errors) {
-    throw new Error(response.errors[0].message)
+  const { data, errors } = await response.json()
+
+  if (response.ok) {
+    return data
   } else {
-    return response.data
+    const error = new Error(errors?.map(e => e.message).join('\n') ?? 'unknown')
+    return Promise.reject(error)
   }
 }

@@ -48,18 +48,18 @@ const SidebarTemplate: Story<PopupProps> = args => {
             className="h-form-mobile md:h-form-tablet lg:h-form-desktop"
             mode="edit"
             initialValues={{
-              createdAt: '2021-08-21',
+              createdAt: '21 Aug 2021',
               description: 'Graphic Design',
-              paymentTerms: 30,
-              clientName: 'Alex Grim',
-              clientEmail: 'alexgrim@mail.com',
-              senderAddress: {
+              paymentTerms: 'Net 30 Days',
+              sender: {
                 street: '19 Union Terrace',
                 city: 'London',
                 postCode: 'E1 3EZ',
                 country: 'United Kingdom',
               },
-              clientAddress: {
+              client: {
+                name: 'Alex Grim',
+                email: 'alexgrim@mail.com',
                 street: '84 Church Way',
                 city: 'Bradford',
                 postCode: 'BD1 9PB',

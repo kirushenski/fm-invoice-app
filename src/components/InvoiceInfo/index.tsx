@@ -10,17 +10,15 @@ const InvoiceInfo = ({
   createdAt,
   paymentDue,
   description,
-  clientName,
-  clientEmail,
-  senderAddress,
-  clientAddress,
+  sender,
+  client,
   items,
   total,
   className = '',
   ...props
 }: InvoiceInfoProps) => {
-  const createdAtDate = new Date(createdAt)
-  const paymentDueDate = new Date(paymentDue)
+  const createdAtDate = createdAt && new Date(createdAt)
+  const paymentDueDate = paymentDue && new Date(paymentDue)
 
   return (
     <section className={`invoice p-6 md:p-8 lg:p-12 ${className}`} {...props}>
@@ -33,14 +31,14 @@ const InvoiceInfo = ({
           <div className="text-purple-light dark:text-grey-lighter">{description || '–'}</div>
         </div>
         <div className="md:col-span-2 text-right invoice-address">
-          <div>{senderAddress.street || '–'}</div>
-          <div>{senderAddress.city || '–'}</div>
-          <div>{senderAddress.postCode || '–'}</div>
-          <div>{senderAddress.country || '–'}</div>
+          <div>{sender.street || '–'}</div>
+          <div>{sender.city || '–'}</div>
+          <div>{sender.postCode || '–'}</div>
+          <div>{sender.country || '–'}</div>
         </div>
         <div>
           <div className="invoice-label">Invoice Date</div>
-          {createdAt ? (
+          {createdAtDate ? (
             <time dateTime={createdAtDate.toISOString()} className="invoice-value">
               {format(createdAtDate, SHOW_DATE_FORMAT)}
             </time>
@@ -50,17 +48,17 @@ const InvoiceInfo = ({
         </div>
         <div className="row-span-2">
           <div className="invoice-label">Bill To</div>
-          <div className="invoice-value mb-2">{clientName || '–'}</div>
+          <div className="invoice-value mb-2">{client.name || '–'}</div>
           <div className="invoice-address">
-            <div>{clientAddress.street || '–'}</div>
-            <div>{clientAddress.city || '–'}</div>
-            <div>{clientAddress.postCode || '–'}</div>
-            <div>{clientAddress.country || '–'}</div>
+            <div>{client.street || '–'}</div>
+            <div>{client.city || '–'}</div>
+            <div>{client.postCode || '–'}</div>
+            <div>{client.country || '–'}</div>
           </div>
         </div>
         <div className="md:order-2">
           <div className="invoice-label">Payment Due</div>
-          {paymentDue ? (
+          {paymentDueDate ? (
             <time dateTime={paymentDueDate.toISOString()} className="invoice-value">
               {format(paymentDueDate, SHOW_DATE_FORMAT)}
             </time>
@@ -70,7 +68,7 @@ const InvoiceInfo = ({
         </div>
         <div className="md:order-1 col-span-full md:col-span-1">
           <div className="invoice-label">Sent To</div>
-          <div className="invoice-value">{clientEmail || '–'}</div>
+          <div className="invoice-value">{client.email || '–'}</div>
         </div>
       </div>
       <div className="bg-grey-lightest dark:bg-grey rounded overflow-hidden">

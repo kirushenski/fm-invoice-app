@@ -77,10 +77,8 @@ const NotFoundPage = ({ location }: PageProps) => {
             createdAt={invoice.createdAt}
             paymentDue={invoice.paymentDue}
             description={invoice.description}
-            clientName={invoice.clientName}
-            clientEmail={invoice.clientEmail}
-            senderAddress={invoice.senderAddress}
-            clientAddress={invoice.clientAddress}
+            sender={invoice.sender}
+            client={invoice.client}
             items={invoice.items}
             total={invoice.total}
             className="mb-36 md:mb-0"
@@ -99,13 +97,11 @@ const NotFoundPage = ({ location }: PageProps) => {
               mode="edit"
               status={invoice.status}
               initialValues={{
-                createdAt: invoice.createdAt ? format(new Date(invoice.createdAt), SHOW_DATE_FORMAT) : '',
+                createdAt: invoice.createdAt && format(new Date(invoice.createdAt), SHOW_DATE_FORMAT),
                 description: invoice.description,
                 paymentTerms: invoice.paymentTerms,
-                clientName: invoice.clientName,
-                clientEmail: invoice.clientEmail,
-                senderAddress: invoice.senderAddress,
-                clientAddress: invoice.clientAddress,
+                sender: invoice.sender,
+                client: invoice.client,
                 items: invoice.items,
               }}
               onSubmit={values => {

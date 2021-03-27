@@ -46,20 +46,20 @@ const EditInvoice = ({
       validationSchema={
         status !== 'draft'
           ? Yup.object().shape({
-              senderAddress: Yup.object().shape({
+              sender: Yup.object().shape({
                 street: Yup.string().required("can't be empty"),
                 city: Yup.string().required("can't be empty"),
                 postCode: Yup.string().required("can't be empty"),
                 country: Yup.string().required("can't be empty"),
               }),
-              clientAddress: Yup.object().shape({
+              client: Yup.object().shape({
+                name: Yup.string().required("can't be empty"),
+                email: Yup.string().required("can't be empty"),
                 street: Yup.string().required("can't be empty"),
                 city: Yup.string().required("can't be empty"),
                 postCode: Yup.string().required("can't be empty"),
                 country: Yup.string().required("can't be empty"),
               }),
-              clientName: Yup.string().required("can't be empty"),
-              clientEmail: Yup.string().required("can't be empty"),
               createdAt: Yup.date().nullable().required("can't be empty"),
               paymentTerms: Yup.number().required("can't be empty"),
               description: Yup.string().required("can't be empty"),
@@ -83,12 +83,12 @@ const EditInvoice = ({
             <fieldset className="mb-10 md:mb-12">
               <legend className="legend">Bill From</legend>
               <div className="form">
-                <TextField name="senderAddress.street" className="col-span-full">
+                <TextField name="sender.street" className="col-span-full">
                   Street Address
                 </TextField>
-                <TextField name="senderAddress.city">City</TextField>
-                <TextField name="senderAddress.postCode">Post Code</TextField>
-                <TextField name="senderAddress.country" className="col-span-full md:col-span-1">
+                <TextField name="sender.city">City</TextField>
+                <TextField name="sender.postCode">Post Code</TextField>
+                <TextField name="sender.country" className="col-span-full md:col-span-1">
                   Country
                 </TextField>
               </div>
@@ -96,23 +96,23 @@ const EditInvoice = ({
             <fieldset className="mb-10 md:mb-12">
               <legend className="legend">Bill To</legend>
               <div className="form">
-                <TextField name="clientName" className="col-span-full">
+                <TextField name="client.name" className="col-span-full">
                   Client’s Name
                 </TextField>
                 <TextField
-                  name="clientEmail"
+                  name="client.email"
                   type="email"
                   placeholder="e.g. email@example.com"
                   className="col-span-full"
                 >
                   Client’s Email
                 </TextField>
-                <TextField name="clientAddress.street" className="col-span-full">
+                <TextField name="client.street" className="col-span-full">
                   Street Address
                 </TextField>
-                <TextField name="clientAddress.city">City</TextField>
-                <TextField name="clientAddress.postCode">Post Code</TextField>
-                <TextField name="clientAddress.country" className="col-span-full md:col-span-1">
+                <TextField name="client.city">City</TextField>
+                <TextField name="client.postCode">Post Code</TextField>
+                <TextField name="client.country" className="col-span-full md:col-span-1">
                   Country
                 </TextField>
               </div>
@@ -121,15 +121,7 @@ const EditInvoice = ({
               <legend className="sr-only">Details</legend>
               <div className="grid md:grid-cols-2 gap-6">
                 <Datepicker name="createdAt">Invoice Date</Datepicker>
-                <Dropdown
-                  name="paymentTerms"
-                  items={[
-                    { name: 'Net 1 Day', value: 1 },
-                    { name: 'Net 7 Days', value: 7 },
-                    { name: 'Net 14 Days', value: 14 },
-                    { name: 'Net 30 Days', value: 30 },
-                  ]}
-                >
+                <Dropdown name="paymentTerms" items={['Net 1 Day', 'Net 7 Days', 'Net 14 Days', 'Net 30 Days']}>
                   Payment Terms
                 </Dropdown>
                 <TextField name="description" placeholder="e.g. Graphic Design Service" className="col-span-full">

@@ -1,5 +1,7 @@
 import React from 'react'
 import { Story } from '@storybook/react'
+import { format } from 'date-fns'
+import { SHOW_DATE_FORMAT } from '@/utils/constants'
 import EditInvoice, { EditInvoiceProps } from '.'
 
 export default {
@@ -13,18 +15,18 @@ export const New = Template.bind({})
 New.args = {
   mode: 'new',
   initialValues: {
-    createdAt: '',
+    createdAt: format(new Date(), SHOW_DATE_FORMAT),
     description: '',
-    paymentTerms: 30,
-    clientName: '',
-    clientEmail: '',
-    senderAddress: {
+    paymentTerms: 'Net 30 Days',
+    sender: {
       street: '',
       city: '',
       postCode: '',
       country: '',
     },
-    clientAddress: {
+    client: {
+      name: '',
+      email: '',
       street: '',
       city: '',
       postCode: '',
@@ -50,16 +52,16 @@ Edit.args = {
   initialValues: {
     createdAt: '21 Aug 2021',
     description: 'Graphic Design',
-    paymentTerms: 30,
-    clientName: 'Alex Grim',
-    clientEmail: 'alexgrim@mail.com',
-    senderAddress: {
+    paymentTerms: 'Net 30 Days',
+    sender: {
       street: '19 Union Terrace',
       city: 'London',
       postCode: 'E1 3EZ',
       country: 'United Kingdom',
     },
-    clientAddress: {
+    client: {
+      name: 'Alex Grim',
+      email: 'alexgrim@mail.com',
       street: '84 Church Way',
       city: 'Bradford',
       postCode: 'BD1 9PB',

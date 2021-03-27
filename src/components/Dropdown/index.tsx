@@ -3,7 +3,7 @@ import { useSelect, UseSelectProps } from 'downshift'
 import { useField } from 'formik'
 import ArrowDown from '@/icons/arrow-down.svg'
 
-export interface DropdownProps extends UseSelectProps<{ name: string; value: number }> {
+export interface DropdownProps extends UseSelectProps<PaymentTerms> {
   name: string
   children: string
   className?: string
@@ -23,10 +23,9 @@ const Dropdown = ({ name, children, items, className = '', ...props }: DropdownP
     getItemProps,
   } = useSelect({
     items,
-    itemToString: item => (item ? item.name : ''),
-    selectedItem: items.find(item => item.value === field.value),
+    selectedItem: items.find(item => item === field.value),
     onSelectedItemChange: ({ selectedItem }) => {
-      helpers.setValue(selectedItem?.value)
+      helpers.setValue(selectedItem)
     },
     ...props,
   })
@@ -46,7 +45,7 @@ const Dropdown = ({ name, children, items, className = '', ...props }: DropdownP
         className={`input relative pr-11 ${isError ? 'border-red' : ''} ${isOpen ? 'border-purple' : ''}`}
         {...getToggleButtonProps()}
       >
-        {selectedItem?.name}
+        {selectedItem}
         <ArrowDown
           className={`absolute right-4 top-1/2 transform -translate-y-1/2 transition-transform ${
             isOpen ? '-rotate-180' : ''
@@ -58,13 +57,13 @@ const Dropdown = ({ name, children, items, className = '', ...props }: DropdownP
           <ul className="dropdown right-0">
             {items.map((item, index) => (
               <li
-                key={item.value}
+                key={item}
                 className={`flex items-center h-12 px-5 font-bold border-b last:border-none border-grey-lighter dark:border-grey-dark cursor-pointer ${
                   index === highlightedIndex ? 'text-purple-dark dark:text-purple' : ''
                 }`}
                 {...getItemProps({ item, index })}
               >
-                {item.name}
+                {item}
               </li>
             ))}
           </ul>

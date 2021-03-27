@@ -6,12 +6,13 @@ import convertPrice from '@/utils/convertPrice'
 import { SHOW_DATE_FORMAT } from '@/utils/constants'
 import ArrowRight from '@/icons/arrow-right.svg'
 
-export type InvoiceProps = Pick<Invoice, 'id' | 'paymentDue' | 'clientName' | 'total' | 'status'> &
-  Omit<React.HTMLProps<HTMLAnchorElement>, 'ref'>
+export type InvoiceProps = Pick<Invoice, 'id' | 'paymentDue' | 'total' | 'status'> & {
+  clientName: string
+} & Omit<React.HTMLProps<HTMLAnchorElement>, 'ref'>
 
 const Invoice = ({ id, paymentDue, clientName, total, status, className = '', ...props }: InvoiceProps) => {
   const isTablet = useMedia({ query: '(min-width: 768px)' })
-  const paymentDueDate = new Date(paymentDue)
+  const paymentDueDate = paymentDue && new Date(paymentDue)
 
   return (
     <Link
@@ -25,7 +26,7 @@ const Invoice = ({ id, paymentDue, clientName, total, status, className = '', ..
       </div>
       <div className="absolute md:static left-6 top-15">
         <span className="text-grey-light dark:text-grey-lighter">{paymentDue ? 'Due ' : '–'}</span>
-        {paymentDue && (
+        {paymentDueDate && (
           <time dateTime={paymentDueDate.toISOString()} className="text-purple-light dark:text-grey-lighter">
             {format(paymentDueDate, SHOW_DATE_FORMAT)}
           </time>

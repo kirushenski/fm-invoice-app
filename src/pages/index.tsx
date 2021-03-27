@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useMedia } from 'react-media'
+import { format } from 'date-fns'
 import Layout from '@/components/Layout'
 import Seo from '@/components/Seo'
 import Nav from '@/components/Nav'
@@ -12,15 +13,19 @@ import { useInvoices } from '@/components/InvoicesProvider'
 import generateId from '@/utils/generateId'
 import getCreatedAt from '@/utils/getCreatedAt'
 import getPaymentDue from '@/utils/getPaymentDue'
+import { SHOW_DATE_FORMAT } from '@/utils/constants'
 
-// 7. Setup serverless app
-// 8. Write tests
-
-// TODO Rewrite scheme format after db change
-// TODO Make current date as default
-// TODO Prefill sender address
-// TODO Make 30 days as default
-// TODO Fix payment terms button styling
+// TODO Add auth with Netlify Identity
+// TODO Add mutation on create
+// TODO Add mutation on edit
+// TODO Add mutation on status change
+// TODO Add mutation on remove
+// TODO Add loader to the both pages
+// TODO Mount error message component instead of console.error
+// TODO Check validation summary
+// TODO Check console errors about null
+// TODO How to change status from draft to pending?
+// TODO Write tests
 
 const IndexPage = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
@@ -29,20 +34,6 @@ const IndexPage = () => {
   const [invoices, setInvoices] = useInvoices()
   const [filters, setFilters] = useState(['draft', 'pending', 'paid'])
   const filteredInvoices = invoices.filter(invoice => filters.includes(invoice.status))
-
-  useEffect(() => {
-    const request = async () => {
-      try {
-        const response = await fetch('/.netlify/functions/invoices')
-        const data = await response.json()
-        if (!response.ok) throw new Error(data)
-        console.log(data)
-      } catch (e) {
-        console.error(e)
-      }
-    }
-    request()
-  }, [])
 
   function createInvoice(values: Omit<Invoice, 'id' | 'paymentDue' | 'status' | 'total'>, isDraft = false) {
     setInvoices([
@@ -71,8 +62,8 @@ const IndexPage = () => {
       />
       {filteredInvoices.length ? (
         <InvoicesList>
-          {filteredInvoices.map(({ clientName, id, paymentDue, status, total }) => (
-            <Invoice key={id} clientName={clientName} id={id} paymentDue={paymentDue} status={status} total={total} />
+          {filteredInvoices.map(({ client, id, paymentDue, status, total }) => (
+            <Invoice key={id} clientName={client.name} id={id} paymentDue={paymentDue} status={status} total={total} />
           ))}
         </InvoicesList>
       ) : (
@@ -86,18 +77,18 @@ const IndexPage = () => {
         <EditInvoice
           mode="new"
           initialValues={{
-            createdAt: '',
+            createdAt: format(new Date(), SHOW_DATE_FORMAT),
             description: '',
-            paymentTerms: 30,
-            clientName: '',
-            clientEmail: '',
-            senderAddress: {
+            paymentTerms: 'Net 30 Days',
+            sender: {
               street: '',
               city: '',
               postCode: '',
               country: '',
             },
-            clientAddress: {
+            client: {
+              name: '',
+              email: '',
               street: '',
               city: '',
               postCode: '',

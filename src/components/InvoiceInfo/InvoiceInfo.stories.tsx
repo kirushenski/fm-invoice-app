@@ -11,18 +11,18 @@ const Template: Story<InvoiceInfoProps> = args => <InvoiceInfo {...args} />
 export const Primary = Template.bind({})
 Primary.args = {
   id: 'XM9141',
-  createdAt: '2021-08-21',
+  createdAt: '21 Aug 2021',
   paymentDue: '2021-09-20',
   description: 'Graphic Design',
-  clientName: 'Alex Grim',
-  clientEmail: 'alexgrim@mail.com',
-  senderAddress: {
+  sender: {
     street: '19 Union Terrace',
     city: 'London',
     postCode: 'E1 3EZ',
     country: 'United Kingdom',
   },
-  clientAddress: {
+  client: {
+    name: 'Alex Grim',
+    email: 'alexgrim@mail.com',
     street: '84 Church Way',
     city: 'Bradford',
     postCode: 'BD1 9PB',

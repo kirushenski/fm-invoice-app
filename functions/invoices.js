@@ -9,11 +9,12 @@ exports.handler = async () => {
           created_at
           payment_due
           payment_terms
+          description
           status
           sender {
             street
             city
-            postCode
+            post_code
             country
           }
           client {
@@ -21,7 +22,7 @@ exports.handler = async () => {
             email
             street
             city
-            postCode
+            post_code
             country
           }
           items {

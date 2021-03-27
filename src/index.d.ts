@@ -32,11 +32,16 @@ declare module '*.woff2' {
   export default value
 }
 
-interface Address {
+interface Sender {
   street: string
   city: string
   postCode: string
   country: string
+}
+
+interface Client extends Sender {
+  name: string
+  email: string
 }
 
 interface InvoiceItem {
@@ -46,19 +51,18 @@ interface InvoiceItem {
   total: number
 }
 
+type PaymentTerms = 'Net 1 Day' | 'Net 7 Days' | 'Net 14 Days' | 'Net 30 Days'
 type InvoiceStatus = 'draft' | 'pending' | 'paid'
 
 interface Invoice {
   id: string
   createdAt: string
   paymentDue: string
+  paymentTerms: PaymentTerms
   description: string
-  paymentTerms: number
-  clientName: string
-  clientEmail: string
   status: InvoiceStatus
-  senderAddress: Address
-  clientAddress: Address
+  sender: Sender
+  client: Client
   items: InvoiceItem[]
   total: number
 }
