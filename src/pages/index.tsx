@@ -16,6 +16,12 @@ import getPaymentDue from '@/utils/getPaymentDue'
 // 7. Setup serverless app
 // 8. Write tests
 
+// TODO Rewrite scheme format after db change
+// TODO Make current date as default
+// TODO Prefill sender address
+// TODO Make 30 days as default
+// TODO Fix payment terms button styling
+
 const IndexPage = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
   const isTablet = useMedia({ query: '(min-width: 768px)' })
@@ -27,9 +33,10 @@ const IndexPage = () => {
   useEffect(() => {
     const request = async () => {
       try {
-        const res = await fetch('/.netlify/functions/test')
-        const text = await res.text()
-        console.log(text)
+        const response = await fetch('/.netlify/functions/invoices')
+        const data = await response.json()
+        if (!response.ok) throw new Error(data)
+        console.log(data)
       } catch (e) {
         console.error(e)
       }

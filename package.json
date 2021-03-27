@@ -57,6 +57,7 @@
     "gatsby-plugin-sharp": "^3.0.0",
     "gatsby-source-filesystem": "^3.0.0",
     "gatsby-transformer-sharp": "^3.0.0",
+    "node-fetch": "^2.6.1",
     "postcss": "^8.2.7",
     "postcss-focus-visible": "^5.0.0",
     "postcss-import": "^14.0.0",
