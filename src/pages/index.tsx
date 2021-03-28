@@ -15,7 +15,6 @@ import getCreatedAt from '@/utils/getCreatedAt'
 import getPaymentDue from '@/utils/getPaymentDue'
 import { SHOW_DATE_FORMAT } from '@/utils/constants'
 
-// TODO Add auth with Netlify Identity
 // TODO Add mutation on create
 // TODO Add mutation on edit
 // TODO Add mutation on status change

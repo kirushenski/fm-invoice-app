@@ -1,18 +1,20 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import { useColorScheme } from '@/components/ColorSchemeProvider'
+import { BsBoxArrowInRight } from 'react-icons/bs'
 import Logo from '@/icons/logo.svg'
 import Moon from '@/icons/moon.svg'
 import Sun from '@/icons/sun.svg'
 
 export interface SidebarProps extends React.HTMLProps<HTMLDivElement> {
   avatar: string
+  onAvatarClick: () => void
+  isLoggedIn?: boolean
 }
 
-// TODO Set width/height attributes on image (make it dynamic first)
-
-const Sidebar = ({ avatar, className = '', ...props }: SidebarProps) => {
+const Sidebar = ({ avatar, onAvatarClick, isLoggedIn = false, className = '', ...props }: SidebarProps) => {
   const [colorScheme, setColorScheme] = useColorScheme()
+
   return (
     <aside
       className={`z-20 flex h-18 md:h-20 lg:h-auto lg:w-26 lg:flex-col justify-between bg-grey overflow-hidden lg:rounded-r-sidebar ${className}`}
@@ -35,9 +37,25 @@ const Sidebar = ({ avatar, className = '', ...props }: SidebarProps) => {
           {colorScheme === 'light' ? <Moon /> : <Sun />}
         </button>
       </div>
-      <div className="grid place-items-center px-8 py-6 border-l lg:border-0 lg:border-t border-purple-light">
-        <img src={avatar} alt="Avatar" className="rounded-full w-8 h-8 lg:w-10 lg:h-10" />
-      </div>
+      <button
+        type="button"
+        className="group grid place-items-center px-8 py-6 border-l lg:border-0 lg:border-t border-purple-light focus:outline-none"
+        onClick={onAvatarClick}
+      >
+        {isLoggedIn ? (
+          <img
+            src={avatar}
+            alt="Log out"
+            width={40}
+            height={40}
+            className="rounded-full w-8 h-8 lg:w-10 lg:h-10 group-hover:shadow-focus group-focus:shadow-focus"
+          />
+        ) : (
+          <span className="grid place-items-center rounded-full w-8 h-8 lg:w-10 lg:h-10 bg-purple-dark text-white text-h4 group-hover:bg-purple group-focus:bg-purple transition-colors">
+            <BsBoxArrowInRight title="Log in" />
+          </span>
+        )}
+      </button>
     </aside>
   )
 }

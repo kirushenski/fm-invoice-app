@@ -104,9 +104,9 @@ module.exports = {
     extend: {
       borderWidth: ['last'],
       borderColor: ['focus-visible'],
-      boxShadow: ['dark', 'focus-visible'],
+      boxShadow: ['dark', 'focus-visible', 'group-focus'],
       textColor: ['focus-visible'],
-      backgroundColor: ['focus-visible'],
+      backgroundColor: ['focus-visible', 'group-focus'],
     },
   },
 }

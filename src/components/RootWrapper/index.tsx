@@ -1,5 +1,6 @@
 import React from 'react'
 import ColorSchemeProvider from '@/components/ColorSchemeProvider'
+import UserProvider from '@/components/UserProvider'
 import InvoicesProvider from '@/components/InvoicesProvider'
 import 'focus-visible'
 import '@fontsource/spartan/variable.css'
@@ -14,7 +15,9 @@ export interface RootWrapperProps {
 const RootWrapper = ({ children }: RootWrapperProps) => {
   return (
     <ColorSchemeProvider>
-      <InvoicesProvider>{children}</InvoicesProvider>
+      <UserProvider>
+        <InvoicesProvider>{children}</InvoicesProvider>
+      </UserProvider>
     </ColorSchemeProvider>
   )
 }

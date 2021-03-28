@@ -19,8 +19,8 @@ const InvoicesProvider = ({ children }: InvoicesProviderProps) => {
     const loadInvoices = async () => {
       try {
         const response = await fetch('/.netlify/functions/invoices')
+        if (!response.ok) throw new Error('Invoices cannot be fetched')
         const data = await response.json()
-        if (!response.ok) throw new Error(data)
 
         const formattedInvoices = data.map(
           ({
