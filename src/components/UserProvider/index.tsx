@@ -9,17 +9,18 @@ const UserContext = createContext<User | null>(null)
 
 export const useUser = () => {
   const context = useContext(UserContext)
-  console.log(context)
   if (context === undefined) throw new Error('This component must be used within a <UserProvider> component')
   return context
 }
 
+// TODO Check page reloads
+
 const UserProvider = ({ children }: UserProviderProps) => {
   const [user, setUser] = useState<User | null>(null)
 
-  function updateUser() {
-    const user = netlifyIdentity.currentUser()
-    setUser(user)
+  function updateUser(user?: User | null) {
+    console.log('handler')
+    setUser(user || null)
   }
 
   useEffect(() => {

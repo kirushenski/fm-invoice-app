@@ -1,4 +1,5 @@
 import React, { useState, useContext, createContext, useEffect } from 'react'
+import { useUser } from '@/components/UserProvider'
 
 interface InvoicesProviderProps {
   children: React.ReactNode
@@ -12,13 +13,22 @@ export const useInvoices = () => {
   return context
 }
 
+// TODO Split no user and empty list
+
 const InvoicesProvider = ({ children }: InvoicesProviderProps) => {
   const [invoices, setInvoices] = useState<Invoice[]>([])
+  const user = useUser()
 
   useEffect(() => {
     const loadInvoices = async () => {
+      if (!user || !user.token) return
+
       try {
-        const response = await fetch('/.netlify/functions/invoices')
+        const response = await fetch('/.netlify/functions/invoices', {
+          headers: {
+            Authorization: `Bearer ${user.token.access_token}`,
+          },
+        })
         if (!response.ok) throw new Error('Invoices cannot be fetched')
         const data = await response.json()
 
@@ -45,7 +55,7 @@ const InvoicesProvider = ({ children }: InvoicesProviderProps) => {
       }
     }
     loadInvoices()
-  }, [])
+  }, [user])
 
   return <InvoicesContext.Provider value={[invoices, setInvoices]}>{children}</InvoicesContext.Provider>
 }

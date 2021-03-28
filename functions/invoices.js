@@ -1,6 +1,8 @@
 const { query } = require('./utils/hasura')
 
-exports.handler = async () => {
+exports.handler = async (_, context) => {
+  console.log(context)
+
   try {
     const { invoices } = await query({
       query: `query Invoices {
