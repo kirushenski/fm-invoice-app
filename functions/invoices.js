@@ -1,11 +1,13 @@
 const { query } = require('./utils/hasura')
 
 exports.handler = async (_, context) => {
+  const { email } = context.clientContext.user
+
   try {
     const { invoices } = await query({
-      query: `query Invoices {
-        invoices {
-          id
+      query: `query Invoices($email: String!) {
+        invoices(where: {email: {_eq: $email}}) {
+          visible_id
           created_at
           payment_due
           payment_terms
@@ -34,6 +36,9 @@ exports.handler = async (_, context) => {
           total
         }
       }`,
+      variables: {
+        email,
+      },
     })
 
     return {
@@ -43,7 +48,7 @@ exports.handler = async (_, context) => {
   } catch (e) {
     return {
       statusCode: 500,
-      body: JSON.stringify(e.toString()),
+      body: JSON.stringify({ message: `Error: ${e.message}` }),
     }
   }
 }

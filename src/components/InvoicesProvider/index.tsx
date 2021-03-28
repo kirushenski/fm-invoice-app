@@ -35,6 +35,7 @@ const InvoicesProvider = ({ children }: InvoicesProviderProps) => {
 
         const formattedInvoices = data.map(
           ({
+            visible_id,
             created_at,
             payment_due,
             payment_terms,
@@ -43,9 +44,10 @@ const InvoicesProvider = ({ children }: InvoicesProviderProps) => {
             ...invoice
           }: any) => ({
             ...invoice,
+            id: visible_id,
             createdAt: created_at,
             paymentDue: payment_due,
-            paymentTerms: payment_terms,
+            paymentTerms: payment_terms.replace(/_/g, ' '),
             sender: { ...sender, postCode: sender_post_code },
             client: { ...client, postCode: client_post_code },
           })

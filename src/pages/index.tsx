@@ -11,6 +11,7 @@ import Popup from '@/components/Popup'
 import EditInvoice from '@/components/EditInvoice'
 import ErrorMessage from '@/components/ErrorMessage'
 import { useInvoices } from '@/components/InvoicesProvider'
+import { useUser } from '@/components/UserProvider'
 import generateId from '@/utils/generateId'
 import getCreatedAt from '@/utils/getCreatedAt'
 import getPaymentDue from '@/utils/getPaymentDue'
@@ -35,19 +36,33 @@ const IndexPage = () => {
   const [filters, setFilters] = useState(['draft', 'pending', 'paid'])
   const filteredInvoices = invoices?.filter(invoice => filters.includes(invoice.status))
 
-  function createInvoice(values: Omit<Invoice, 'id' | 'paymentDue' | 'status' | 'total'>, isDraft = false) {
-    if (!invoices) return
-    setInvoices([
-      ...invoices,
-      {
-        ...values,
-        id: generateId(invoices.map(({ id }) => id)),
-        createdAt: getCreatedAt(values.createdAt),
-        paymentDue: getPaymentDue(values.createdAt, values.paymentTerms),
-        status: isDraft ? 'draft' : 'pending',
-        total: values.items.reduce((acc, item) => acc + item.total, 0),
-      },
-    ])
+  const user = useUser()
+
+  async function createInvoice(values: Omit<Invoice, 'id' | 'paymentDue' | 'status' | 'total'>, isDraft = false) {
+    if (!invoices || !user || !user.token) return
+
+    const newInvoice = {
+      ...values,
+      id: generateId(),
+      createdAt: getCreatedAt(values.createdAt),
+      paymentDue: getPaymentDue(values.createdAt, values.paymentTerms),
+      status: (isDraft ? 'draft' : 'pending') as InvoiceStatus,
+      total: values.items.reduce((acc, item) => acc + item.total, 0),
+    }
+
+    try {
+      const response = await fetch('/.netlify/functions/new-invoice', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${user.token.access_token}`,
+        },
+        body: JSON.stringify(newInvoice),
+      })
+      if (!response.ok) throw new Error('Invoice cannot be created')
+      setInvoices([...invoices, newInvoice])
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   function handleLoginButtonClick() {
@@ -69,9 +84,9 @@ const IndexPage = () => {
           />
           {filteredInvoices.length ? (
             <InvoicesList>
-              {filteredInvoices.map(({ client, id, paymentDue, status, total }) => (
+              {filteredInvoices.map(({ client, id, paymentDue, status, total }, index) => (
                 <Invoice
-                  key={id}
+                  key={index}
                   clientName={client.name}
                   id={id}
                   paymentDue={paymentDue}
