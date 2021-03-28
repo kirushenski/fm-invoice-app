@@ -38,3 +38,7 @@ export const PageNotFound = () => {
     </ErrorMessage>
   )
 }
+
+export const Login = () => {
+  return <ErrorMessage isLogin>You need to log in first to work with the invoices</ErrorMessage>
+}

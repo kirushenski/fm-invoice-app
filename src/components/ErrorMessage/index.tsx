@@ -5,8 +5,17 @@ import IllustrationEmpty from '@/icons/illustration-empty.svg'
 export interface ErrorMessage extends React.HTMLProps<HTMLDivElement> {
   children?: React.ReactNode
   isLink?: boolean
+  isLogin?: boolean
+  onLoginButtonClick?: () => void
 }
-const EmptyList = ({ children, isLink = false, className = '', ...props }: ErrorMessage) => {
+const EmptyList = ({
+  children,
+  isLink = false,
+  isLogin = false,
+  onLoginButtonClick,
+  className = '',
+  ...props
+}: ErrorMessage) => {
   return (
     <div className={`pt-32 text-center ${className}`} {...props}>
       <IllustrationEmpty className=" w-empty-mobile h-empty-mobile md:w-empty md:h-empty mx-auto mb-10 md:mb-16" />
@@ -16,6 +25,11 @@ const EmptyList = ({ children, isLink = false, className = '', ...props }: Error
         <Link to="/" className="btn-primary inline-flex mt-6">
           Back to the invoices list
         </Link>
+      )}
+      {isLogin && (
+        <button type="button" className="btn-primary inline-flex mt-6" onClick={onLoginButtonClick}>
+          Log in
+        </button>
       )}
     </div>
   )

@@ -13,25 +13,21 @@ export const useUser = () => {
   return context
 }
 
-// TODO Check page reloads
-
 const UserProvider = ({ children }: UserProviderProps) => {
   const [user, setUser] = useState<User | null>(null)
 
   function updateUser(user?: User | null) {
-    console.log('handler')
     setUser(user || null)
   }
 
   useEffect(() => {
-    netlifyIdentity.init()
+    netlifyIdentity.init({})
 
-    netlifyIdentity.on('init', updateUser)
+    updateUser(netlifyIdentity.currentUser())
     netlifyIdentity.on('login', updateUser)
     netlifyIdentity.on('logout', updateUser)
 
     return () => {
-      netlifyIdentity.off('init', updateUser)
       netlifyIdentity.off('login', updateUser)
       netlifyIdentity.off('logout', updateUser)
     }

@@ -5,7 +5,7 @@ interface InvoicesProviderProps {
   children: React.ReactNode
 }
 
-const InvoicesContext = createContext<[Invoice[], (value: Invoice[]) => void] | null>(null)
+const InvoicesContext = createContext<[Invoice[] | null, (value: Invoice[] | null) => void] | null>(null)
 
 export const useInvoices = () => {
   const context = useContext(InvoicesContext)
@@ -13,15 +13,16 @@ export const useInvoices = () => {
   return context
 }
 
-// TODO Split no user and empty list
-
 const InvoicesProvider = ({ children }: InvoicesProviderProps) => {
-  const [invoices, setInvoices] = useState<Invoice[]>([])
+  const [invoices, setInvoices] = useState<Invoice[] | null>(null)
   const user = useUser()
 
   useEffect(() => {
     const loadInvoices = async () => {
-      if (!user || !user.token) return
+      if (!user || !user.token) {
+        setInvoices(null)
+        return
+      }
 
       try {
         const response = await fetch('/.netlify/functions/invoices', {
