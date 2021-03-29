@@ -40,18 +40,14 @@ const InvoicePage = ({ location }: PageProps) => {
     setIsEditPopupOpen(true)
   }
 
-  function handleMarkAsPaid() {
-    if (!invoices) return
-    setInvoices(
-      invoices.map(invoice =>
-        invoice.name === name
-          ? {
-              ...invoice,
-              status: 'paid',
-            }
-          : invoice
-      )
-    )
+  async function handleMarkInvoiceAsPaid() {
+    if (!invoice || !user || !user.token) return
+
+    const updatedInvoice: Invoice = { ...invoice, status: 'paid' }
+
+    await editInvoice(updatedInvoice)
+    const updatedInvoices = await getInvoices(user.token.access_token)
+    if (updatedInvoices) setInvoices(updatedInvoices)
   }
 
   async function handleInvoiceEditSubmit(values: InvoiceFormValues) {
@@ -65,7 +61,7 @@ const InvoicePage = ({ location }: PageProps) => {
       total: values.items.reduce((acc, item) => acc + item.total, 0),
     }
 
-    await editInvoice(user.token.access_token, updatedInvoice)
+    await editInvoice(updatedInvoice)
     const updatedInvoices = await getInvoices(user.token.access_token)
     if (updatedInvoices) setInvoices(updatedInvoices)
 
@@ -89,7 +85,7 @@ const InvoicePage = ({ location }: PageProps) => {
                 status={invoice.status}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
-                onMarkAsPaid={handleMarkAsPaid}
+                onMarkAsPaid={handleMarkInvoiceAsPaid}
                 className="mb-6 md:mb-8"
               />
               {!isTablet && (
@@ -98,7 +94,7 @@ const InvoicePage = ({ location }: PageProps) => {
                     status={invoice.status}
                     onEdit={handleEdit}
                     onDelete={handleDelete}
-                    onMarkAsPaid={handleMarkAsPaid}
+                    onMarkAsPaid={handleMarkInvoiceAsPaid}
                   />
                 </nav>
               )}

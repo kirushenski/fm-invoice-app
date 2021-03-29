@@ -30,13 +30,10 @@ export const createInvoice = async (token: string, invoice: CreatedInvoice) => {
   }
 }
 
-export const editInvoice = async (token: string, invoice: Invoice) => {
+export const editInvoice = async (invoice: Invoice) => {
   try {
     const response = await fetch('/.netlify/functions/edit-invoice', {
       method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
       body: JSON.stringify(invoice),
     })
     if (!response.ok) throw new Error('Invoice cannot be edited')
