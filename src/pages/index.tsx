@@ -12,21 +12,19 @@ import EditInvoice from '@/components/EditInvoice'
 import ErrorMessage from '@/components/ErrorMessage'
 import { useInvoices } from '@/components/InvoicesProvider'
 import { useUser } from '@/components/UserProvider'
-import generateId from '@/utils/generateId'
+import generateInvoiceName from '@/utils/generateInvoiceName'
 import getCreatedAt from '@/utils/getCreatedAt'
 import getPaymentDue from '@/utils/getPaymentDue'
 import { SHOW_DATE_FORMAT } from '@/utils/constants'
+import { createInvoice, getInvoices } from '@/utils/api'
 
-// TODO Add mutation on create
-// TODO Add mutation on edit
-// TODO Add mutation on status change
-// TODO Add mutation on remove
-// TODO Add loader to the both pages
+// TODO Add loader to the both pages (and fix login blink)
 // TODO Mount error message component instead of console.error
 // TODO Check validation summary
 // TODO Check console errors about null
 // TODO How to change status from draft to pending?
 // TODO Write tests
+// TODO Prod version returns 502
 
 const IndexPage = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
@@ -38,31 +36,23 @@ const IndexPage = () => {
 
   const user = useUser()
 
-  async function createInvoice(values: Omit<Invoice, 'id' | 'paymentDue' | 'status' | 'total'>, isDraft = false) {
+  async function handleNewInvoiceSubmit(values: InvoiceFormValues, isDraft = false) {
     if (!invoices || !user || !user.token) return
 
-    const newInvoice = {
+    const newInvoice: CreatedInvoice = {
       ...values,
-      id: generateId(),
+      name: generateInvoiceName(invoices.map(({ name }) => name)),
       createdAt: getCreatedAt(values.createdAt),
       paymentDue: getPaymentDue(values.createdAt, values.paymentTerms),
       status: (isDraft ? 'draft' : 'pending') as InvoiceStatus,
       total: values.items.reduce((acc, item) => acc + item.total, 0),
     }
 
-    try {
-      const response = await fetch('/.netlify/functions/new-invoice', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${user.token.access_token}`,
-        },
-        body: JSON.stringify(newInvoice),
-      })
-      if (!response.ok) throw new Error('Invoice cannot be created')
-      setInvoices([...invoices, newInvoice])
-    } catch (e) {
-      console.error(e)
-    }
+    await createInvoice(user.token.access_token, newInvoice)
+    const updatedInvoices = await getInvoices(user.token.access_token)
+    if (updatedInvoices) setInvoices(updatedInvoices)
+
+    setIsPopupOpen(false)
   }
 
   function handleLoginButtonClick() {
@@ -84,11 +74,11 @@ const IndexPage = () => {
           />
           {filteredInvoices.length ? (
             <InvoicesList>
-              {filteredInvoices.map(({ client, id, paymentDue, status, total }, index) => (
+              {filteredInvoices.map(({ id, name, client, paymentDue, status, total }) => (
                 <Invoice
-                  key={index}
+                  key={id}
+                  name={name}
                   clientName={client.name}
-                  id={id}
                   paymentDue={paymentDue}
                   status={status}
                   total={total}
@@ -126,14 +116,8 @@ const IndexPage = () => {
                 items: [],
               }}
               onCancel={() => setIsPopupOpen(false)}
-              onSaveAsDraft={values => {
-                createInvoice(values, true)
-                setIsPopupOpen(false)
-              }}
-              onSubmit={values => {
-                createInvoice(values)
-                setIsPopupOpen(false)
-              }}
+              onSaveAsDraft={values => handleNewInvoiceSubmit(values, true)}
+              onSubmit={values => handleNewInvoiceSubmit(values)}
               className="h-form-mobile md:h-form-tablet lg:h-form-desktop"
             />
           </Popup>

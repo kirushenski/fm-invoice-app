@@ -3,10 +3,10 @@ import { format } from 'date-fns'
 import convertPrice from '@/utils/convertPrice'
 import { SHOW_DATE_FORMAT } from '@/utils/constants'
 
-export type InvoiceInfoProps = Omit<Invoice, 'paymentTerms' | 'status'> & React.HTMLProps<HTMLDivElement>
+export type InvoiceInfoProps = Omit<Invoice, 'id' | 'paymentTerms' | 'status'> & React.HTMLProps<HTMLDivElement>
 
 const InvoiceInfo = ({
-  id,
+  name,
   createdAt,
   paymentDue,
   description,
@@ -26,7 +26,7 @@ const InvoiceInfo = ({
         <div>
           <div className="font-bold md:text-h4 mb-2">
             <span className="text-grey-light">#</span>
-            {id}
+            {name}
           </div>
           <div className="text-purple-light dark:text-grey-lighter">{description || '–'}</div>
         </div>

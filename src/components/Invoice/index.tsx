@@ -6,23 +6,23 @@ import convertPrice from '@/utils/convertPrice'
 import { SHOW_DATE_FORMAT } from '@/utils/constants'
 import ArrowRight from '@/icons/arrow-right.svg'
 
-export type InvoiceProps = Pick<Invoice, 'id' | 'paymentDue' | 'total' | 'status'> & {
+export type InvoiceProps = Pick<Invoice, 'name' | 'paymentDue' | 'total' | 'status'> & {
   clientName: string
 } & Omit<React.HTMLProps<HTMLAnchorElement>, 'ref'>
 
-const Invoice = ({ id, paymentDue, clientName, total, status, className = '', ...props }: InvoiceProps) => {
+const Invoice = ({ name, paymentDue, clientName, total, status, className = '', ...props }: InvoiceProps) => {
   const isTablet = useMedia({ query: '(min-width: 768px)' })
   const paymentDueDate = paymentDue && new Date(paymentDue)
 
   return (
     <Link
-      to={`/invoice?id=${id}`}
+      to={`/invoice?name=${name}`}
       className={`invoice relative grid grid-cols-2 md:grid-cols-invoice items-end md:items-center gap-x-2 gap-y-7 md:gap-5 p-6 md:py-4 border border-transparent hover:border-purple-dark focus-visible:border-purple-dark focus:outline-none transition-colors ${className}`}
       {...props}
     >
       <div className="font-bold">
         <span className="text-grey-light">#</span>
-        {id}
+        {name}
       </div>
       <div className="absolute md:static left-6 top-15">
         <span className="text-grey-light dark:text-grey-lighter">{paymentDue ? 'Due ' : '–'}</span>

@@ -55,7 +55,8 @@ type PaymentTerms = 'Net 1 Day' | 'Net 7 Days' | 'Net 14 Days' | 'Net 30 Days'
 type InvoiceStatus = 'draft' | 'pending' | 'paid'
 
 interface Invoice {
-  id: string
+  id: number
+  name: string
   createdAt: string
   paymentDue: string
   paymentTerms: PaymentTerms
@@ -65,4 +66,22 @@ interface Invoice {
   client: Client
   items: InvoiceItem[]
   total: number
+}
+
+type CreatedInvoice = Omit<Invoice, 'id'>
+type InvoiceFormValues = Omit<Invoice, 'id' | 'name' | 'paymentDue' | 'status' | 'total'>
+
+interface SenderAPIData extends Omit<Sender, 'postCode'> {
+  post_code: string
+}
+
+type ClientAPIData = SenderAPIData & Client
+type PaymentTermsAPIData = 'Net_1_Day' | 'Net_7_Days' | 'Net_14_Days' | 'Net_30_Days'
+
+interface InvoiceAPIData extends Omit<Invoice, 'createdAt' | 'paymentTerms' | 'paymentDue' | 'sender' | 'client'> {
+  created_at: string
+  payment_due: string
+  payment_terms: PaymentTermsAPIData
+  sender: SenderAPIData
+  client: ClientAPIData
 }

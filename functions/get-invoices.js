@@ -7,7 +7,8 @@ exports.handler = async (_, context) => {
     const { invoices } = await query({
       query: `query Invoices($email: String!) {
         invoices(where: {email: {_eq: $email}}) {
-          visible_id
+          id
+          name
           created_at
           payment_due
           payment_terms

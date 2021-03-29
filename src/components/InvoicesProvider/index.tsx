@@ -1,5 +1,6 @@
 import React, { useState, useContext, createContext, useEffect } from 'react'
 import { useUser } from '@/components/UserProvider'
+import { getInvoices } from '@/utils/api'
 
 interface InvoicesProviderProps {
   children: React.ReactNode
@@ -24,38 +25,8 @@ const InvoicesProvider = ({ children }: InvoicesProviderProps) => {
         return
       }
 
-      try {
-        const response = await fetch('/.netlify/functions/invoices', {
-          headers: {
-            Authorization: `Bearer ${user.token.access_token}`,
-          },
-        })
-        if (!response.ok) throw new Error('Invoices cannot be fetched')
-        const data = await response.json()
-
-        const formattedInvoices = data.map(
-          ({
-            visible_id,
-            created_at,
-            payment_due,
-            payment_terms,
-            sender: { post_code: sender_post_code, ...sender },
-            client: { post_code: client_post_code, ...client },
-            ...invoice
-          }: any) => ({
-            ...invoice,
-            id: visible_id,
-            createdAt: created_at,
-            paymentDue: payment_due,
-            paymentTerms: payment_terms.replace(/_/g, ' '),
-            sender: { ...sender, postCode: sender_post_code },
-            client: { ...client, postCode: client_post_code },
-          })
-        )
-        setInvoices(formattedInvoices)
-      } catch (e) {
-        console.error(e)
-      }
+      const invoices = await getInvoices(user.token.access_token)
+      if (invoices) setInvoices(invoices)
     }
     loadInvoices()
   }, [user])

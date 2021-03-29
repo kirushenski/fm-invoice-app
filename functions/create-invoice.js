@@ -1,22 +1,15 @@
 const { query } = require('./utils/hasura')
+const { convertInvoiceData } = require('./utils/convertInvoiceData')
 
 exports.handler = async (event, context) => {
   const { email } = context.clientContext.user
-  const {
-    id,
-    createdAt,
-    paymentTerms,
-    paymentDue,
-    sender: { postCode: senderPostCode, ...sender },
-    client: { postCode: clientPostCode, ...client },
-    ...newInvoice
-  } = JSON.parse(event.body)
+  const invoiceData = convertInvoiceData(JSON.parse(event.body))
 
   try {
-    await query({
+    const { name } = await query({
       query: `mutation NewInvoice(
         $email: String!,
-        $visible_id: String!,
+        $name: String!,
         $created_at: date!,
         $payment_terms: payment_terms_enum!,
         $payment_due: date!,
@@ -29,7 +22,7 @@ exports.handler = async (event, context) => {
       ) {
         insert_invoices_one(object: {
           email: $email,
-          visible_id: $visible_id,
+          name: $name,
           created_at: $created_at,
           payment_terms: $payment_terms,
           payment_due: $payment_due,
@@ -39,23 +32,19 @@ exports.handler = async (event, context) => {
           client: {data: $client}
           items: {data: $items},
           total: $total,
-        }) {}
+        }) {
+          name
+        }
       }`,
       variables: {
         email,
-        visible_id: id,
-        created_at: createdAt,
-        payment_terms: paymentTerms.replace(/\s/g, '_'),
-        payment_due: paymentDue,
-        sender: { post_code: senderPostCode, ...sender },
-        client: { post_code: clientPostCode, ...client },
-        ...newInvoice,
+        ...invoiceData,
       },
     })
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: `Invoice #${id} is added` }),
+      body: JSON.stringify({ message: `Invoice #${name} is added` }),
     }
   } catch (e) {
     return {

@@ -10,7 +10,7 @@ export default {
 const Template: Story<InvoiceInfoProps> = args => <InvoiceInfo {...args} />
 export const Primary = Template.bind({})
 Primary.args = {
-  id: 'XM9141',
+  name: 'XM9141',
   createdAt: '21 Aug 2021',
   paymentDue: '2021-09-20',
   description: 'Graphic Design',

@@ -6,19 +6,17 @@ import Datepicker from '@/components/Datepicker'
 import Dropdown from '@/components/Dropdown'
 import Delete from '@/icons/delete.svg'
 
-type InitialValues = Omit<Invoice, 'id' | 'paymentDue' | 'status' | 'total'>
-
 export interface EditInvoiceProps extends Omit<React.HTMLProps<HTMLFormElement>, 'ref' | 'onSubmit'> {
   mode: 'new' | 'edit'
   status?: InvoiceStatus
-  initialValues: InitialValues
-  onSubmit: (values: InitialValues, formikHelpers: FormikHelpers<InitialValues>) => void
+  initialValues: InvoiceFormValues
+  onSubmit: (values: InvoiceFormValues, formikHelpers: FormikHelpers<InvoiceFormValues>) => void
   onCancel: () => void
-  onSaveAsDraft?: (values: InitialValues) => void
+  onSaveAsDraft?: (values: InvoiceFormValues) => void
 }
 
 const TotalField = ({ index, name, ...props }: { index: number } & TextFieldProps) => {
-  const { values, setFieldValue } = useFormikContext<InitialValues>()
+  const { values, setFieldValue } = useFormikContext<InvoiceFormValues>()
   const quantity = values.items[index].quantity
   const price = values.items[index].price
 
