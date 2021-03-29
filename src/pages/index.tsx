@@ -19,12 +19,15 @@ import { SHOW_DATE_FORMAT } from '@/utils/constants'
 import { createInvoice, getInvoices } from '@/utils/api'
 
 // TODO Add loader to the both pages (and fix login blink)
+// TODO Add loaders on submits
 // TODO Mount error message component instead of console.error
 // TODO Check validation summary
 // TODO Check console errors about null
 // TODO How to change status from draft to pending?
+// TODO How to change status back from paid to pending?
 // TODO Write tests
 // TODO Prod version returns 502
+// TODO Make sidebar fixed height
 
 const IndexPage = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false)

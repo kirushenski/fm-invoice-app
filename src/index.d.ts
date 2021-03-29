@@ -71,17 +71,10 @@ interface Invoice {
 type CreatedInvoice = Omit<Invoice, 'id'>
 type InvoiceFormValues = Omit<Invoice, 'id' | 'name' | 'paymentDue' | 'status' | 'total'>
 
-interface SenderAPIData extends Omit<Sender, 'postCode'> {
-  post_code: string
-}
-
-type ClientAPIData = SenderAPIData & Client
 type PaymentTermsAPIData = 'Net_1_Day' | 'Net_7_Days' | 'Net_14_Days' | 'Net_30_Days'
 
-interface InvoiceAPIData extends Omit<Invoice, 'createdAt' | 'paymentTerms' | 'paymentDue' | 'sender' | 'client'> {
+interface InvoiceAPIData extends Omit<Invoice, 'createdAt' | 'paymentTerms' | 'paymentDue'> {
   created_at: string
   payment_due: string
   payment_terms: PaymentTermsAPIData
-  sender: SenderAPIData
-  client: ClientAPIData
 }

@@ -1,12 +1,12 @@
 const { query } = require('./utils/hasura')
 
 exports.handler = async (_, context) => {
-  const { email } = context.clientContext.user
-
   try {
+    const { email } = context.clientContext.user
+
     const { invoices } = await query({
       query: `query GetInvoices($email: String!) {
-        invoices(where: {email: {_eq: $email}}) {
+        invoices(where: {email: {_eq: $email}}, order_by: {id: asc}) {
           id
           name
           created_at
@@ -14,26 +14,9 @@ exports.handler = async (_, context) => {
           payment_terms
           description
           status
-          sender {
-            street
-            city
-            post_code
-            country
-          }
-          client {
-            name
-            email
-            street
-            city
-            post_code
-            country
-          }
-          items {
-            name
-            quantity
-            price
-            total
-          }
+          sender
+          client
+          items
           total
         }
       }`,

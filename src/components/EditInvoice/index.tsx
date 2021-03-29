@@ -59,7 +59,7 @@ const EditInvoice = ({
                 country: Yup.string().required("can't be empty"),
               }),
               createdAt: Yup.date().nullable().required("can't be empty"),
-              paymentTerms: Yup.number().required("can't be empty"),
+              paymentTerms: Yup.string().required("can't be empty"),
               description: Yup.string().required("can't be empty"),
               items: Yup.array()
                 .of(

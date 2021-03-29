@@ -2,29 +2,31 @@ const { query } = require('./utils/hasura')
 const { convertInvoiceData } = require('./utils/convertInvoiceData')
 
 exports.handler = async (event, context) => {
-  const invoiceData = convertInvoiceData(JSON.parse(event.body))
-  const { email } = context.clientContext.user
-
-  const { invoiceEmail, name } = await query({
-    query: `query GetInvoiceByID($id: Int!) {
-      invoices_by_pk(id: $id) {
-        invoiceEmail: email,
-        name
-      }
-    }`,
-    variables: {
-      id: invoiceData.id,
-    },
-  })
-
-  if (email !== invoiceEmail) {
-    return {
-      statusCode: '403',
-      body: JSON.stringify({ message: `Not enough rights to edit invoice #${name}` }),
-    }
-  }
-
   try {
+    const invoiceData = convertInvoiceData(JSON.parse(event.body))
+    const { email } = context.clientContext.user
+
+    const {
+      invoices_by_pk: { invoiceEmail, name },
+    } = await query({
+      query: `query GetInvoiceByID($id: Int!) {
+        invoices_by_pk(id: $id) {
+          invoiceEmail: email,
+          name
+        }
+      }`,
+      variables: {
+        id: invoiceData.id,
+      },
+    })
+
+    if (email !== invoiceEmail) {
+      return {
+        statusCode: '403',
+        body: JSON.stringify({ message: `Not enough rights to edit invoice #${name}` }),
+      }
+    }
+
     await query({
       query: `mutation EditInvoice(
         $id: Int!,
@@ -34,9 +36,9 @@ exports.handler = async (event, context) => {
         $payment_due: date!,
         $status: statuses_enum!,
         $description: String!,
-        $sender: contacts_insert_input!,
-        $client: contacts_insert_input!
-        $items: [items_insert_input!]!,
+        $sender: jsonb!,
+        $client: jsonb!
+        $items: jsonb!,
         $total: numeric!,
       ) {
         update_invoices_by_pk(pk_columns: {id: $id}, _set: {
@@ -46,11 +48,13 @@ exports.handler = async (event, context) => {
           payment_due: $payment_due,
           status: $status,
           description: $description,
-          sender: {data: $sender},
-          client: {data: $client}
-          items: {data: $items},
+          sender: $sender,
+          client: $client,
+          items: $items,
           total: $total,
-        }) {}
+        }) {
+          name
+        }
       }`,
       variables: invoiceData,
     })

@@ -2,11 +2,13 @@ const { query } = require('./utils/hasura')
 const { convertInvoiceData } = require('./utils/convertInvoiceData')
 
 exports.handler = async (event, context) => {
-  const { email } = context.clientContext.user
-  const invoiceData = convertInvoiceData(JSON.parse(event.body))
-
   try {
-    const { name } = await query({
+    const { email } = context.clientContext.user
+    const invoiceData = convertInvoiceData(JSON.parse(event.body))
+
+    const {
+      insert_invoices_one: { name },
+    } = await query({
       query: `mutation CreateInvoice(
         $email: String!,
         $name: String!,
@@ -15,9 +17,9 @@ exports.handler = async (event, context) => {
         $payment_due: date!,
         $status: statuses_enum!,
         $description: String!,
-        $sender: contacts_insert_input!,
-        $client: contacts_insert_input!
-        $items: [items_insert_input!]!,
+        $sender: jsonb!,
+        $client: jsonb!
+        $items: jsonb!,
         $total: numeric!,
       ) {
         insert_invoices_one(object: {
@@ -28,9 +30,9 @@ exports.handler = async (event, context) => {
           payment_due: $payment_due,
           status: $status,
           description: $description,
-          sender: {data: $sender},
-          client: {data: $client}
-          items: {data: $items},
+          sender: $sender,
+          client: $client,
+          items: $items,
           total: $total,
         }) {
           name
