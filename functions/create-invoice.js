@@ -7,7 +7,7 @@ exports.handler = async (event, context) => {
 
   try {
     const { name } = await query({
-      query: `mutation NewInvoice(
+      query: `mutation CreateInvoice(
         $email: String!,
         $name: String!,
         $created_at: date!,

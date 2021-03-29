@@ -30,13 +30,29 @@ export const createInvoice = async (token: string, invoice: CreatedInvoice) => {
   }
 }
 
-export const editInvoice = async (invoice: Invoice) => {
+export const editInvoice = async (token: string, invoice: Invoice) => {
   try {
     const response = await fetch('/.netlify/functions/edit-invoice', {
       method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify(invoice),
     })
     if (!response.ok) throw new Error('Invoice cannot be edited')
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+export const deleteInvoice = async (token: string, id: number) => {
+  try {
+    const response = await fetch(`/.netlify/functions/delete-invoice?id=${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    if (!response.ok) throw new Error('Invoice cannot be deleted')
   } catch (e) {
     console.error(e)
   }

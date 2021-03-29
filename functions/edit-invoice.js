@@ -1,11 +1,31 @@
 const { query } = require('./utils/hasura')
 const { convertInvoiceData } = require('./utils/convertInvoiceData')
 
-exports.handler = async event => {
+exports.handler = async (event, context) => {
   const invoiceData = convertInvoiceData(JSON.parse(event.body))
+  const { email } = context.clientContext.user
+
+  const { invoiceEmail, name } = await query({
+    query: `query GetInvoiceByID($id: Int!) {
+      invoices_by_pk(id: $id) {
+        invoiceEmail: email,
+        name
+      }
+    }`,
+    variables: {
+      id: invoiceData.id,
+    },
+  })
+
+  if (email !== invoiceEmail) {
+    return {
+      statusCode: '403',
+      body: JSON.stringify({ message: `Not enough rights to edit invoice #${name}` }),
+    }
+  }
 
   try {
-    const { name } = await query({
+    await query({
       query: `mutation EditInvoice(
         $id: Int!,
         $name: String!,
@@ -30,9 +50,7 @@ exports.handler = async event => {
           client: {data: $client}
           items: {data: $items},
           total: $total,
-        }) {
-          name
-        }
+        }) {}
       }`,
       variables: invoiceData,
     })

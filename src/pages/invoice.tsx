@@ -17,7 +17,7 @@ import { useUser } from '@/components/UserProvider'
 import getCreatedAt from '@/utils/getCreatedAt'
 import getPaymentDue from '@/utils/getPaymentDue'
 import { SHOW_DATE_FORMAT } from '@/utils/constants'
-import { editInvoice, getInvoices } from '@/utils/api'
+import { deleteInvoice, editInvoice, getInvoices } from '@/utils/api'
 
 const InvoicePage = ({ location }: PageProps) => {
   const [isEditPopupOpen, setIsEditPopupOpen] = useState(false)
@@ -45,7 +45,7 @@ const InvoicePage = ({ location }: PageProps) => {
 
     const updatedInvoice: Invoice = { ...invoice, status: 'paid' }
 
-    await editInvoice(updatedInvoice)
+    await editInvoice(user.token.access_token, updatedInvoice)
     const updatedInvoices = await getInvoices(user.token.access_token)
     if (updatedInvoices) setInvoices(updatedInvoices)
   }
@@ -61,11 +61,21 @@ const InvoicePage = ({ location }: PageProps) => {
       total: values.items.reduce((acc, item) => acc + item.total, 0),
     }
 
-    await editInvoice(updatedInvoice)
+    await editInvoice(user.token.access_token, updatedInvoice)
     const updatedInvoices = await getInvoices(user.token.access_token)
     if (updatedInvoices) setInvoices(updatedInvoices)
 
     setIsEditPopupOpen(false)
+  }
+
+  async function handleInvoiceDelete() {
+    if (!invoice || !user || !user.token) return
+
+    await deleteInvoice(user.token.access_token, invoice.id)
+    const updatedInvoices = await getInvoices(user.token.access_token)
+    if (updatedInvoices) setInvoices(updatedInvoices)
+
+    navigate('/')
   }
 
   function handleLoginButtonClick() {
@@ -147,13 +157,7 @@ const InvoicePage = ({ location }: PageProps) => {
                   <button className="btn-secondary mr-2" onClick={() => setIsDeletePopupOpen(false)}>
                     Cancel
                   </button>
-                  <button
-                    className="btn-delete"
-                    onClick={() => {
-                      setInvoices(invoices.filter(invoice => invoice.name !== name))
-                      navigate('/')
-                    }}
-                  >
+                  <button className="btn-delete" onClick={handleInvoiceDelete}>
                     Delete
                   </button>
                 </div>
