@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const fetch = require('node-fetch')
 
 console.log('log 1')
