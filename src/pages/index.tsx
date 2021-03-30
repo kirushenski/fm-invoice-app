@@ -19,8 +19,6 @@ import { SHOW_DATE_FORMAT } from '@/utils/constants'
 import { createInvoice, getInvoices } from '@/utils/api'
 
 // Feedback
-// TODO Add loader to the both pages (and fix login blink)
-// TODO Add loaders on submits
 // TODO Mount error message component instead of console.error
 
 // Bugs
@@ -72,35 +70,41 @@ const IndexPage = () => {
   return (
     <Layout>
       <Seo />
-      {filteredInvoices ? (
+      {user ? (
         <>
           <Nav
-            invoicesCount={filteredInvoices.length}
+            invoicesCount={filteredInvoices?.length ?? 0}
             onFiltersChange={({ selectedItems }) => {
               selectedItems && setFilters(selectedItems)
             }}
             onNewInvoiceCreate={() => setIsPopupOpen(true)}
             className="mb-8 md:mb-14 lg:mb-16"
           />
-          {filteredInvoices.length ? (
-            <InvoicesList>
-              {filteredInvoices.map(({ id, name, client, paymentDue, status, total }) => (
-                <Invoice
-                  key={id}
-                  name={name}
-                  clientName={client.name}
-                  paymentDue={paymentDue}
-                  status={status}
-                  total={total}
-                />
-              ))}
-            </InvoicesList>
+          {filteredInvoices ? (
+            filteredInvoices.length ? (
+              <InvoicesList>
+                {filteredInvoices.map(({ id, name, client, paymentDue, status, total }) => (
+                  <Invoice
+                    key={id}
+                    name={name}
+                    clientName={client.name}
+                    paymentDue={paymentDue}
+                    status={status}
+                    total={total}
+                  />
+                ))}
+              </InvoicesList>
+            ) : (
+              <ErrorMessage>
+                Create an invoice by clicking the
+                <br />
+                <strong>New{isTablet && ' Invoice'}</strong> button and get started
+              </ErrorMessage>
+            )
           ) : (
-            <ErrorMessage>
-              Create an invoice by clicking the
-              <br />
-              <strong>New{isTablet && ' Invoice'}</strong> button and get started
-            </ErrorMessage>
+            <div className="loader mx-auto">
+              <span className="sr-only">Loading...</span>
+            </div>
           )}
           <Popup isOpen={isPopupOpen} onRequestClose={() => setIsPopupOpen(false)} heading="New Invoice" isSidebar>
             <EditInvoice

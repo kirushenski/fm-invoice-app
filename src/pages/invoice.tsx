@@ -88,104 +88,110 @@ const InvoicePage = ({ location }: PageProps) => {
   return (
     <Layout className="pt-4 md:pt-8 lg:pt-12">
       <Seo title={`Invoice #${name}`} />
-      {invoices ? (
+      {user ? (
         <>
           <h1 className="sr-only">Invoice #{name}</h1>
-          {invoice ? (
-            <>
-              <GoBack className="mb-4" />
-              <InvoiceStatus
-                status={invoice.status}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
-                onStatusChange={handleStatusChange}
-                className="mb-6 md:mb-8"
-              />
-              {!isTablet && (
-                <nav className="fixed left-0 right-0 bottom-0 px-6 py-5 bg-white dark:bg-grey-dark shadow-invoice">
-                  <InvoiceControls
-                    status={invoice.status}
-                    onEdit={handleEdit}
-                    onDelete={handleDelete}
-                    onStatusChange={handleStatusChange}
-                  />
-                </nav>
-              )}
-              <InvoiceInfo
-                name={invoice.name}
-                createdAt={invoice.createdAt}
-                paymentDue={invoice.paymentDue}
-                description={invoice.description}
-                sender={invoice.sender}
-                client={invoice.client}
-                items={invoice.items}
-                total={invoice.total}
-                className="mb-36 md:mb-0"
-              />
-              <Popup
-                isOpen={isEditPopupOpen}
-                onRequestClose={() => setIsEditPopupOpen(false)}
-                heading={
-                  <>
-                    Edit <span className="text-grey-light">#</span>XM9141
-                  </>
-                }
-                isSidebar
-              >
-                <EditInvoice
-                  mode="edit"
+          <GoBack className="mb-4" />
+          {invoices ? (
+            invoice ? (
+              <>
+                <InvoiceStatus
                   status={invoice.status}
-                  initialValues={{
-                    createdAt: invoice.createdAt && format(new Date(invoice.createdAt), SHOW_DATE_FORMAT),
-                    description: invoice.description,
-                    paymentTerms: invoice.paymentTerms,
-                    sender: invoice.sender,
-                    client: invoice.client,
-                    items: invoice.items,
-                  }}
-                  onSaveAsDraft={values => handleInvoiceEditSubmit(values, true)}
-                  onSubmit={values => handleInvoiceEditSubmit(values)}
-                  onCancel={() => setIsEditPopupOpen(false)}
-                  className="h-form-mobile md:h-form-tablet lg:h-form-desktop"
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
+                  onStatusChange={handleStatusChange}
+                  className="mb-6 md:mb-8"
                 />
-              </Popup>
-              <Popup
-                isOpen={isDeletePopupOpen}
-                onRequestClose={() => setIsDeletePopupOpen(false)}
-                heading="Confirm Deletion"
-              >
-                <p className="text-grey-light leading-5 mb-4">
-                  Are you sure you want to delete invoice #{name}? This action cannot be undone.
-                </p>
-                <div className="flex justify-end">
-                  <button type="button" className="btn-secondary mr-2" onClick={() => setIsDeletePopupOpen(false)}>
-                    Cancel
-                  </button>
-                  <LoadingButton
-                    type="button"
-                    className="btn-delete"
-                    onClick={async () => {
-                      setIsInvoiceDeleting(true)
-                      await handleInvoiceDelete()
-                      setIsInvoiceDeleting(false)
+                {!isTablet && (
+                  <nav className="fixed left-0 right-0 bottom-0 px-6 py-5 bg-white dark:bg-grey-dark shadow-invoice">
+                    <InvoiceControls
+                      status={invoice.status}
+                      onEdit={handleEdit}
+                      onDelete={handleDelete}
+                      onStatusChange={handleStatusChange}
+                    />
+                  </nav>
+                )}
+                <InvoiceInfo
+                  name={invoice.name}
+                  createdAt={invoice.createdAt}
+                  paymentDue={invoice.paymentDue}
+                  description={invoice.description}
+                  sender={invoice.sender}
+                  client={invoice.client}
+                  items={invoice.items}
+                  total={invoice.total}
+                  className="mb-36 md:mb-0"
+                />
+                <Popup
+                  isOpen={isEditPopupOpen}
+                  onRequestClose={() => setIsEditPopupOpen(false)}
+                  heading={
+                    <>
+                      Edit <span className="text-grey-light">#</span>XM9141
+                    </>
+                  }
+                  isSidebar
+                >
+                  <EditInvoice
+                    mode="edit"
+                    status={invoice.status}
+                    initialValues={{
+                      createdAt: invoice.createdAt && format(new Date(invoice.createdAt), SHOW_DATE_FORMAT),
+                      description: invoice.description,
+                      paymentTerms: invoice.paymentTerms,
+                      sender: invoice.sender,
+                      client: invoice.client,
+                      items: invoice.items,
                     }}
-                    isLoading={isInvoiceDeleting}
-                    loadingText="Invoice Deleting..."
-                  >
-                    Delete
-                  </LoadingButton>
-                </div>
-              </Popup>
-            </>
+                    onSaveAsDraft={values => handleInvoiceEditSubmit(values, true)}
+                    onSubmit={values => handleInvoiceEditSubmit(values)}
+                    onCancel={() => setIsEditPopupOpen(false)}
+                    className="h-form-mobile md:h-form-tablet lg:h-form-desktop"
+                  />
+                </Popup>
+                <Popup
+                  isOpen={isDeletePopupOpen}
+                  onRequestClose={() => setIsDeletePopupOpen(false)}
+                  heading="Confirm Deletion"
+                >
+                  <p className="text-grey-light leading-5 mb-4">
+                    Are you sure you want to delete invoice #{name}? This action cannot be undone.
+                  </p>
+                  <div className="flex justify-end">
+                    <button type="button" className="btn-secondary mr-2" onClick={() => setIsDeletePopupOpen(false)}>
+                      Cancel
+                    </button>
+                    <LoadingButton
+                      type="button"
+                      className="btn-delete"
+                      onClick={async () => {
+                        setIsInvoiceDeleting(true)
+                        await handleInvoiceDelete()
+                        setIsInvoiceDeleting(false)
+                      }}
+                      isLoading={isInvoiceDeleting}
+                      loadingText="Invoice Deleting..."
+                    >
+                      Delete
+                    </LoadingButton>
+                  </div>
+                </Popup>
+              </>
+            ) : (
+              <ErrorMessage isLink>
+                Invoice with id{' '}
+                <span className="font-bold">
+                  <span className="text-grey-light">#</span>
+                  {name}
+                </span>{' '}
+                doesn’t exist
+              </ErrorMessage>
+            )
           ) : (
-            <ErrorMessage isLink>
-              Invoice with id{' '}
-              <span className="font-bold">
-                <span className="text-grey-light">#</span>
-                {name}
-              </span>{' '}
-              doesn’t exist
-            </ErrorMessage>
+            <div className="loader mx-auto">
+              <span className="sr-only">Loading...</span>
+            </div>
           )}
         </>
       ) : (
