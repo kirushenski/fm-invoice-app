@@ -40,10 +40,10 @@ const InvoicePage = ({ location }: PageProps) => {
     setIsEditPopupOpen(true)
   }
 
-  async function handleMarkInvoiceAsPaid() {
+  async function handleStatusChange() {
     if (!invoice || !user || !user.token) return
 
-    const updatedInvoice: Invoice = { ...invoice, status: 'paid' }
+    const updatedInvoice: Invoice = { ...invoice, status: invoice.status === 'pending' ? 'paid' : 'pending' }
 
     await editInvoice(user.token.access_token, updatedInvoice)
     const updatedInvoices = await getInvoices(user.token.access_token)
@@ -96,7 +96,7 @@ const InvoicePage = ({ location }: PageProps) => {
                 status={invoice.status}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
-                onMarkAsPaid={handleMarkInvoiceAsPaid}
+                onStatusChange={handleStatusChange}
                 className="mb-6 md:mb-8"
               />
               {!isTablet && (
@@ -105,7 +105,7 @@ const InvoicePage = ({ location }: PageProps) => {
                     status={invoice.status}
                     onEdit={handleEdit}
                     onDelete={handleDelete}
-                    onMarkAsPaid={handleMarkInvoiceAsPaid}
+                    onStatusChange={handleStatusChange}
                   />
                 </nav>
               )}

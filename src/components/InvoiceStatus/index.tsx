@@ -6,7 +6,7 @@ export interface InvoiceStatusProps extends InvoiceControlsHandlers, React.HTMLP
   status: InvoiceStatus
 }
 
-const InvoiceStatus = ({ status, onEdit, onDelete, onMarkAsPaid, className = '', ...props }: InvoiceStatusProps) => {
+const InvoiceStatus = ({ status, onEdit, onDelete, onStatusChange, className = '', ...props }: InvoiceStatusProps) => {
   const isTablet = useMedia({ query: '(min-width: 768px)' })
 
   return (
@@ -20,7 +20,9 @@ const InvoiceStatus = ({ status, onEdit, onDelete, onMarkAsPaid, className = '',
           {status.slice(1)}
         </div>
       </div>
-      {isTablet && <InvoiceControls status={status} onEdit={onEdit} onDelete={onDelete} onMarkAsPaid={onMarkAsPaid} />}
+      {isTablet && (
+        <InvoiceControls status={status} onEdit={onEdit} onDelete={onDelete} onStatusChange={onStatusChange} />
+      )}
     </section>
   )
 }

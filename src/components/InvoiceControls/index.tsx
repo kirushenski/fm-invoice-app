@@ -4,7 +4,7 @@ export interface InvoiceControlsHandlers {
   status: InvoiceStatus
   onEdit: () => void
   onDelete: () => void
-  onMarkAsPaid: () => void
+  onStatusChange: () => void
 }
 
 export type InvoiceControlsProps = InvoiceControlsHandlers & React.HTMLProps<HTMLDivElement>
@@ -13,7 +13,7 @@ const InvoiceControls = ({
   status,
   onEdit,
   onDelete,
-  onMarkAsPaid,
+  onStatusChange,
   className = '',
   ...props
 }: InvoiceControlsProps) => {
@@ -25,9 +25,9 @@ const InvoiceControls = ({
       <button className="btn-delete" onClick={onDelete}>
         Delete
       </button>
-      {status === 'pending' && (
-        <button className="btn-primary" onClick={onMarkAsPaid}>
-          Mark as Paid
+      {status !== 'draft' && (
+        <button className="btn-primary" onClick={onStatusChange}>
+          Mark as {status === 'pending' ? 'Paid' : 'Pending'}
         </button>
       )}
     </div>
