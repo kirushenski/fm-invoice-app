@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const fetch = require('node-fetch')
 
 console.log('log 1')
@@ -8,7 +10,7 @@ exports.handler = async () => {
     const email = 'belobeev.kirill@gmail.com'
     console.log('log 3')
 
-    await fetch(process.env.HASURA_API_URL, {
+    const response = await fetch(process.env.HASURA_API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -37,9 +39,19 @@ exports.handler = async () => {
     })
     console.log('log 4')
 
+    const { data, errors } = await response.json()
+    console.log('log 5')
+    console.log(data, errors)
+
+    if (!response.ok) {
+      const error = new Error(errors?.map(e => e.message).join('\n') ?? 'unknown')
+      throw new Error(error)
+    }
+    console.log('log 6')
+
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: 'sada' }),
+      body: JSON.stringify({ message: '123' }),
     }
   } catch (e) {
     console.log('log 8')

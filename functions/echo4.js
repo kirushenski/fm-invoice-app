@@ -39,15 +39,8 @@ exports.handler = async () => {
     })
     console.log('log 4')
 
-    const { data, errors } = await response.json()
+    const { data } = await response.json()
     console.log('log 5')
-    console.log(data, errors)
-
-    if (!response.ok) {
-      const error = new Error(errors?.map(e => e.message).join('\n') ?? 'unknown')
-      throw new Error(error)
-    }
-    console.log('log 6')
 
     const { invoices } = data
     console.log('log 7')
