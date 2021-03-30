@@ -15,7 +15,7 @@ exports.query = async ({ query, variables = {} }) => {
   if (response.ok) {
     return data
   } else {
-    const error = new Error(errors?.map(e => e.message).join('\n') ?? 'unknown')
+    const error = new Error(errors ? errors.map(({ message }) => message).join('\n') : 'unknown')
     return Promise.reject(error)
   }
 }

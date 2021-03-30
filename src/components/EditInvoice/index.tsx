@@ -54,7 +54,7 @@ const EditInvoice = ({
         }),
         client: Yup.object().shape({
           name: Yup.string().required("can't be empty"),
-          email: Yup.string().required("can't be empty"),
+          email: Yup.string().email('check email format').required("can't be empty"),
           street: Yup.string().required("can't be empty"),
           city: Yup.string().required("can't be empty"),
           postCode: Yup.string().required("can't be empty"),
