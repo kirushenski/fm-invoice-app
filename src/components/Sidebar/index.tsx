@@ -29,6 +29,7 @@ const Sidebar = ({ avatar, onAvatarClick, isLoggedIn = false, className = '', ..
       </Link>
       <div className="flex-grow flex justify-end lg:items-end">
         <button
+          type="button"
           onClick={() => setColorScheme(colorScheme === 'light' ? 'dark' : 'light')}
           aria-label="Dark mode"
           aria-pressed={colorScheme === 'dark'}

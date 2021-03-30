@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import LoadingButton from '../LoadingButton'
 
 export interface InvoiceControlsHandlers {
   status: InvoiceStatus
@@ -17,18 +18,30 @@ const InvoiceControls = ({
   className = '',
   ...props
 }: InvoiceControlsProps) => {
+  const [isStatusChanging, setIsStatusChanging] = useState(false)
+
   return (
     <div className={`grid grid-flow-col gap-2 justify-center ${className}`} {...props}>
-      <button className="btn-secondary" onClick={onEdit}>
+      <button type="button" className="btn-secondary" onClick={onEdit}>
         Edit
       </button>
-      <button className="btn-delete" onClick={onDelete}>
+      <button type="button" className="btn-delete" onClick={onDelete}>
         Delete
       </button>
       {status !== 'draft' && (
-        <button className="btn-primary" onClick={onStatusChange}>
+        <LoadingButton
+          type="button"
+          className="btn-primary"
+          onClick={async () => {
+            setIsStatusChanging(true)
+            await onStatusChange()
+            setIsStatusChanging(false)
+          }}
+          isLoading={isStatusChanging}
+          loadingText="Status Changing..."
+        >
           Mark as {status === 'pending' ? 'Paid' : 'Pending'}
-        </button>
+        </LoadingButton>
       )}
     </div>
   )

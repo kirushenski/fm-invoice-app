@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Form, Formik, FormikHelpers, FieldArray, useFormikContext } from 'formik'
 import * as Yup from 'yup'
 import TextField, { TextFieldProps } from '@/components/TextField'
 import Datepicker from '@/components/Datepicker'
 import Dropdown from '@/components/Dropdown'
 import Delete from '@/icons/delete.svg'
+import LoadingButton from '../LoadingButton'
 
 export interface EditInvoiceProps extends Omit<React.HTMLProps<HTMLFormElement>, 'ref' | 'onSubmit'> {
   mode: 'new' | 'edit'
@@ -38,6 +39,9 @@ const EditInvoice = ({
   className = '',
   ...props
 }: EditInvoiceProps) => {
+  const [isDraftSaving, setIsDraftSaving] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
   return (
     <Formik
       initialValues={initialValues}
@@ -69,7 +73,11 @@ const EditInvoice = ({
           )
           .min(1, 'An item must be added'),
       })}
-      onSubmit={onSubmit}
+      onSubmit={async (values, helpers) => {
+        setIsSubmitting(true)
+        await onSubmit(values, helpers)
+        setIsSubmitting(false)
+      }}
     >
       {({ values, errors, isValid }) => (
         <Form noValidate className={`relative ${className}`} {...props}>
@@ -185,48 +193,36 @@ const EditInvoice = ({
           </div>
           <div className="absolute left-0 right-0 bottom-0 grid grid-flow-col gap-2 justify-between sidebar-paddings py-5 md:py-8 md:rounded-r-sidebar bg-white dark:bg-grey-darker">
             <div>
-              {mode === 'new' && (
+              {(mode === 'new' || (mode === 'edit' && status === 'draft')) && (
                 <button type="button" className="btn-secondary" onClick={onCancel}>
-                  Discard
-                </button>
-              )}
-              {mode === 'edit' && status === 'draft' && (
-                <button type="button" className="btn-secondary" onClick={onCancel}>
-                  Cancel
+                  {mode === 'new' ? 'Discard' : 'Cancel'}
                 </button>
               )}
             </div>
             <div className="grid grid-flow-col gap-2">
-              {mode === 'new' && (
-                <>
-                  <button type="button" className="btn-save" onClick={() => onSaveAsDraft(values)}>
-                    Save as Draft
-                  </button>
-                  <button type="submit" className="btn-primary">
-                    Save & Send
-                  </button>
-                </>
-              )}
-              {mode === 'edit' && status === 'draft' && (
-                <>
-                  <button type="button" className="btn-save" onClick={() => onSaveAsDraft(values)}>
-                    Save as Draft
-                  </button>
-                  <button type="submit" className="btn-primary">
-                    Save Changes
-                  </button>
-                </>
-              )}
               {mode === 'edit' && status !== 'draft' && (
-                <>
-                  <button type="button" className="btn-secondary" onClick={onCancel}>
-                    Cancel
-                  </button>
-                  <button type="submit" className="btn-primary">
-                    Save Changes
-                  </button>
-                </>
+                <button type="button" className="btn-secondary" onClick={onCancel}>
+                  Cancel
+                </button>
               )}
+              {(mode === 'new' || (mode === 'edit' && status === 'draft')) && (
+                <LoadingButton
+                  type="button"
+                  className="btn-save"
+                  isLoading={isDraftSaving}
+                  loadingText="Saving..."
+                  onClick={async () => {
+                    setIsDraftSaving(true)
+                    await onSaveAsDraft(values)
+                    setIsDraftSaving(false)
+                  }}
+                >
+                  Save as Draft
+                </LoadingButton>
+              )}
+              <LoadingButton type="submit" className="btn-primary" isLoading={isSubmitting} loadingText="Saving...">
+                {mode === 'new' ? 'Save & Send' : 'Save Changes'}
+              </LoadingButton>
             </div>
           </div>
         </Form>

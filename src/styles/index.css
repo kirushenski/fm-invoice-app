@@ -12,6 +12,7 @@
 @import './logo.css';
 @import './popup.css';
 @import './status.css';
+@import './loader.css';
 
 @import 'tailwindcss/utilities';
 @import './utilities.css';

@@ -18,10 +18,12 @@ import getCreatedAt from '@/utils/getCreatedAt'
 import getPaymentDue from '@/utils/getPaymentDue'
 import { SHOW_DATE_FORMAT } from '@/utils/constants'
 import { deleteInvoice, editInvoice, getInvoices } from '@/utils/api'
+import LoadingButton from '@/components/LoadingButton'
 
 const InvoicePage = ({ location }: PageProps) => {
   const [isEditPopupOpen, setIsEditPopupOpen] = useState(false)
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false)
+  const [isInvoiceDeleting, setIsInvoiceDeleting] = useState(false)
 
   const isTablet = useMedia({ query: '(min-width: 768px)' })
 
@@ -156,12 +158,22 @@ const InvoicePage = ({ location }: PageProps) => {
                   Are you sure you want to delete invoice #{name}? This action cannot be undone.
                 </p>
                 <div className="flex justify-end">
-                  <button className="btn-secondary mr-2" onClick={() => setIsDeletePopupOpen(false)}>
+                  <button type="button" className="btn-secondary mr-2" onClick={() => setIsDeletePopupOpen(false)}>
                     Cancel
                   </button>
-                  <button className="btn-delete" onClick={handleInvoiceDelete}>
+                  <LoadingButton
+                    type="button"
+                    className="btn-delete"
+                    onClick={async () => {
+                      setIsInvoiceDeleting(true)
+                      await handleInvoiceDelete()
+                      setIsInvoiceDeleting(false)
+                    }}
+                    isLoading={isInvoiceDeleting}
+                    loadingText="Invoice Deleting..."
+                  >
                     Delete
-                  </button>
+                  </LoadingButton>
                 </div>
               </Popup>
             </>

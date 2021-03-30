@@ -1,0 +1,10 @@
+.loader {
+  @apply inline-block w-10 h-10;
+}
+
+.loader::after {
+  content: '';
+  @apply block w-8 h-8 m-1 border-4 border-current rounded-full animate-spin;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
