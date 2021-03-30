@@ -18,16 +18,27 @@ import getPaymentDue from '@/utils/getPaymentDue'
 import { SHOW_DATE_FORMAT } from '@/utils/constants'
 import { createInvoice, getInvoices } from '@/utils/api'
 
+// Feedback
 // TODO Add loader to the both pages (and fix login blink)
 // TODO Add loaders on submits
 // TODO Mount error message component instead of console.error
-// TODO Check validation summary
-// TODO Check console errors about null
-// TODO How to change status from draft to pending?
-// TODO How to change status back from paid to pending?
-// TODO Write tests
+
+// Bugs
 // TODO Prod version returns 502
-// TODO Make sidebar fixed height
+
+// Edit logic
+// TODO How to change status from draft to pending (draft cannot be changed now)?
+// TODO How to change status back from paid to pending?
+
+// Accessibility
+// TODO Add skip link
+// TODO Add label (accessible name) to filters
+// TODO Check keyboard navigation (identity popup in particular)
+// TODO Remove focus outline from the popup on production build
+
+// Other
+// TODO Write tests
+// TODO Change production URL
 
 const IndexPage = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false)

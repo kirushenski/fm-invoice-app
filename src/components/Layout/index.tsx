@@ -23,6 +23,7 @@ const Layout = ({ children, className = '', ...props }: LayoutProps) => {
         avatar={user?.user_metadata.avatar_url || defaultAvatar}
         onAvatarClick={handleAvatarClick}
         isLoggedIn={!!user}
+        className="lg:fixed top-0 bottom-0 left-0"
       />
       <main
         className={`flex-grow grid justify-items-center py-8 px-6 md:py-14 md:px-12 lg:py-18 ${className}`}

@@ -8,8 +8,6 @@ export interface FilterProps extends React.HTMLProps<HTMLDivElement> {
   onFiltersChange?: (changes: UseMultipleSelectionStateChange<string>) => void
 }
 
-// TODO Add label (accessible name)
-
 const FILTERS = ['draft', 'pending', 'paid']
 
 const Filter = ({ onFiltersChange, className = '', ...props }: FilterProps) => {
