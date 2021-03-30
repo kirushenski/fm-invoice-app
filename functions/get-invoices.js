@@ -1,8 +1,12 @@
 const fetch = require('node-fetch')
 
+console.log('log 1')
+
 exports.handler = async (_, context) => {
+  console.log('log 2')
   try {
     const { email } = context.clientContext.user
+    console.log('log 3')
 
     const response = await fetch(process.env.HASURA_API_URL, {
       method: 'POST',
@@ -31,21 +35,28 @@ exports.handler = async (_, context) => {
         },
       }),
     })
+    console.log('log 4')
 
     const { data, errors } = await response.json()
+    console.log('log 5')
+    console.log(data, errors)
 
     if (!response.ok) {
       const error = new Error(errors?.map(e => e.message).join('\n') ?? 'unknown')
       throw new Error(error)
     }
+    console.log('log 6')
 
     const { invoices } = data
+    console.log('log 7')
 
     return {
       statusCode: 200,
       body: JSON.stringify(invoices),
     }
   } catch (e) {
+    console.log('log 8')
+    console.log(e)
     return {
       statusCode: 500,
       body: JSON.stringify({ message: `Error: ${e.message}` }),
