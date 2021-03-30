@@ -12,7 +12,7 @@ export interface EditInvoiceProps extends Omit<React.HTMLProps<HTMLFormElement>,
   initialValues: InvoiceFormValues
   onSubmit: (values: InvoiceFormValues, formikHelpers: FormikHelpers<InvoiceFormValues>) => void
   onCancel: () => void
-  onSaveAsDraft?: (values: InvoiceFormValues) => void
+  onSaveAsDraft: (values: InvoiceFormValues) => void
 }
 
 const TotalField = ({ index, name, ...props }: { index: number } & TextFieldProps) => {
@@ -41,38 +41,34 @@ const EditInvoice = ({
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={
-        status !== 'draft'
-          ? Yup.object().shape({
-              sender: Yup.object().shape({
-                street: Yup.string().required("can't be empty"),
-                city: Yup.string().required("can't be empty"),
-                postCode: Yup.string().required("can't be empty"),
-                country: Yup.string().required("can't be empty"),
-              }),
-              client: Yup.object().shape({
-                name: Yup.string().required("can't be empty"),
-                email: Yup.string().required("can't be empty"),
-                street: Yup.string().required("can't be empty"),
-                city: Yup.string().required("can't be empty"),
-                postCode: Yup.string().required("can't be empty"),
-                country: Yup.string().required("can't be empty"),
-              }),
-              createdAt: Yup.date().nullable().required("can't be empty"),
-              paymentTerms: Yup.string().required("can't be empty"),
-              description: Yup.string().required("can't be empty"),
-              items: Yup.array()
-                .of(
-                  Yup.object().shape({
-                    name: Yup.string().required("can't be empty"),
-                    quantity: Yup.number().required("can't be empty"),
-                    price: Yup.number().min(0, 'must be greater than or equal to 0').required("can't be empty"),
-                  })
-                )
-                .min(1, 'An item must be added'),
+      validationSchema={Yup.object().shape({
+        sender: Yup.object().shape({
+          street: Yup.string().required("can't be empty"),
+          city: Yup.string().required("can't be empty"),
+          postCode: Yup.string().required("can't be empty"),
+          country: Yup.string().required("can't be empty"),
+        }),
+        client: Yup.object().shape({
+          name: Yup.string().required("can't be empty"),
+          email: Yup.string().required("can't be empty"),
+          street: Yup.string().required("can't be empty"),
+          city: Yup.string().required("can't be empty"),
+          postCode: Yup.string().required("can't be empty"),
+          country: Yup.string().required("can't be empty"),
+        }),
+        createdAt: Yup.date().nullable().required("can't be empty"),
+        paymentTerms: Yup.string().required("can't be empty"),
+        description: Yup.string().required("can't be empty"),
+        items: Yup.array()
+          .of(
+            Yup.object().shape({
+              name: Yup.string().required("can't be empty"),
+              quantity: Yup.number().required("can't be empty"),
+              price: Yup.number().min(0, 'must be greater than or equal to 0').required("can't be empty"),
             })
-          : null
-      }
+          )
+          .min(1, 'An item must be added'),
+      })}
       onSubmit={onSubmit}
     >
       {({ values, errors, isValid }) => (
@@ -194,24 +190,40 @@ const EditInvoice = ({
                   Discard
                 </button>
               )}
+              {mode === 'edit' && status === 'draft' && (
+                <button type="button" className="btn-secondary" onClick={onCancel}>
+                  Cancel
+                </button>
+              )}
             </div>
             <div className="grid grid-flow-col gap-2">
-              {mode === 'edit' ? (
+              {mode === 'new' && (
+                <>
+                  <button type="button" className="btn-save" onClick={() => onSaveAsDraft(values)}>
+                    Save as Draft
+                  </button>
+                  <button type="submit" className="btn-primary">
+                    Save & Send
+                  </button>
+                </>
+              )}
+              {mode === 'edit' && status === 'draft' && (
+                <>
+                  <button type="button" className="btn-save" onClick={() => onSaveAsDraft(values)}>
+                    Save as Draft
+                  </button>
+                  <button type="submit" className="btn-primary">
+                    Save Changes
+                  </button>
+                </>
+              )}
+              {mode === 'edit' && status !== 'draft' && (
                 <>
                   <button type="button" className="btn-secondary" onClick={onCancel}>
                     Cancel
                   </button>
                   <button type="submit" className="btn-primary">
                     Save Changes
-                  </button>
-                </>
-              ) : (
-                <>
-                  <button type="button" className="btn-save" onClick={() => onSaveAsDraft?.(values)}>
-                    Save as Draft
-                  </button>
-                  <button type="submit" className="btn-primary">
-                    Save & Send
                   </button>
                 </>
               )}

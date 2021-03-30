@@ -26,10 +26,6 @@ import { createInvoice, getInvoices } from '@/utils/api'
 // Bugs
 // TODO Prod version returns 502
 
-// Edit logic
-// TODO How to change status from draft to pending (draft cannot be changed now)?
-// TODO How to change status back from paid to pending?
-
 // Accessibility
 // TODO Add skip link
 // TODO Add label (accessible name) to filters
@@ -58,7 +54,7 @@ const IndexPage = () => {
       name: generateInvoiceName(invoices.map(({ name }) => name)),
       createdAt: getCreatedAt(values.createdAt),
       paymentDue: getPaymentDue(values.createdAt, values.paymentTerms),
-      status: (isDraft ? 'draft' : 'pending') as InvoiceStatus,
+      status: isDraft ? 'draft' : 'pending',
       total: values.items.reduce((acc, item) => acc + item.total, 0),
     }
 

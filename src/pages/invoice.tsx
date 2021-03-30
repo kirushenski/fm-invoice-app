@@ -50,7 +50,7 @@ const InvoicePage = ({ location }: PageProps) => {
     if (updatedInvoices) setInvoices(updatedInvoices)
   }
 
-  async function handleInvoiceEditSubmit(values: InvoiceFormValues) {
+  async function handleInvoiceEditSubmit(values: InvoiceFormValues, isDraft = false) {
     if (!invoice || !user || !user.token) return
 
     const updatedInvoice: Invoice = {
@@ -58,6 +58,7 @@ const InvoicePage = ({ location }: PageProps) => {
       ...values,
       createdAt: getCreatedAt(values.createdAt),
       paymentDue: getPaymentDue(values.createdAt, values.paymentTerms),
+      status: invoice.status === 'draft' && !isDraft ? 'pending' : invoice.status,
       total: values.items.reduce((acc, item) => acc + item.total, 0),
     }
 
@@ -140,7 +141,8 @@ const InvoicePage = ({ location }: PageProps) => {
                     client: invoice.client,
                     items: invoice.items,
                   }}
-                  onSubmit={handleInvoiceEditSubmit}
+                  onSaveAsDraft={values => handleInvoiceEditSubmit(values, true)}
+                  onSubmit={values => handleInvoiceEditSubmit(values)}
                   onCancel={() => setIsEditPopupOpen(false)}
                   className="h-form-mobile md:h-form-tablet lg:h-form-desktop"
                 />

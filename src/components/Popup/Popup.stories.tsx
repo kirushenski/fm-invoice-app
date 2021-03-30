@@ -88,6 +88,9 @@ const SidebarTemplate: Story<PopupProps> = args => {
               console.log('Reset form and close popup without saving')
               setIsPopupOpen(false)
             }}
+            onSaveAsDraft={values => {
+              console.log('Edit draft invoce without validation: ', JSON.stringify(values, null, 2))
+            }}
           />
         </Popup>
       </Layout>

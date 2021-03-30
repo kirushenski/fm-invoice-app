@@ -88,4 +88,7 @@ Edit.args = {
   onCancel: () => {
     console.log('Reset form and close popup without saving')
   },
+  onSaveAsDraft: values => {
+    console.log('Edit draft invoce without validation: ', JSON.stringify(values, null, 2))
+  },
 }
