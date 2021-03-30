@@ -5,7 +5,6 @@ export interface TextFieldProps extends React.HTMLProps<HTMLInputElement> {
   children: string
   name: string
   hidden?: boolean
-  Input?: React.ReactNode
 }
 
 const TextField = ({

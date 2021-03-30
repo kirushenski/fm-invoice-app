@@ -18,7 +18,7 @@ const Filter = ({ onFiltersChange, className = '', ...props }: FilterProps) => {
     onSelectedItemsChange: onFiltersChange,
   })
 
-  const { isOpen, highlightedIndex, getToggleButtonProps, getMenuProps, getItemProps } = useSelect({
+  const { isOpen, highlightedIndex, getToggleButtonProps, getLabelProps, getMenuProps, getItemProps } = useSelect({
     items: FILTERS,
     selectedItem: null,
     stateReducer: (_, actionAndChanges) => {
@@ -50,6 +50,9 @@ const Filter = ({ onFiltersChange, className = '', ...props }: FilterProps) => {
 
   return (
     <div className={`relative inline-block ${className}`} {...props}>
+      <div className="sr-only" {...getLabelProps()}>
+        Filters
+      </div>
       <button
         type="button"
         className="flex items-center p-4 rounded-input focus"

@@ -18,21 +18,10 @@ import getPaymentDue from '@/utils/getPaymentDue'
 import { SHOW_DATE_FORMAT } from '@/utils/constants'
 import { createInvoice, getInvoices } from '@/utils/api'
 
-// Feedback
-// TODO Mount error message component instead of console.error
-
-// Bugs
 // TODO Prod version returns 502
-
-// Accessibility
-// TODO Add skip link
-// TODO Add label (accessible name) to filters
-// TODO Check keyboard navigation (identity popup in particular)
-// TODO Remove focus outline from the popup on production build
-
-// Other
-// TODO Write tests
 // TODO Change production URL
+// TODO Write README
+// TODO Write tests
 
 const IndexPage = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
