@@ -4,10 +4,10 @@ const fetch = require('node-fetch')
 
 console.log('log 1')
 
-exports.handler = async (_, context) => {
+exports.handler = async () => {
   console.log('log 2')
   try {
-    const { email } = context.clientContext.user
+    const email = 'belobeev.kirill@gmail.com'
     console.log('log 3')
 
     const response = await fetch(process.env.HASURA_API_URL, {
