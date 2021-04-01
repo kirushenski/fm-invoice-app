@@ -31,7 +31,7 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
+- Solution URL: [https://www.frontendmentor.io/solutions/invoice-app-on-serverless-1XWXhpZVk](https://www.frontendmentor.io/solutions/invoice-app-on-serverless-1XWXhpZVk)
 - Live Site URL: [https://fm-invoice-app.netlify.app/](https://fm-invoice-app.netlify.app/)
 
 ## My process
