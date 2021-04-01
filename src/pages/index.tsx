@@ -18,9 +18,6 @@ import getPaymentDue from '@/utils/getPaymentDue'
 import { SHOW_DATE_FORMAT } from '@/utils/constants'
 import { createInvoice, getInvoices } from '@/utils/api'
 
-// TODO Write tests
-// TODO Write README
-
 const IndexPage = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
   const isTablet = useMedia({ query: '(min-width: 768px)' })

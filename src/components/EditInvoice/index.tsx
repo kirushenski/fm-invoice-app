@@ -143,7 +143,7 @@ const EditInvoice = ({
               <FieldArray name="items">
                 {({ push, remove }) => (
                   <div className="grid gap-12 md:gap-4">
-                    {values.items.map((item, index) => (
+                    {values.items.map((_, index) => (
                       <div
                         key={index}
                         className="grid grid-cols-item-mobile md:grid-cols-item gap-x-4 gap-y-6 md:gap-y-4"
