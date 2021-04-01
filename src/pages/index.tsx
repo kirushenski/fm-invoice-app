@@ -18,7 +18,6 @@ import getPaymentDue from '@/utils/getPaymentDue'
 import { SHOW_DATE_FORMAT } from '@/utils/constants'
 import { createInvoice, getInvoices } from '@/utils/api'
 
-// TODO Add loader while user loads (fix screen blink)
 // TODO Update deps
 // TODO Remove unused packages like sharp
 // TODO Write tests
@@ -32,7 +31,7 @@ const IndexPage = () => {
   const [filters, setFilters] = useState(['draft', 'pending', 'paid'])
   const filteredInvoices = invoices?.filter(invoice => filters.includes(invoice.status))
 
-  const user = useUser()
+  const { user, isUserLoading } = useUser()
 
   async function handleNewInvoiceSubmit(values: InvoiceFormValues, isDraft = false) {
     if (!invoices || !user || !user.token) return
@@ -129,9 +128,15 @@ const IndexPage = () => {
       ) : (
         <>
           <h1 className="sr-only">Invoices</h1>
-          <ErrorMessage isLogin onLoginButtonClick={handleLoginButtonClick}>
-            You need to log in first to work with the invoices
-          </ErrorMessage>
+          {isUserLoading ? (
+            <div className="loader mx-auto">
+              <span className="sr-only">Loading user data...</span>
+            </div>
+          ) : (
+            <ErrorMessage isLogin onLoginButtonClick={handleLoginButtonClick}>
+              You need to log in first to work with the invoices
+            </ErrorMessage>
+          )}
         </>
       )}
     </Layout>

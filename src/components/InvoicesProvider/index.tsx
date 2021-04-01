@@ -16,7 +16,7 @@ export const useInvoices = () => {
 
 const InvoicesProvider = ({ children }: InvoicesProviderProps) => {
   const [invoices, setInvoices] = useState<Invoice[] | null>(null)
-  const user = useUser()
+  const { user } = useUser()
 
   useEffect(() => {
     const loadInvoices = async () => {

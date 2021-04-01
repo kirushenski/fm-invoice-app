@@ -32,7 +32,7 @@ const InvoicePage = ({ location }: PageProps) => {
   const [invoices, setInvoices] = useInvoices()
   const invoice = invoices?.find(invoice => invoice.name === name)
 
-  const user = useUser()
+  const { user, isUserLoading } = useUser()
 
   function handleDelete() {
     setIsDeletePopupOpen(true)
@@ -196,10 +196,16 @@ const InvoicePage = ({ location }: PageProps) => {
         </>
       ) : (
         <>
-          <h1 className="sr-only">Invoice</h1>
-          <ErrorMessage isLogin onLoginButtonClick={handleLoginButtonClick}>
-            You need to log in first to work with the invoices
-          </ErrorMessage>
+          <h1 className="sr-only">Invoices</h1>
+          {isUserLoading ? (
+            <div className="loader mx-auto">
+              <span className="sr-only">Loading user data...</span>
+            </div>
+          ) : (
+            <ErrorMessage isLogin onLoginButtonClick={handleLoginButtonClick}>
+              You need to log in first to work with the invoices
+            </ErrorMessage>
+          )}
         </>
       )}
     </Layout>

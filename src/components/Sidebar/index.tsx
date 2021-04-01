@@ -10,9 +10,17 @@ export interface SidebarProps extends React.HTMLProps<HTMLDivElement> {
   avatar: string
   onAvatarClick: () => void
   isLoggedIn?: boolean
+  isLoading?: boolean
 }
 
-const Sidebar = ({ avatar, onAvatarClick, isLoggedIn = false, className = '', ...props }: SidebarProps) => {
+const Sidebar = ({
+  avatar,
+  onAvatarClick,
+  isLoggedIn = false,
+  isLoading = false,
+  className = '',
+  ...props
+}: SidebarProps) => {
   const [colorScheme, setColorScheme] = useColorScheme()
 
   return (
@@ -52,7 +60,11 @@ const Sidebar = ({ avatar, onAvatarClick, isLoggedIn = false, className = '', ..
             className="rounded-full w-8 h-8 lg:w-10 lg:h-10 group-hover:shadow-focus group-focus:shadow-focus"
           />
         ) : (
-          <span className="grid place-items-center rounded-full w-8 h-8 lg:w-10 lg:h-10 bg-purple-dark text-white text-h4 group-hover:bg-purple group-focus:bg-purple transition-colors">
+          <span
+            className={`grid place-items-center rounded-full w-8 h-8 lg:w-10 lg:h-10 bg-purple-dark text-white text-h4 group-hover:bg-purple group-focus:bg-purple transition-colors ${
+              isLoading ? 'invisible' : ''
+            }`}
+          >
             <BsBoxArrowInRight title="Log in" />
           </span>
         )}

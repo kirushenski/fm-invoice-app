@@ -13,4 +13,5 @@ export const Primary = Template.bind({})
 Primary.args = {
   avatar,
   isLoggedIn: true,
+  isLoading: false,
 }

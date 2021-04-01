@@ -11,7 +11,7 @@ export interface LayoutProps extends React.HTMLProps<HTMLDivElement> {
 
 /** Component shares layout structure between pages. Pass common sections like header, footer and content container here and wrap page components with it */
 const Layout = ({ children, className = '', ...props }: LayoutProps) => {
-  const user = useUser()
+  const { user, isUserLoading } = useUser()
 
   function handleAvatarClick() {
     netlifyIdentity.open()
@@ -23,6 +23,7 @@ const Layout = ({ children, className = '', ...props }: LayoutProps) => {
         avatar={user?.user_metadata.avatar_url || defaultAvatar}
         onAvatarClick={handleAvatarClick}
         isLoggedIn={!!user}
+        isLoading={isUserLoading}
         className="lg:fixed top-0 bottom-0 left-0"
       />
       <main
