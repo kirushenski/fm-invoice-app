@@ -18,8 +18,6 @@ import getPaymentDue from '@/utils/getPaymentDue'
 import { SHOW_DATE_FORMAT } from '@/utils/constants'
 import { createInvoice, getInvoices } from '@/utils/api'
 
-// TODO Update deps
-// TODO Remove unused packages like sharp
 // TODO Write tests
 // TODO Write README
 

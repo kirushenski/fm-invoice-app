@@ -6,7 +6,7 @@ const config = {
   // Project description. Used in SEO meta tag and by PWA
   description: 'My solution for Frontend Mentor "Invoice App" challenge',
   // Keywords describing the project. Used in SEO meta tag
-  keywords: ['gatsby', 'gatsby-starter', 'react', 'typescript', 'storybook', 'jest', 'pwa', 'graphql'],
+  keywords: ['gatsby', 'react', 'typescript', 'serverless', 'netlify-functions', 'graphql', 'hasura', 'tailwindcss'],
   // Absolute deployment path (without trailing slash). Used as base URL in SEO meta tags
   baseUrl: 'https://fm-invoice-app.netlify.app',
   // Site language. Added in html tag and PWA manifest
@@ -36,15 +36,6 @@ module.exports = {
   plugins: [
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-postcss',
-    'gatsby-plugin-image',
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        path: `${__dirname}/src/images`,
-      },
-    },
-    'gatsby-transformer-sharp',
-    'gatsby-plugin-sharp',
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
