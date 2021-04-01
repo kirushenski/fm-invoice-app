@@ -4,7 +4,7 @@ module.exports = {
   purge: {
     content: ['./src/**/*.{js,jsx,ts,tsx}'],
     options: {
-      safelist: [/^popup-/],
+      safelist: [/^popup-/, /^DayPicker/],
     },
   },
   darkMode: 'class',
