@@ -18,11 +18,11 @@ import getPaymentDue from '@/utils/getPaymentDue'
 import { SHOW_DATE_FORMAT } from '@/utils/constants'
 import { createInvoice, getInvoices } from '@/utils/api'
 
-// TODO Change production URL
-// TODO Write README
-// TODO Write tests
+// TODO Add loader while user loads (fix screen blink)
 // TODO Update deps
 // TODO Remove unused packages like sharp
+// TODO Write tests
+// TODO Write README
 
 const IndexPage = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false)

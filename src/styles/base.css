@@ -19,8 +19,4 @@
   input[type='number'] {
     -moz-appearance: textfield;
   }
-
-  :focus:not(:focus-visible) {
-    @apply outline-none;
-  }
 }

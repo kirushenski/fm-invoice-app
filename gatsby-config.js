@@ -8,7 +8,7 @@ const config = {
   // Keywords describing the project. Used in SEO meta tag
   keywords: ['gatsby', 'gatsby-starter', 'react', 'typescript', 'storybook', 'jest', 'pwa', 'graphql'],
   // Absolute deployment path (without trailing slash). Used as base URL in SEO meta tags
-  baseUrl: 'https://p1t1ch-fm-invoice-app.netlify.app',
+  baseUrl: 'https://fm-invoice-app.netlify.app',
   // Site language. Added in html tag and PWA manifest
   lang: 'en',
   // Your username on Facebook. Used in SEO meta tags

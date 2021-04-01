@@ -28,7 +28,7 @@
   }
 
   .popup-content {
-    @apply relative inline-block bg-white dark:bg-grey-darker overflow-hidden transform transition-transform;
+    @apply relative inline-block bg-white dark:bg-grey-darker overflow-hidden transform transition-transform focus:outline-none;
   }
 
   .popup-content:not(.popup-content--sidebar) {
