@@ -9,6 +9,7 @@
     "serve": "gatsby serve -H 0.0.0.0 -p 8000",
     "storybook": "start-storybook -s public",
     "storybook:build": "build-storybook -s public -o docs",
+    "storybook:serve": "serve docs -l 8080",
     "test": "jest --watch --passWithNoTests",
     "test:coverage": "jest --coverage --passWithNoTests",
     "coverage": "open ./coverage/lcov-report/index.html",
@@ -108,8 +109,8 @@
     "jest-watch-typeahead": "^0.6.1",
     "lint-staged": "^10.5.4",
     "prettier": "^2.2.1",
+    "serve": "^11.3.2",
     "storybook-dark-mode": "^1.0.7",
-    "terser-webpack-plugin": "^5.1.1",
     "typescript": "^4.2.3",
     "webpack": "^5.28.0",
     "webpack-bundle-analyzer": "^4.4.0"
